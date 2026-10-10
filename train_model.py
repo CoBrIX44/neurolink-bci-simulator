@@ -13,7 +13,8 @@ from features import FEATURE_NAMES
 from model_utils import MODEL_PATH
 
 
-def train_model(path: Path | str = MODEL_PATH, samples_per_class: int = 200, seed: int = 42):
+def train_model(path: Path | str | None = MODEL_PATH, samples_per_class: int = 200, seed: int = 42):
+    """Train on synthetic data; path=None returns an in-memory model without writing files."""
     X, y = create_dataset(samples_per_class, seed)
     X_train, X_test, y_train, y_test = train_test_split(
         X, y, test_size=.25, random_state=seed, stratify=y)
@@ -29,6 +30,8 @@ def train_model(path: Path | str = MODEL_PATH, samples_per_class: int = 200, see
         "confusion_matrix": confusion_matrix(y_test, predicted, labels=model.classes_).tolist(),
         "classification_report": classification_report(y_test, predicted, output_dict=True, zero_division=0),
     }
+    if path is None:
+        return model, metrics
     path = Path(path)
     path.parent.mkdir(parents=True, exist_ok=True)
     artifact = {"schema_version": 1, "feature_names": FEATURE_NAMES, "pipeline": model,

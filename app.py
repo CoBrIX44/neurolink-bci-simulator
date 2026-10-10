@@ -4,13 +4,14 @@ import streamlit as st
 from signal_generator import generate_eeg
 from processing import filter_eeg
 from features import extract_features
-from model_utils import load_model, predict_command
+from model_utils import predict_command
+from dashboard_model import load_dashboard_model
 from cursor import move_cursor
 
 st.set_page_config(page_title="NeuroLink — BCI Simulator", page_icon="🧠", layout="wide")
 st.title("NeuroLink — BCI Simulator")
 st.warning("Educational prototype using simulated EEG signals — not live brain data")
-st.caption("LOCAL EDUCATIONAL LAB · 256 Hz · 2 seconds · 512 samples")
+st.caption("SYNTHETIC EDUCATIONAL LAB · 256 Hz · 2 seconds · 512 samples")
 st.write("Explore a synthetic waveform from generation through filtering, features and an artificial demo command.")
 
 with st.sidebar:
@@ -24,7 +25,7 @@ with st.sidebar:
 if process:
     st.session_state.pop("result", None)
     try:
-        model = load_model()
+        model = load_dashboard_model()
         time, raw = generate_eeg(label, seed=int(seed))
         filtered = filter_eeg(raw)
         features = extract_features(filtered)
@@ -63,7 +64,7 @@ if "result" in st.session_state:
                   for name, score in result["scores"].items()])
         st.caption("Scores are classifier probabilities on generated patterns, not calibrated confidence in human intention.")
 else:
-    st.info("Select an artificial class and click Generate and process. First-time setup: run python train_model.py.")
+    st.info("Select an artificial class and click Generate and process. If no saved model is available, a synthetic demo classifier is prepared automatically.")
 
 if cursor_enabled:
     st.subheader("Simulated cursor — no physical device control")

@@ -1,5 +1,26 @@
 # Implementation notes — 9 October 2026
 
+## Follow-up — 10 October 2026: optional hosted deployment
+
+The user chose Streamlit Community Cloud after a Vercel entrypoint mismatch.
+Their deployment log reports Python 3.14.8, whereas this project targets 3.12.
+The supplied log ends at dependency resolution and does not prove the ultimate
+cause of the “in the oven” delay. Recommended recreating the Streamlit deployment
+with Python 3.12 explicitly selected (a reboot does not switch Python versions).
+
+Fixed the independent first-use model issue: `dashboard_model.py` loads an
+existing local artifact, or lazily caches a synthetic classifier trained in
+memory when the artifact is absent. `train_model(path=None)` skips all filesystem
+writes, so concurrent sessions do not race over model files. Corrupt artifacts
+still surface errors. The original `load_model` missing-file contract and CLI
+training/persistence behavior remain unchanged. Hosted mode is now an explicit
+user-requested extension to the original local-only scope, documented in README.
+
+Executed `.\.venv\Scripts\python.exe -m pytest -q`: **58 passed in 12.51 s**.
+New checks cover both labels with no artifact, one cached training call, and
+no file writes during in-memory training. Cloud success has not been verified;
+these changes are local and have not been committed or pushed by the assistant.
+
 ## Workspace inspection and scope
 
 Read every original Markdown specification and extracted/read the text in

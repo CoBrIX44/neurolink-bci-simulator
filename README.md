@@ -52,10 +52,35 @@ generator makes this an easy classification exercise; high scores do not
 measure real EEG performance or human intentions. Dashboard probabilities are
 model outputs, not calibrated human-intention confidence.
 
-Models are generated locally and ignored by Git. Train before first use; retrain
+Models are generated locally and ignored by Git. The dashboard uses a saved model
+when available; otherwise it trains the same synthetic classifier in memory on
+the first processing click and caches it for the server's lifetime. No model file
+or user signals are written by this fallback. Use the training command above to
+save a model and evaluation JSON explicitly. Retrain
 after changing the generator, feature definitions or dependencies. Load only
 trusted locally generated joblib files: the format can execute Python code.
-Missing/corrupt models produce a retraining message in the dashboard.
+Corrupt saved models produce a retraining message in the dashboard.
+
+## Optional Streamlit Community Cloud deployment
+
+Deploy the GitHub repository with branch `main`, main file `app.py`, and
+**Advanced settings → Python version → 3.12**. Choose the version explicitly;
+the pinned scientific dependencies were tested with Python 3.12, not 3.14.
+No secrets or committed joblib artifact are needed. The in-memory fallback
+prepares the synthetic model on the first processing click.
+
+This optional hosted mode runs Python on Streamlit's server and sends the
+chosen artificial class/seed to it; local mode remains available. No real EEG
+or personal recording is collected. The application itself adds no analytics;
+hosting-provider behavior is outside the local-only guarantee.
+
+If a deployed app uses the wrong Python version, record its settings, delete
+the **Streamlit deployment** (not the GitHub repository), then recreate it with
+Python 3.12 selected. A reboot alone does not change Python versions. See
+[Streamlit's Python-version instructions](https://docs.streamlit.io/deploy/streamlit-community-cloud/manage-your-app/upgrade-python).
+For an “in the oven” screen, inspect Manage app logs; the screen alone does not
+identify whether provisioning, dependency installation or application startup
+is stuck. Cloud deployment must be verified separately from local tests.
 
 ## Pipeline and scientific limits
 

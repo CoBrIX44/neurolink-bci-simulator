@@ -1,4 +1,5 @@
 import joblib
+from unittest.mock import patch
 import numpy as np
 import pytest
 from sklearn.preprocessing import StandardScaler
@@ -69,3 +70,13 @@ def test_invalid_inference():
         predict_command(None, {"wrong": 1})
     with pytest.raises(ValueError, match="finite"):
         predict_command(None, {"mean_power_1_12_hz": np.nan, "mean_power_12_40_hz": 2})
+
+
+def test_in_memory_training_does_not_write_files(tmp_path, monkeypatch):
+    monkeypatch.chdir(tmp_path)
+    with patch("train_model.joblib.dump") as dump:
+        model, report = train_model(path=None, samples_per_class=8)
+        assert list(model.classes_) == ["left", "right"]
+        assert report["test_examples"] == 4
+        dump.assert_not_called()
+    assert list(tmp_path.iterdir()) == []
