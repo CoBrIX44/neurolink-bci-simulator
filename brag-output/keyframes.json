@@ -1,0 +1,101 @@
+◇  onion-skin screenshot saved E:\BCI\brag-output\pointer-proof.png
+   19 elements · open it to verify the motion matches your target, then read the keyframes below.
+
+{
+  "project": "composition",
+  "runtime": "all",
+  "compositions": [
+    {
+      "composition": "index.html",
+      "source": "index.html",
+      "tweens": [
+        {
+          "id": "#pointer-fromTo-5100",
+          "target": "#pointer",
+          "method": "fromTo",
+          "start": 5.1,
+          "duration": 0.75,
+          "end": 5.85,
+          "shape": "flat",
+          "keyframes": [
+            {
+              "pct": 0,
+              "time": 5.1,
+              "properties": {
+                "x": 490,
+                "y": 590,
+                "opacity": 0
+              }
+            },
+            {
+              "pct": 100,
+              "time": 5.85,
+              "properties": {
+                "x": 210,
+                "y": 506,
+                "opacity": 1
+              }
+            }
+          ],
+          "path": [
+            {
+              "x": 490,
+              "y": 590
+            },
+            {
+              "x": 210,
+              "y": 506
+            }
+          ],
+          "composedWith": [
+            {
+              "selector": "#demo-inner",
+              "summary": "y -25..70, opacity 0..1"
+            }
+          ]
+        },
+        {
+          "id": "#pointer-to-6300-visual",
+          "target": "#pointer",
+          "method": "to",
+          "group": "visual",
+          "start": 6.3,
+          "duration": 0.2,
+          "end": 6.5,
+          "shape": "flat",
+          "keyframes": [
+            {
+              "pct": 0,
+              "time": 6.3,
+              "properties": {
+                "opacity": 1
+              }
+            },
+            {
+              "pct": 100,
+              "time": 6.5,
+              "properties": {
+                "opacity": 0
+              }
+            }
+          ],
+          "path": null,
+          "composedWith": [
+            {
+              "selector": "#demo-inner",
+              "summary": "y -25..70, opacity 0..1"
+            }
+          ]
+        }
+      ],
+      "traces": [],
+      "cssKeyframes": [],
+      "anime": []
+    }
+  ],
+  "_meta": {
+    "version": "0.8.149",
+    "latestVersion": "0.8.149",
+    "updateAvailable": false
+  }
+}

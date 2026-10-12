@@ -1,0 +1,1 @@
+We built NeuroLink: a hands-on BCI simulator that takes synthetic signals through filtering, feature extraction and classification. Explore the pipeline in an interactive dashboard—educational simulation only, with no real EEG or thought-reading.

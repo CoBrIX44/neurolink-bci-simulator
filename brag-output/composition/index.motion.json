@@ -1,0 +1,19 @@
+{
+  "duration": 22,
+  "assertions": [
+    {
+      "kind": "appearsBy",
+      "selector": ".hookcopy",
+      "bySec": 0.6
+    },
+    {
+      "kind": "appearsBy",
+      "selector": "#prediction",
+      "bySec": 13.8
+    },
+    {
+      "kind": "staysInFrame",
+      "selector": ".badge"
+    }
+  ]
+}
