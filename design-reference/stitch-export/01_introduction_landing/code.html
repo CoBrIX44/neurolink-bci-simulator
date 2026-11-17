@@ -1,0 +1,409 @@
+<!DOCTYPE html><html lang="en"><head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>NeuroLink — Educational BCI Simulator &amp; Neural Exploration Laboratory</title>
+  <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+  <script id="tailwind-config">/** @type {import('tailwindcss').Config} */
+globalThis.tailwind = globalThis.tailwind || {};
+globalThis.tailwind.config = {
+  darkMode: 'class',
+  theme: {
+    extend: {
+      colors: {
+        'forest-green': '#173F3A',
+        'deep-graphite': '#252D2B',
+        'neural-teal': '#79B6A5',
+        'signal-coral': '#D98B62',
+        'soft-sage': '#E5EEE7',
+        'warm-ivory': '#F4F1E9',
+        'light-primary': '#173F3A',
+        'light-on-primary': '#F4F1E9',
+        'light-surface': '#F4F1E9',
+        'light-on-surface': '#252D2B',
+        'light-surface-variant': '#E5EEE7',
+        'light-on-surface-variant': '#173F3A',
+        'light-outline': '#CCD6D0',
+      },
+      borderRadius: {
+        'sm': '2px',
+        'DEFAULT': '4px',
+        'md': '6px',
+        'lg': '8px',
+        'xl': '12px',
+        'full': '9999px',
+      },
+      spacing: {
+        'gutter-xs': '4px',
+        'gutter-sm': '8px',
+        'gutter-md': '16px',
+        'gutter-lg': '24px',
+        'gutter-xl': '32px',
+        'section': '48px',
+        'page-margin': '32px',
+      },
+      fontFamily: {
+        'display': ['"Manrope"', 'sans-serif'],
+        'headline': ['"Manrope"', 'sans-serif'],
+        'body': ['"Inter"', 'sans-serif'],
+        'label': ['"Inter"', 'sans-serif'],
+        'mono': ['"JetBrains Mono"', 'monospace'],
+      },
+      fontSize: {
+        'display-lg': ['48px', { lineHeight: '56px', letterSpacing: '-1.0px', fontWeight: '700' }],
+        'display-lg-mobile': ['32px', { lineHeight: '40px', letterSpacing: '-0.5px', fontWeight: '700' }],
+        'headline-xl': ['36px', { lineHeight: '44px', letterSpacing: '-0.75px', fontWeight: '600' }],
+        'headline-xl-mobile': ['28px', { lineHeight: '36px', letterSpacing: '-0.5px', fontWeight: '600' }],
+        'headline-lg': ['28px', { lineHeight: '36px', letterSpacing: '-0.5px', fontWeight: '600' }],
+        'headline-lg-mobile': ['22px', { lineHeight: '30px', letterSpacing: '-0.25px', fontWeight: '600' }],
+        'headline-md': ['20px', { lineHeight: '28px', letterSpacing: '-0.25px', fontWeight: '600' }],
+        'body-lg': ['18px', { lineHeight: '28px', fontWeight: '400' }],
+        'body-md': ['15px', { lineHeight: '24px', fontWeight: '400' }],
+        'body-sm': ['13px', { lineHeight: '20px', fontWeight: '400' }],
+        'label-lg': ['14px', { lineHeight: '20px', letterSpacing: '0.1px', fontWeight: '600' }],
+        'label-sm': ['11px', { lineHeight: '16px', letterSpacing: '0.5px', fontWeight: '600' }],
+        'mono-data': ['13px', { lineHeight: '18px', fontWeight: '500' }],
+      },
+      transitionDuration: {
+        'state-change': '150ms',
+        'signal-sweep': '400ms',
+        'panel-slide': '250ms',
+      },
+      transitionDelay: {
+        'state-change': '0ms',
+        'signal-sweep': '0ms',
+        'panel-slide': '0ms',
+      },
+      transitionTimingFunction: {
+        'state-change': 'cubic-bezier(0.16, 1, 0.3, 1)',
+        'signal-sweep': 'ease-out',
+        'panel-slide': 'cubic-bezier(0.2, 0, 0, 1)',
+      },
+    },
+  },
+};
+if (typeof module !== 'undefined') module.exports = globalThis.tailwind.config;
+</script>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&amp;family=JetBrains+Mono:wght@400;500;600&amp;family=Manrope:wght@600;700;800&amp;display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=block" rel="stylesheet">
+  <style>
+    .material-symbols-outlined { display: inline-block; width: 1em; height: 1em; line-height: 1 !important; box-sizing: content-box; overflow: hidden; white-space: nowrap; direction: ltr; vertical-align: middle; }
+    /* Animated subtle signal line */
+    @keyframes signalPulse {
+      0% { stroke-dashoffset: 1000; }
+      100% { stroke-dashoffset: 0; }
+    }
+    .signal-path {
+      stroke-dasharray: 20 8;
+      animation: signalPulse 30s linear infinite;
+    }
+  </style>
+</head>
+<body class="bg-warm-ivory text-deep-graphite min-h-[1024px] font-body antialiased selection:bg-forest-green selection:text-warm-ivory" data-stitch-vh="min-h-[1024px]===min-h-screen">
+
+  <!-- TOP EDITORIAL NAVIGATION -->
+  <header class="sticky top-0 z-50 bg-warm-ivory border-b border-light-outline">
+    <div class="max-w-7xl mx-auto px-6 h-16 flex items-center justify-between">
+      
+      <!-- BRAND IDENTITY (LEFT) -->
+      <div class="flex items-center gap-3 shrink-0">
+        <a href="../landing/IntroductionLanding.html" class="flex items-center gap-2.5 group">
+          <div class="w-7 h-7 rounded-sm bg-forest-green flex items-center justify-center text-warm-ivory shrink-0">
+            <span class="material-symbols-outlined text-[16px]">neurology</span>
+          </div>
+          <span class="font-headline font-bold text-headline-sm text-forest-green tracking-tight leading-none">NEUROLINK</span>
+        </a>
+      </div>
+
+      <!-- PRIMARY NAVIGATION (CENTER) -->
+      <nav class="hidden md:flex items-center gap-7 font-label text-label-lg whitespace-nowrap" aria-label="Main Navigation">
+        <a href="../landing/IntroductionLanding.html" class="text-forest-green font-semibold border-b-2 border-forest-green pb-1 transition-colors">Introduction</a>
+        <a href="../experiment-studio/ExperimentStudio.html" class="text-deep-graphite/70 hover:text-forest-green transition-colors pb-1 border-b-2 border-transparent hover:border-forest-green/30">Experiment Studio</a>
+        <a href="../signal-processing/SignalProcessing.html" class="text-deep-graphite/70 hover:text-forest-green transition-colors pb-1 border-b-2 border-transparent hover:border-forest-green/30">Signal Processing</a>
+        <a href="../classification-lab/ClassificationLab.html" class="text-deep-graphite/70 hover:text-forest-green transition-colors pb-1 border-b-2 border-transparent hover:border-forest-green/30">Classification Lab</a>
+        <a href="../learn-bci/LearnBCI.html" class="text-deep-graphite/70 hover:text-forest-green transition-colors pb-1 border-b-2 border-transparent hover:border-forest-green/30">Learn BCI</a>
+      </nav>
+
+      <!-- PRIMARY CTA (RIGHT) -->
+      <div class="flex items-center gap-3 shrink-0">
+        <a href="../experiment-studio/ExperimentStudio.html" class="inline-flex items-center gap-1.5 px-3.5 py-1.5 rounded-DEFAULT bg-forest-green hover:bg-forest-green/90 text-warm-ivory font-label text-label-sm font-semibold transition-colors shadow-sm whitespace-nowrap">
+          <span>Explore Laboratory</span>
+          <span class="material-symbols-outlined text-[15px] text-neural-teal">arrow_forward</span>
+        </a>
+      </div>
+
+    </div>
+  </header>
+
+  <!-- MAIN HERO SECTION -->
+  <main>
+    <section class="relative overflow-hidden pt-12 pb-20 border-b border-light-outline">
+      <!-- Subtle technical background signal lines -->
+      <svg class="absolute inset-0 w-full h-full pointer-events-none opacity-25" xmlns="http://www.w3.org/2000/svg">
+        <path d="M0,120 Q300,80 600,120 T1200,100 T1800,140" fill="none" stroke="#79B6A5" stroke-width="1.5" class="signal-path"></path>
+        <path d="M0,320 Q400,360 800,310 T1600,340" fill="none" stroke="#D98B62" stroke-width="1" class="signal-path" style="animation-duration: 45s;"></path>
+        <line x1="0" y1="200" x2="100%" y2="200" stroke="#CCD6D0" stroke-width="1" stroke-dasharray="4 8"></line>
+        <line x1="0" y1="440" x2="100%" y2="440" stroke="#CCD6D0" stroke-width="1" stroke-dasharray="4 8"></line>
+      </svg>
+
+      <div class="max-w-7xl mx-auto px-6 relative z-10">
+        <!-- Breadcrumb / Academic Header Metadata -->
+        <div class="flex items-center justify-between text-mono-data font-mono text-deep-graphite/60 mb-8 border-b border-light-outline/70 pb-3">
+          <span class="flex items-center gap-2">
+            <span class="w-2 h-2 rounded-full bg-forest-green"></span>
+            BIOLOGY FOR ENGINEERS EXPERIENTIAL LEARNING
+          </span>
+          <span class="tabular-nums">PROJECT_ID // BCI-SIM-256HZ</span>
+        </div>
+
+        <div class="grid grid-cols-1 lg:grid-cols-12 gap-12 items-center">
+          <!-- Editorial Copy Left Column (7 cols) -->
+          <div class="lg:col-span-7">
+            <div class="inline-flex items-center gap-2 px-3 py-1 rounded-sm bg-soft-sage text-forest-green font-mono text-label-sm uppercase tracking-wider mb-6 border border-forest-green/20">
+              <span class="material-symbols-outlined text-[15px] text-neural-teal">waves</span>
+              Interactive Computational Neuroscience
+            </div>
+
+            <h1 class="font-headline text-display-lg text-forest-green tracking-tight text-balance mb-6">
+              What happens between a brain signal and a digital command?
+            </h1>
+
+            <p class="text-body-lg text-deep-graphite/90 max-w-2xl leading-relaxed mb-8 text-pretty">
+              Explore the science behind brain-computer interfaces through an interactive simulation of neural signal processing and machine learning. From 256 Hz synthetic electrophysiology to zero-phase Butterworth filtering and logistic regression classification.
+            </p>
+
+            <!-- Actions and Meta -->
+            <div class="flex flex-wrap items-center gap-4 mb-10">
+              <a href="../experiment-studio/ExperimentStudio.html" class="inline-flex items-center gap-3 bg-forest-green text-warm-ivory px-6 py-3.5 rounded-DEFAULT font-label text-label-lg hover:bg-forest-green/90 transition-all shadow-sm">
+                <span>Launch Experiment Studio</span>
+                <span class="material-symbols-outlined text-neural-teal text-[18px]">science</span>
+              </a>
+
+              <a href="../learn-bci/LearnBCI.html" class="inline-flex items-center gap-2 bg-warm-ivory border border-forest-green/40 hover:border-forest-green text-forest-green px-5 py-3.5 rounded-DEFAULT font-label text-label-lg hover:bg-soft-sage/40 transition-colors">
+                <span>Read Scientific Primer</span>
+                <span class="material-symbols-outlined text-[16px]">menu_book</span>
+              </a>
+            </div>
+
+            <!-- Instrument specs strip -->
+            <div class="grid grid-cols-3 gap-4 pt-6 border-t border-light-outline/70">
+              <div>
+                <span class="text-mono-data font-mono text-deep-graphite/60 block text-[11px]">SAMPLING SPEC</span>
+                <span class="font-mono text-headline-md font-semibold text-forest-green tabular-nums">256 Hz</span>
+                <p class="text-body-sm text-deep-graphite/70 text-[12px]">512 samples / 2.0s</p>
+              </div>
+              <div>
+                <span class="text-mono-data font-mono text-deep-graphite/60 block text-[11px]">FILTER TOPOLOGY</span>
+                <span class="font-mono text-headline-md font-semibold text-forest-green tabular-nums">1–40 Hz</span>
+                <p class="text-body-sm text-deep-graphite/70 text-[12px]">Butterworth band-pass</p>
+              </div>
+              <div>
+                <span class="text-mono-data font-mono text-deep-graphite/60 block text-[11px]">MODEL PIPELINE</span>
+                <span class="font-mono text-headline-md font-semibold text-forest-green">StandardScaler</span>
+                <p class="text-body-sm text-deep-graphite/70 text-[12px]">Logistic Regression</p>
+              </div>
+            </div>
+          </div>
+
+          <!-- Abstract 3D Neural Visualization (5 cols) -->
+          <div class="lg:col-span-5">
+            <div class="relative bg-soft-sage/30 border border-light-outline rounded-DEFAULT p-3 overflow-hidden shadow-sm">
+              <div class="relative aspect-4/3 rounded-sm overflow-hidden bg-forest-green">
+                <img src="https://lh3.googleusercontent.com/aida/ALJJyrDaa0yIGXrq-_XoKDaXeGB3QoOwnLY4f5osUUrjaecEZkBf8DNWt3d5ZuTCTi7tqyaQJJ2VwKAeRT1YOFHo8WqwUO6TCSoW8oInMnqU2DgB3pzKVMFv4DqVce3CtQF2PeKnuoGJ3NXrb9hqzTQFMMhBzaWVx5MtK_t4iLxVXawR-ktEpS_5A4RN-dBlpHUvLCfZN_95UYZkGXQfRmc0mzJW5REaLI8Fy1_-seNu44iHbOlQPc2k_urbZek8Qnzu" alt="Abstract 3D computational neuroscience visualization showing delicate biological neural networks and signal streams" class="w-full h-full object-cover mix-blend-luminosity hover:mix-blend-normal transition-all duration-700">
+                <!-- Scientific Telemetry Overlay on Image -->
+                <div class="absolute top-3 left-3 bg-forest-green/90 text-warm-ivory px-2.5 py-1 rounded-sm font-mono text-[11px] border border-forest-green/40 flex items-center gap-2">
+                  <span class="w-1.5 h-1.5 rounded-full bg-neural-teal animate-ping"></span>
+                  <span>SYNTH_ARRAY // CHAN_01 (C3/C4)</span>
+                </div>
+                <div class="absolute bottom-3 right-3 bg-forest-green/90 text-warm-ivory px-2.5 py-1 rounded-sm font-mono text-[11px] border border-forest-green/40">
+                  <span>SPECTRAL ENERGY: 8 Hz / 22 Hz</span>
+                </div>
+              </div>
+
+              <!-- Caption -->
+              <div class="p-3 flex items-center justify-between text-mono-data font-mono text-[11px] text-deep-graphite/70">
+                <span>FIGURE 1.0 — Conceptual Neural Lattice</span>
+                <span class="text-forest-green font-semibold">Offline Simulated Domain</span>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- SCIENTIFIC DISCLAIMER BANNER -->
+    <section class="bg-soft-sage/50 border-b border-light-outline py-5">
+      <div class="max-w-7xl mx-auto px-6">
+        <div class="bg-warm-ivory border border-forest-green/30 rounded-DEFAULT p-4 flex flex-col md:flex-row items-start md:items-center justify-between gap-4">
+          <div class="flex items-start gap-3.5">
+            <span class="material-symbols-outlined text-forest-green text-[22px] shrink-0 mt-0.5">verified_user</span>
+            <div>
+              <span class="font-headline text-label-lg font-semibold text-forest-green block mb-0.5">Scientific Transparency &amp; Pedagogical Disclaimer</span>
+              <p class="text-body-sm text-deep-graphite/90 leading-relaxed">
+                This is an educational simulator using synthetic EEG-like signals, not live brain data. LEFT and RIGHT are artificial demonstration labels. It does not read thoughts, measure human intentions, or provide medical or clinical predictions.
+              </p>
+            </div>
+          </div>
+          <a href="../learn-bci/LearnBCI.html#limitations" class="shrink-0 font-label text-label-sm font-semibold text-forest-green hover:text-signal-coral underline underline-offset-4">
+            Read Full Limits
+          </a>
+        </div>
+      </div>
+    </section>
+
+    <!-- THE BCI PIPELINE: THREE CORE HIGHLIGHTS -->
+    <section class="py-20 border-b border-light-outline">
+      <div class="max-w-7xl mx-auto px-6">
+        <div class="max-w-2xl mb-14">
+          <span class="font-mono text-mono-data text-neural-teal font-semibold tracking-wider uppercase block mb-2">SYSTEM ARCHITECTURE</span>
+          <h2 class="font-headline text-headline-xl text-forest-green tracking-tight mb-4">
+            The Complete Five-Stage BCI Simulation Pipeline
+          </h2>
+          <p class="text-body-md text-deep-graphite/80 leading-relaxed">
+            Understand how mathematical transformations turn stochastic microvolt fluctuations into discrete binary control vectors.
+          </p>
+        </div>
+
+        <!-- 3 Highlight Columns -->
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+          <!-- Highlight 1: Signal Processing -->
+          <article class="bg-warm-ivory border border-light-outline rounded-DEFAULT p-7 flex flex-col justify-between hover:border-forest-green/50 transition-colors">
+            <div>
+              <div class="w-10 h-10 rounded-sm bg-soft-sage flex items-center justify-center text-forest-green mb-6 border border-forest-green/20">
+                <span class="material-symbols-outlined text-[20px]">filter_alt</span>
+              </div>
+              <span class="font-mono text-[11px] text-deep-graphite/60 tracking-wider block mb-1">STAGE 01 &amp; 02</span>
+              <h3 class="font-headline text-headline-lg text-forest-green mb-3">Signal Processing &amp; Butterworth Filtering</h3>
+              <p class="text-body-md text-deep-graphite/80 leading-relaxed mb-6">
+                Synthetic time series synthesis with physiological baseline drift and 50/60 Hz line noise. Filtered via a 1–40 Hz 4th-order zero-phase Butterworth band-pass filter using SciPy.
+              </p>
+            </div>
+            <div class="pt-4 border-t border-light-outline/70 flex items-center justify-between text-mono-data font-mono text-[12px]">
+              <span class="text-neural-teal font-semibold">Zero-phase filtfilt</span>
+              <a href="../signal-processing/SignalProcessing.html" class="text-forest-green hover:underline inline-flex items-center gap-1 font-sans font-semibold text-[13px]">
+                Explore Filter <span class="material-symbols-outlined text-[14px]">arrow_forward</span>
+              </a>
+            </div>
+          </article>
+
+          <!-- Highlight 2: Feature Extraction -->
+          <article class="bg-warm-ivory border border-light-outline rounded-DEFAULT p-7 flex flex-col justify-between hover:border-forest-green/50 transition-colors">
+            <div>
+              <div class="w-10 h-10 rounded-sm bg-soft-sage flex items-center justify-center text-forest-green mb-6 border border-forest-green/20">
+                <span class="material-symbols-outlined text-[20px]">analytics</span>
+              </div>
+              <span class="font-mono text-[11px] text-deep-graphite/60 tracking-wider block mb-1">STAGE 03</span>
+              <h3 class="font-headline text-headline-lg text-forest-green mb-3">Frequency-Domain Feature Extraction</h3>
+              <p class="text-body-md text-deep-graphite/80 leading-relaxed mb-6">
+                Fast Fourier Transform (FFT) and Welch periodogram analysis computing mean spectral power across two critical neurological bands: 1–12 Hz (Mu rhythm) and 12–40 Hz (Beta rhythm).
+              </p>
+            </div>
+            <div class="pt-4 border-t border-light-outline/70 flex items-center justify-between text-mono-data font-mono text-[12px]">
+              <span class="text-signal-coral font-semibold">2 Spectral Features</span>
+              <a href="../signal-processing/SignalProcessing.html#fft" class="text-forest-green hover:underline inline-flex items-center gap-1 font-sans font-semibold text-[13px]">
+                View Spectra <span class="material-symbols-outlined text-[14px]">arrow_forward</span>
+              </a>
+            </div>
+          </article>
+
+          <!-- Highlight 3: Machine Learning -->
+          <article class="bg-warm-ivory border border-light-outline rounded-DEFAULT p-7 flex flex-col justify-between hover:border-forest-green/50 transition-colors">
+            <div>
+              <div class="w-10 h-10 rounded-sm bg-soft-sage flex items-center justify-center text-forest-green mb-6 border border-forest-green/20">
+                <span class="material-symbols-outlined text-[20px]">psychology</span>
+              </div>
+              <span class="font-mono text-[11px] text-deep-graphite/60 tracking-wider block mb-1">STAGE 04 &amp; 05</span>
+              <h3 class="font-headline text-headline-lg text-forest-green mb-3">Logistic Regression &amp; Simulated Command</h3>
+              <p class="text-body-md text-deep-graphite/80 leading-relaxed mb-6">
+                Scikit-learn StandardScaler normalization and Logistic Regression separating synthetic LEFT (accentuating ~8 Hz) and RIGHT (accentuating ~22 Hz) with simulated cursor deflection.
+              </p>
+            </div>
+            <div class="pt-4 border-t border-light-outline/70 flex items-center justify-between text-mono-data font-mono text-[12px]">
+              <span class="text-forest-green font-semibold">Binary Decision</span>
+              <a href="../classification-lab/ClassificationLab.html" class="text-forest-green hover:underline inline-flex items-center gap-1 font-sans font-semibold text-[13px]">
+                Open Classifier <span class="material-symbols-outlined text-[14px]">arrow_forward</span>
+              </a>
+            </div>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <!-- INTERACTIVE WORKBENCH PREVIEW / CTA -->
+    <section class="py-20 bg-forest-green text-warm-ivory">
+      <div class="max-w-7xl mx-auto px-6">
+        <div class="grid grid-cols-1 lg:grid-cols-12 gap-12 items-center">
+          <div class="lg:col-span-8">
+            <span class="font-mono text-mono-data text-neural-teal uppercase tracking-wider block mb-2">EXPERIENTIAL BENCH</span>
+            <h2 class="font-headline text-display-lg text-warm-ivory tracking-tight mb-4">
+              Step directly into the Experiment Studio
+            </h2>
+            <p class="text-body-lg text-warm-ivory/80 leading-relaxed max-w-2xl mb-8">
+              Adjust random seeds, choose artificial motor imagery classes, calibrate time windows, and inspect real-time waveforms on a high-resolution scientific oscilloscope canvas.
+            </p>
+            <div class="flex flex-wrap items-center gap-4">
+              <a href="../experiment-studio/ExperimentStudio.html" class="inline-flex items-center gap-2.5 bg-warm-ivory text-forest-green hover:bg-neural-teal hover:text-forest-green px-6 py-3.5 rounded-DEFAULT font-label text-label-lg font-bold transition-all shadow-md">
+                <span class="material-symbols-outlined text-[18px]">play_circle</span>
+                <span>Open Experiment Studio</span>
+              </a>
+              <span class="text-mono-data font-mono text-warm-ivory/60 text-[12px]">
+                No live EEG headset required • 100% in-browser simulation
+              </span>
+            </div>
+          </div>
+
+          <div class="lg:col-span-4 bg-forest-green/80 border border-neural-teal/30 p-6 rounded-DEFAULT font-mono text-[12px]">
+            <div class="flex items-center justify-between border-b border-neural-teal/20 pb-3 mb-4">
+              <span class="text-neural-teal uppercase">Quick Parameters</span>
+              <span class="text-signal-coral">PRE-CONFIGURED</span>
+            </div>
+            <dl class="space-y-3">
+              <div class="flex justify-between">
+                <dt class="text-warm-ivory/70">Sampling Rate</dt>
+                <dd class="text-warm-ivory font-semibold">256 Hz</dd>
+              </div>
+              <div class="flex justify-between">
+                <dt class="text-warm-ivory/70">Signal Duration</dt>
+                <dd class="text-warm-ivory font-semibold">2.00 Seconds</dd>
+              </div>
+              <div class="flex justify-between">
+                <dt class="text-warm-ivory/70">Total Points</dt>
+                <dd class="text-warm-ivory font-semibold">512 samples</dd>
+              </div>
+              <div class="flex justify-between">
+                <dt class="text-warm-ivory/70">Bandpass Range</dt>
+                <dd class="text-neural-teal font-semibold">1.0 – 40.0 Hz</dd>
+              </div>
+              <div class="flex justify-between">
+                <dt class="text-warm-ivory/70">Class Proxies</dt>
+                <dd class="text-signal-coral font-semibold">LEFT (~8Hz) / RIGHT (~22Hz)</dd>
+              </div>
+            </dl>
+          </div>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <!-- EDITORIAL FOOTER -->
+  <footer class="border-t border-light-outline bg-warm-ivory py-12">
+    <div class="max-w-7xl mx-auto px-6 flex flex-col md:flex-row items-center justify-between gap-6 text-body-sm text-deep-graphite/70">
+      <div class="flex items-center gap-3">
+        <span class="w-2.5 h-2.5 bg-forest-green rounded-sm"></span>
+        <span class="font-headline font-bold text-forest-green">NeuroLink Simulator</span>
+        <span>• Biology for Engineers Experiential Learning</span>
+      </div>
+
+      <div class="flex items-center gap-6 font-mono text-[12px]">
+        <a href="../landing/IntroductionLanding.html" class="hover:text-forest-green">Overview</a>
+        <a href="../experiment-studio/ExperimentStudio.html" class="hover:text-forest-green">Studio</a>
+        <a href="../learn-bci/LearnBCI.html" class="hover:text-forest-green">Documentation</a>
+        <a href="https://github.com/CoBrIX44/neurolink-bci-simulator" target="_blank" rel="noopener" class="hover:text-forest-green">GitHub Repo</a>
+      </div>
+    </div>
+  </footer>
+
+
+
+</body></html>

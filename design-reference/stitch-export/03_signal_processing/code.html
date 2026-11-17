@@ -1,0 +1,413 @@
+<!DOCTYPE html><html lang="en"><head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>NeuroLink — Signal Processing &amp; Butterworth Filtering Pipeline</title>
+  <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+  <script id="tailwind-config">/** @type {import('tailwindcss').Config} */
+globalThis.tailwind = globalThis.tailwind || {};
+globalThis.tailwind.config = {
+  darkMode: 'class',
+  theme: {
+    extend: {
+      colors: {
+        'forest-green': '#173F3A',
+        'deep-graphite': '#252D2B',
+        'neural-teal': '#79B6A5',
+        'signal-coral': '#D98B62',
+        'soft-sage': '#E5EEE7',
+        'warm-ivory': '#F4F1E9',
+        'light-primary': '#173F3A',
+        'light-on-primary': '#F4F1E9',
+        'light-surface': '#F4F1E9',
+        'light-on-surface': '#252D2B',
+        'light-surface-variant': '#E5EEE7',
+        'light-on-surface-variant': '#173F3A',
+        'light-outline': '#CCD6D0',
+      },
+      borderRadius: {
+        'sm': '2px',
+        'DEFAULT': '4px',
+        'md': '6px',
+        'lg': '8px',
+        'xl': '12px',
+        'full': '9999px',
+      },
+      spacing: {
+        'gutter-xs': '4px',
+        'gutter-sm': '8px',
+        'gutter-md': '16px',
+        'gutter-lg': '24px',
+        'gutter-xl': '32px',
+        'section': '48px',
+        'page-margin': '32px',
+      },
+      fontFamily: {
+        'display': ['"Manrope"', 'sans-serif'],
+        'headline': ['"Manrope"', 'sans-serif'],
+        'body': ['"Inter"', 'sans-serif'],
+        'label': ['"Inter"', 'sans-serif'],
+        'mono': ['"JetBrains Mono"', 'monospace'],
+      },
+      fontSize: {
+        'display-lg': ['48px', { lineHeight: '56px', letterSpacing: '-1.0px', fontWeight: '700' }],
+        'display-lg-mobile': ['32px', { lineHeight: '40px', letterSpacing: '-0.5px', fontWeight: '700' }],
+        'headline-xl': ['36px', { lineHeight: '44px', letterSpacing: '-0.75px', fontWeight: '600' }],
+        'headline-xl-mobile': ['28px', { lineHeight: '36px', letterSpacing: '-0.5px', fontWeight: '600' }],
+        'headline-lg': ['28px', { lineHeight: '36px', letterSpacing: '-0.5px', fontWeight: '600' }],
+        'headline-lg-mobile': ['22px', { lineHeight: '30px', letterSpacing: '-0.25px', fontWeight: '600' }],
+        'headline-md': ['20px', { lineHeight: '28px', letterSpacing: '-0.25px', fontWeight: '600' }],
+        'body-lg': ['18px', { lineHeight: '28px', fontWeight: '400' }],
+        'body-md': ['15px', { lineHeight: '24px', fontWeight: '400' }],
+        'body-sm': ['13px', { lineHeight: '20px', fontWeight: '400' }],
+        'label-lg': ['14px', { lineHeight: '20px', letterSpacing: '0.1px', fontWeight: '600' }],
+        'label-sm': ['11px', { lineHeight: '16px', letterSpacing: '0.5px', fontWeight: '600' }],
+        'mono-data': ['13px', { lineHeight: '18px', fontWeight: '500' }],
+      },
+      transitionDuration: {
+        'state-change': '150ms',
+        'signal-sweep': '400ms',
+        'panel-slide': '250ms',
+      },
+      transitionDelay: {
+        'state-change': '0ms',
+        'signal-sweep': '0ms',
+        'panel-slide': '0ms',
+      },
+      transitionTimingFunction: {
+        'state-change': 'cubic-bezier(0.16, 1, 0.3, 1)',
+        'signal-sweep': 'ease-out',
+        'panel-slide': 'cubic-bezier(0.2, 0, 0, 1)',
+      },
+    },
+  },
+};
+if (typeof module !== 'undefined') module.exports = globalThis.tailwind.config;
+</script>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&amp;family=JetBrains+Mono:wght@400;500;600&amp;family=Manrope:wght@600;700;800&amp;display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=block" rel="stylesheet">
+  <style>.material-symbols-outlined { display: inline-block; width: 1em; height: 1em; line-height: 1 !important; box-sizing: content-box; overflow: hidden; white-space: nowrap; direction: ltr; vertical-align: middle; }</style>
+</head>
+<body class="bg-warm-ivory text-deep-graphite min-h-[1024px] font-body antialiased selection:bg-forest-green selection:text-warm-ivory" data-stitch-vh="min-h-[1024px]===min-h-screen">
+
+  <!-- SHARED APP HEADER -->
+  <header class="sticky top-0 z-50 bg-warm-ivory border-b border-light-outline">
+    <div class="max-w-7xl mx-auto px-6 h-16 flex items-center justify-between">
+      <div class="flex items-center gap-4">
+        <a href="../landing/IntroductionLanding.html" class="flex items-center gap-2.5">
+          <div class="w-7 h-7 rounded-sm bg-forest-green flex items-center justify-center text-warm-ivory">
+            <span class="material-symbols-outlined text-[16px]">neurology</span>
+          </div>
+          <span class="font-headline font-bold text-headline-sm text-forest-green tracking-tight">NEUROLINK</span>
+        </a>
+        <span class="text-deep-graphite/40">/</span>
+        <span class="font-mono text-mono-data text-forest-green font-semibold">SIGNAL PROCESSING PIPELINE</span>
+      </div>
+
+      <nav class="hidden md:flex items-center gap-7 font-label text-label-lg" aria-label="Main Navigation">
+        <a href="../landing/IntroductionLanding.html" class="text-deep-graphite/70 hover:text-forest-green transition-colors pb-1">Introduction</a>
+        <a href="../experiment-studio/ExperimentStudio.html" class="text-deep-graphite/70 hover:text-forest-green transition-colors pb-1">Experiment Studio</a>
+        <a href="../signal-processing/SignalProcessing.html" class="text-forest-green font-semibold border-b-2 border-forest-green pb-1">Signal Processing</a>
+        <a href="../classification-lab/ClassificationLab.html" class="text-deep-graphite/70 hover:text-forest-green transition-colors pb-1">Classification Lab</a>
+        <a href="../learn-bci/LearnBCI.html" class="text-deep-graphite/70 hover:text-forest-green transition-colors pb-1">Learn BCI</a>
+      </nav>
+
+      <div class="flex items-center gap-3">
+        <a href="../experiment-studio/ExperimentStudio.html" class="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-DEFAULT bg-forest-green text-warm-ivory font-label text-label-sm font-semibold hover:bg-forest-green/90 transition-colors">
+          <span>Open Studio</span>
+          <span class="material-symbols-outlined text-[15px]">arrow_forward</span>
+        </a>
+      </div>
+    </div>
+  </header>
+
+  <!-- MAIN EDITORIAL CONTENT -->
+  <main class="max-w-7xl mx-auto px-6 py-10 space-y-12">
+
+    <!-- PAGE HERO HEADER -->
+    <div class="border-b border-light-outline pb-8">
+      <div class="inline-flex items-center gap-2 px-3 py-1 rounded-sm bg-soft-sage text-forest-green font-mono text-label-sm uppercase tracking-wider mb-4 border border-forest-green/20">
+        <span class="material-symbols-outlined text-[16px] text-neural-teal">timeline</span>
+        Signal Conditioning &amp; Feature Extraction Architecture
+      </div>
+      <h1 class="font-headline text-display-lg text-forest-green tracking-tight mb-4">
+        The Mathematical Transformation of Neural Voltages
+      </h1>
+      <p class="text-body-lg text-deep-graphite/80 max-w-3xl leading-relaxed">
+        Step through the five mathematical stages that bridge raw synthetic analog voltages to binary classification. Designed for engineering undergraduates to grasp frequency filtering and spectral estimation without sacrificing algorithmic fidelity.
+      </p>
+    </div>
+
+    <!-- INTERACTIVE 5-STAGE PIPELINE MAPPER -->
+    <section class="space-y-6">
+      <div class="flex items-center justify-between">
+        <div>
+          <span class="font-mono text-mono-data text-neural-teal uppercase tracking-wider block">INTERACTIVE PIPELINE</span>
+          <h2 class="font-headline text-headline-xl text-forest-green">Five-Stage BCI Signal Architecture</h2>
+        </div>
+        <span class="text-mono-data font-mono text-deep-graphite/60 text-[12px]">Click a stage to inspect its transformation</span>
+      </div>
+
+      <!-- Stage Step Indicators -->
+      <div class="grid grid-cols-1 md:grid-cols-5 gap-3">
+        <!-- Stage 1 -->
+        <button type="button" onclick="selectPipelineStage(1)" id="stage-tab-1" class="stage-tab text-left p-4 rounded-DEFAULT border-2 border-forest-green bg-soft-sage transition-all cursor-pointer shadow-xs">
+          <span class="font-mono text-[11px] text-forest-green font-bold block mb-1">01 // SYNTHESIS</span>
+          <h3 class="font-headline text-label-lg font-bold text-forest-green mb-1">Signal Generation</h3>
+          <p class="text-[12px] text-deep-graphite/70">Sine superposition + Pink noise</p>
+        </button>
+
+        <!-- Stage 2 -->
+        <button type="button" onclick="selectPipelineStage(2)" id="stage-tab-2" class="stage-tab text-left p-4 rounded-DEFAULT border border-light-outline bg-warm-ivory hover:border-forest-green/60 transition-all cursor-pointer">
+          <span class="font-mono text-[11px] text-deep-graphite/50 font-bold block mb-1">02 // CONDITIONING</span>
+          <h3 class="font-headline text-label-lg font-bold text-forest-green mb-1">Butterworth 1–40 Hz</h3>
+          <p class="text-[12px] text-deep-graphite/70">Zero-phase forward-backward</p>
+        </button>
+
+        <!-- Stage 3 -->
+        <button type="button" onclick="selectPipelineStage(3)" id="stage-tab-3" class="stage-tab text-left p-4 rounded-DEFAULT border border-light-outline bg-warm-ivory hover:border-forest-green/60 transition-all cursor-pointer">
+          <span class="font-mono text-[11px] text-deep-graphite/50 font-bold block mb-1">03 // SPECTRAL</span>
+          <h3 class="font-headline text-label-lg font-bold text-forest-green mb-1">Feature Extraction</h3>
+          <p class="text-[12px] text-deep-graphite/70">1–12 Hz &amp; 12–40 Hz Power</p>
+        </button>
+
+        <!-- Stage 4 -->
+        <button type="button" onclick="selectPipelineStage(4)" id="stage-tab-4" class="stage-tab text-left p-4 rounded-DEFAULT border border-light-outline bg-warm-ivory hover:border-forest-green/60 transition-all cursor-pointer">
+          <span class="font-mono text-[11px] text-deep-graphite/50 font-bold block mb-1">04 // INFERENCE</span>
+          <h3 class="font-headline text-label-lg font-bold text-forest-green mb-1">Logistic Regression</h3>
+          <p class="text-[12px] text-deep-graphite/70">StandardScaler + Sigmoid</p>
+        </button>
+
+        <!-- Stage 5 -->
+        <button type="button" onclick="selectPipelineStage(5)" id="stage-tab-5" class="stage-tab text-left p-4 rounded-DEFAULT border border-light-outline bg-warm-ivory hover:border-forest-green/60 transition-all cursor-pointer">
+          <span class="font-mono text-[11px] text-deep-graphite/50 font-bold block mb-1">05 // OUTPUT</span>
+          <h3 class="font-headline text-label-lg font-bold text-forest-green mb-1">Simulated Output</h3>
+          <p class="text-[12px] text-deep-graphite/70">1D Kinematic Cursor Deflection</p>
+        </button>
+      </div>
+
+      <!-- DYNAMIC STAGE DETAIL CARD -->
+      <div id="stage-detail-panel" class="bg-warm-ivory border border-light-outline rounded-DEFAULT p-8 shadow-sm">
+        <div class="grid grid-cols-1 lg:grid-cols-12 gap-8 items-center">
+          <div class="lg:col-span-7 space-y-4">
+            <div class="flex items-center gap-3">
+              <span id="stage-badge" class="font-mono text-[12px] bg-forest-green text-warm-ivory px-2.5 py-1 rounded-sm font-semibold">STAGE 01</span>
+              <h3 id="stage-title" class="font-headline text-headline-xl text-forest-green font-bold">Synthetic Signal Generation</h3>
+            </div>
+            <p id="stage-desc" class="text-body-lg text-deep-graphite/85 leading-relaxed">
+              Creates a 512-sample (2.0s) synthetic electrophysiology signal sampled at 256 Hz. It injects a primary sinusoid depending on chosen class (~8 Hz for LEFT or ~22 Hz for RIGHT), combined with 0.3 Hz slow DC baseline drifts and broad Gaussian pink noise.
+            </p>
+
+            <div class="grid grid-cols-2 gap-4 pt-4 border-t border-light-outline/70 font-mono text-[12px]">
+              <div>
+                <span class="text-deep-graphite/50 block text-[11px]">MATHEMATICAL MODEL</span>
+                <span id="stage-math" class="text-forest-green font-semibold">V(t) = A·sin(2πft) + Drift(t) + η(t)</span>
+              </div>
+              <div>
+                <span class="text-deep-graphite/50 block text-[11px]">PYTHON BACKEND METHOD</span>
+                <span id="stage-backend" class="text-forest-green font-semibold">numpy.sin + np.random.normal</span>
+              </div>
+            </div>
+          </div>
+
+          <div class="lg:col-span-5 bg-soft-sage/40 border border-light-outline rounded-DEFAULT p-5">
+            <span class="font-mono text-[11px] text-deep-graphite/60 uppercase tracking-wider block mb-2">Stage Visual Output</span>
+            <!-- Embedded mini SVG stage preview -->
+            <div class="aspect-16/9 bg-warm-ivory border border-light-outline rounded-sm flex items-center justify-center p-3 relative overflow-hidden" id="stage-mini-viz">
+              <svg viewBox="0 0 300 120" class="w-full h-full">
+                <line x1="0" y1="60" x2="300" y2="60" stroke="#CCD6D0" stroke-dasharray="2 2"></line>
+                <path d="M 0 60 Q 30 10, 60 70 T 120 40 T 180 80 T 240 30 T 300 65" fill="none" stroke="#D98B62" stroke-width="2"></path>
+              </svg>
+            </div>
+            <div class="flex items-center justify-between font-mono text-[11px] text-deep-graphite/60 mt-3">
+              <span id="stage-viz-label">Input: Raw Voltage with Baseline Shift</span>
+              <span class="text-forest-green font-semibold">256 Hz</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- IN-DEPTH SCIENTIFIC COMPARISON: FILTERING & ZERO-PHASE PROCESSING -->
+    <section class="grid grid-cols-1 lg:grid-cols-12 gap-8 items-start pt-6 border-t border-light-outline">
+      <!-- Left Column: Scientific Deep-Dive (7 cols) -->
+      <div class="lg:col-span-7 space-y-6">
+        <div>
+          <span class="font-mono text-mono-data text-neural-teal uppercase tracking-wider block mb-1">ELECTROPHYSIOLOGY ENGINEERING</span>
+          <h2 class="font-headline text-headline-xl text-forest-green">
+            Why 1–40 Hz Zero-Phase Butterworth Filtering?
+          </h2>
+        </div>
+
+        <div class="space-y-4 text-body-md text-deep-graphite/85 leading-relaxed">
+          <p>
+            In clinical and cognitive neuroscience, raw electroencephalography (EEG) voltages recorded at the scalp are severely corrupted by two physical artifacts:
+          </p>
+          <ul class="list-disc pl-5 space-y-2 text-deep-graphite/90">
+            <li><strong>Low-frequency drift (&lt;1 Hz):</strong> Galvanic skin impedance shifts, sweating, and electrode movement cause high-amplitude baseline wanders that would distort machine learning normalization.</li>
+            <li><strong>High-frequency noise (&gt;40 Hz):</strong> Electromyographic (EMG) muscle activity from jaw clenching and 50/60 Hz electrical mains interference overpower faint microvolt-scale neural rhythms.</li>
+          </ul>
+          <p>
+            The 4th-order Butterworth band-pass filter isolates the sensorimotor rhythm range (1–40 Hz). Crucially, the simulator executes <strong>zero-phase offline processing</strong> via Scipy’s <code class="font-mono text-forest-green">scipy.signal.filtfilt</code>.
+          </p>
+        </div>
+
+        <!-- Technical Callout Box -->
+        <div class="bg-soft-sage/40 border-l-4 border-l-forest-green border border-light-outline rounded-DEFAULT p-5">
+          <h4 class="font-headline text-label-lg font-bold text-forest-green mb-1">
+            The Zero-Phase Tradeoff (filtfilt vs Online Real-Time)
+          </h4>
+          <p class="text-body-sm text-deep-graphite/80 leading-relaxed mb-3">
+            <code class="font-mono text-forest-green">filtfilt</code> processes the input signal forward, reverses the array, and filters it again backward. This squares the filter magnitude response and completely cancels nonlinear phase shifts, ensuring peaks do not shift in time.
+          </p>
+          <div class="flex items-center gap-2 font-mono text-[11px] text-deep-graphite/70">
+            <span class="material-symbols-outlined text-[16px] text-signal-coral">warning</span>
+            <span>Constraint: Zero-phase requires the full signal buffer and cannot be performed instantaneously sample-by-sample in closed-loop live telemetry.</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- Right Column: Spectral Power Band Visualizer (5 cols) -->
+      <div class="lg:col-span-5 bg-warm-ivory border border-light-outline rounded-DEFAULT p-6 space-y-6 shadow-sm">
+        <div class="border-b border-light-outline/70 pb-3">
+          <span class="font-mono text-mono-data text-signal-coral uppercase tracking-wider block mb-1">FREQUENCY DOMAIN</span>
+          <h3 class="font-headline text-headline-md font-bold text-forest-green">
+            Mean Spectral Power Features
+          </h3>
+          <p class="text-body-sm text-deep-graphite/70 mt-1">
+            How the classifier separates mental intent into two scalar dimensions.
+          </p>
+        </div>
+
+        <!-- Spectral Band 1: 1-12 Hz -->
+        <div class="p-4 bg-soft-sage/30 border border-neural-teal/40 rounded-DEFAULT space-y-2">
+          <div class="flex items-center justify-between">
+            <div class="flex items-center gap-2">
+              <span class="w-3 h-3 rounded-full bg-neural-teal"></span>
+              <span class="font-headline font-bold text-label-lg text-forest-green">Band 1: 1–12 Hz (Mu / Theta)</span>
+            </div>
+            <span class="font-mono text-mono-data text-forest-green font-bold">LEFT PROXY</span>
+          </div>
+          <p class="text-[12px] text-deep-graphite/80 leading-relaxed">
+            Mean power calculated over the 1–12 Hz spectrum. Sensorimotor mu-rhythms (~8–12 Hz) desynchronize over the contralateral motor cortex during motor planning.
+          </p>
+          <div class="flex items-center justify-between text-mono-data font-mono text-[11px] text-deep-graphite/60 pt-2 border-t border-neural-teal/20">
+            <span>Range: 1.0 – 12.0 Hz</span>
+            <span>Weight in Model: Positive for Left</span>
+          </div>
+        </div>
+
+        <!-- Spectral Band 2: 12-40 Hz -->
+        <div class="p-4 bg-soft-sage/30 border border-signal-coral/40 rounded-DEFAULT space-y-2">
+          <div class="flex items-center justify-between">
+            <div class="flex items-center gap-2">
+              <span class="w-3 h-3 rounded-full bg-signal-coral"></span>
+              <span class="font-headline font-bold text-label-lg text-deep-graphite">Band 2: 12–40 Hz (Beta)</span>
+            </div>
+            <span class="font-mono text-mono-data text-signal-coral font-bold">RIGHT PROXY</span>
+          </div>
+          <p class="text-[12px] text-deep-graphite/80 leading-relaxed">
+            Mean power calculated over 12–40 Hz. High-frequency beta rhythms (~22 Hz) are emphasized in the synthetic RIGHT class proxy.
+          </p>
+          <div class="flex items-center justify-between text-mono-data font-mono text-[11px] text-deep-graphite/60 pt-2 border-t border-signal-coral/20">
+            <span>Range: 12.0 – 40.0 Hz</span>
+            <span>Weight in Model: Positive for Right</span>
+          </div>
+        </div>
+
+        <!-- Link to Classification Lab -->
+        <div class="pt-2">
+          <a href="../classification-lab/ClassificationLab.html" class="w-full flex items-center justify-center gap-2 bg-forest-green text-warm-ivory py-3 px-4 rounded-DEFAULT font-label text-label-lg font-semibold hover:bg-forest-green/90 transition-colors shadow-xs">
+            <span>See Features in Classification Lab</span>
+            <span class="material-symbols-outlined text-[16px] text-neural-teal">arrow_forward</span>
+          </a>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <!-- PIPELINE SCRIPT -->
+  <script>
+    const stages = {
+      1: {
+        badge: "STAGE 01",
+        title: "Synthetic Signal Generation",
+        desc: "Creates a 512-sample (2.0s) synthetic electrophysiology signal sampled at 256 Hz. It injects a primary sinusoid depending on chosen class (~8 Hz for LEFT or ~22 Hz for RIGHT), combined with 0.3 Hz slow DC baseline drifts and broad Gaussian pink noise.",
+        math: "V(t) = A·sin(2πft) + Drift(t) + η(t)",
+        backend: "numpy.sin + np.random.normal",
+        viz: `<svg viewBox="0 0 300 120" class="w-full h-full"><line x1="0" y1="60" x2="300" y2="60" stroke="#CCD6D0" stroke-dasharray="2 2" /><path d="M 0 60 Q 30 10, 60 70 T 120 40 T 180 80 T 240 30 T 300 65" fill="none" stroke="#D98B62" stroke-width="2" /></svg>`,
+        vizLabel: "Input: Raw Noisy Voltage with Drift"
+      },
+      2: {
+        badge: "STAGE 02",
+        title: "Butterworth Bandpass Filtering (1–40 Hz)",
+        desc: "Applies a 4th-order digital Butterworth filter with passband cutoffs at 1.0 Hz (highpass) and 40.0 Hz (lowpass). Eliminates baseline wander and high-frequency noise while preserving physiological rhythms.",
+        math: "|H(jω)|² = 1 / [1 + (ω/ωc)^(2n)]",
+        backend: "scipy.signal.butter + scipy.signal.filtfilt",
+        viz: `<svg viewBox="0 0 300 120" class="w-full h-full"><line x1="0" y1="60" x2="300" y2="60" stroke="#CCD6D0" stroke-dasharray="2 2" /><path d="M 0 60 Q 25 25, 50 60 T 100 60 T 150 60 T 200 60 T 250 60 T 300 60" fill="none" stroke="#173F3A" stroke-width="2.5" /></svg>`,
+        vizLabel: "Output: Zero-phase Filtered Oscillation"
+      },
+      3: {
+        badge: "STAGE 03",
+        title: "Frequency-Domain Feature Extraction",
+        desc: "Transforms conditioned time-domain epochs into spectral power representations via FFT. Calculates average spectral energy in two strategic bins: 1–12 Hz and 12–40 Hz.",
+        math: "P_band = (1 / Δf) · ∫ |X(f)|² df",
+        backend: "scipy.signal.welch or numpy.fft.rfft",
+        viz: `<svg viewBox="0 0 300 120" class="w-full h-full"><rect x="20" y="30" width="80" height="70" fill="#79B6A5" opacity="0.4" /><rect x="110" y="55" width="160" height="45" fill="#D98B62" opacity="0.4" /><path d="M 10 100 Q 50 10, 90 90 T 160 50 T 280 100" fill="none" stroke="#173F3A" stroke-width="2" /><text x="35" y="65" font-family="JetBrains Mono" font-size="10" fill="#173F3A">1-12Hz</text><text x="150" y="80" font-family="JetBrains Mono" font-size="10" fill="#252D2B">12-40Hz</text></svg>`,
+        vizLabel: "Output: 2-Element Feature Vector [x1, x2]"
+      },
+      4: {
+        badge: "STAGE 04",
+        title: "StandardScaler & Logistic Regression",
+        desc: "Features are normalized to zero-mean and unit-variance using training distribution parameters. Logistic regression then maps linear dot products into posterior probabilities using a sigmoid transfer function.",
+        math: "P(y=1|x) = 1 / (1 + e^-(w·z + b))",
+        backend: "sklearn.preprocessing.StandardScaler + LogisticRegression",
+        viz: `<svg viewBox="0 0 300 120" class="w-full h-full"><path d="M 20 100 Q 150 100, 150 60 T 280 20" fill="none" stroke="#173F3A" stroke-width="2.5" /><circle cx="150" cy="60" r="5" fill="#79B6A5" stroke="#173F3A" stroke-width="1.5" /><text x="165" y="65" font-family="JetBrains Mono" font-size="10" fill="#173F3A">Threshold = 0.50</text></svg>`,
+        vizLabel: "Output: Binary Softmax Scores"
+      },
+      5: {
+        badge: "STAGE 05",
+        title: "Simulated Command Output",
+        desc: "The classified decision is mapped to a simulated actuator interface—translating artificial intention into 1D horizontal target deflections, mimicking assistive neuroprosthetic steering.",
+        math: "Command = sgn(P - 0.5) · StepSize",
+        backend: "Interactive Simulated DOM Actuator",
+        viz: `<svg viewBox="0 0 300 120" class="w-full h-full"><line x1="20" y1="60" x2="280" y2="60" stroke="#CCD6D0" stroke-width="2" /><rect x="60" y="45" width="30" height="30" fill="#173F3A" rx="4" /><text x="150" y="65" font-family="JetBrains Mono" font-size="10" text-anchor="middle" fill="#252D2B">← DEFLECTION: LEFT</text></svg>`,
+        vizLabel: "Output: Physical 1D Steer Vector"
+      }
+    };
+
+    function selectPipelineStage(num) {
+      document.querySelectorAll('.stage-tab').forEach((tab, idx) => {
+        if (idx + 1 === num) {
+          tab.className = "stage-tab text-left p-4 rounded-DEFAULT border-2 border-forest-green bg-soft-sage transition-all cursor-pointer shadow-xs";
+        } else {
+          tab.className = "stage-tab text-left p-4 rounded-DEFAULT border border-light-outline bg-warm-ivory hover:border-forest-green/60 transition-all cursor-pointer";
+        }
+      });
+
+      const s = stages[num];
+      document.getElementById('stage-badge').innerText = s.badge;
+      document.getElementById('stage-title').innerText = s.title;
+      document.getElementById('stage-desc').innerText = s.desc;
+      document.getElementById('stage-math').innerText = s.math;
+      document.getElementById('stage-backend').innerText = s.backend;
+      document.getElementById('stage-mini-viz').innerHTML = s.viz;
+      document.getElementById('stage-viz-label').innerText = s.vizLabel;
+    }
+  </script>
+
+  <!-- FOOTER -->
+  <footer class="border-t border-light-outline bg-warm-ivory py-8 px-6 mt-16 text-body-sm text-deep-graphite/70">
+    <div class="max-w-7xl mx-auto flex flex-col md:flex-row items-center justify-between gap-4 font-mono text-[12px]">
+      <div>NeuroLink Scientific Signal Conditioning • SciPy 1–40 Hz filtfilt</div>
+      <div class="flex items-center gap-6">
+        <a href="../experiment-studio/ExperimentStudio.html" class="hover:text-forest-green">Experiment Studio</a>
+        <a href="../classification-lab/ClassificationLab.html" class="hover:text-forest-green">Classification Lab</a>
+      </div>
+    </div>
+  </footer>
+
+
+
+</body></html>

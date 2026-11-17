@@ -1,0 +1,335 @@
+<!DOCTYPE html><html lang="en"><head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>NeuroLink — Learn BCI (Editorial Educational Monograph)</title>
+  <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+  <script id="tailwind-config">/** @type {import('tailwindcss').Config} */
+globalThis.tailwind = globalThis.tailwind || {};
+globalThis.tailwind.config = {
+  darkMode: 'class',
+  theme: {
+    extend: {
+      colors: {
+        'forest-green': '#173F3A',
+        'deep-graphite': '#252D2B',
+        'neural-teal': '#79B6A5',
+        'signal-coral': '#D98B62',
+        'soft-sage': '#E5EEE7',
+        'warm-ivory': '#F4F1E9',
+        'light-primary': '#173F3A',
+        'light-on-primary': '#F4F1E9',
+        'light-surface': '#F4F1E9',
+        'light-on-surface': '#252D2B',
+        'light-surface-variant': '#E5EEE7',
+        'light-on-surface-variant': '#173F3A',
+        'light-outline': '#CCD6D0',
+      },
+      borderRadius: {
+        'sm': '2px',
+        'DEFAULT': '4px',
+        'md': '6px',
+        'lg': '8px',
+        'xl': '12px',
+        'full': '9999px',
+      },
+      spacing: {
+        'gutter-xs': '4px',
+        'gutter-sm': '8px',
+        'gutter-md': '16px',
+        'gutter-lg': '24px',
+        'gutter-xl': '32px',
+        'section': '48px',
+        'page-margin': '32px',
+      },
+      fontFamily: {
+        'display': ['"Manrope"', 'sans-serif'],
+        'headline': ['"Manrope"', 'sans-serif'],
+        'body': ['"Inter"', 'sans-serif'],
+        'label': ['"Inter"', 'sans-serif'],
+        'mono': ['"JetBrains Mono"', 'monospace'],
+      },
+      fontSize: {
+        'display-lg': ['48px', { lineHeight: '56px', letterSpacing: '-1.0px', fontWeight: '700' }],
+        'display-lg-mobile': ['32px', { lineHeight: '40px', letterSpacing: '-0.5px', fontWeight: '700' }],
+        'headline-xl': ['36px', { lineHeight: '44px', letterSpacing: '-0.75px', fontWeight: '600' }],
+        'headline-xl-mobile': ['28px', { lineHeight: '36px', letterSpacing: '-0.5px', fontWeight: '600' }],
+        'headline-lg': ['28px', { lineHeight: '36px', letterSpacing: '-0.5px', fontWeight: '600' }],
+        'headline-lg-mobile': ['22px', { lineHeight: '30px', letterSpacing: '-0.25px', fontWeight: '600' }],
+        'headline-md': ['20px', { lineHeight: '28px', letterSpacing: '-0.25px', fontWeight: '600' }],
+        'body-lg': ['18px', { lineHeight: '28px', fontWeight: '400' }],
+        'body-md': ['15px', { lineHeight: '24px', fontWeight: '400' }],
+        'body-sm': ['13px', { lineHeight: '20px', fontWeight: '400' }],
+        'label-lg': ['14px', { lineHeight: '20px', letterSpacing: '0.1px', fontWeight: '600' }],
+        'label-sm': ['11px', { lineHeight: '16px', letterSpacing: '0.5px', fontWeight: '600' }],
+        'mono-data': ['13px', { lineHeight: '18px', fontWeight: '500' }],
+      },
+      transitionDuration: {
+        'state-change': '150ms',
+        'signal-sweep': '400ms',
+        'panel-slide': '250ms',
+      },
+      transitionDelay: {
+        'state-change': '0ms',
+        'signal-sweep': '0ms',
+        'panel-slide': '0ms',
+      },
+      transitionTimingFunction: {
+        'state-change': 'cubic-bezier(0.16, 1, 0.3, 1)',
+        'signal-sweep': 'ease-out',
+        'panel-slide': 'cubic-bezier(0.2, 0, 0, 1)',
+      },
+    },
+  },
+};
+if (typeof module !== 'undefined') module.exports = globalThis.tailwind.config;
+</script>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&amp;family=JetBrains+Mono:wght@400;500;600&amp;family=Manrope:wght@600;700;800&amp;display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=block" rel="stylesheet">
+  <style>.material-symbols-outlined { display: inline-block; width: 1em; height: 1em; line-height: 1 !important; box-sizing: content-box; overflow: hidden; white-space: nowrap; direction: ltr; vertical-align: middle; }</style>
+</head>
+<body class="bg-warm-ivory text-deep-graphite min-h-[1024px] font-body antialiased selection:bg-forest-green selection:text-warm-ivory" data-stitch-vh="min-h-[1024px]===min-h-screen">
+
+  <!-- SHARED APP HEADER -->
+  <header class="sticky top-0 z-50 bg-warm-ivory border-b border-light-outline">
+    <div class="max-w-7xl mx-auto px-6 h-16 flex items-center justify-between">
+      <div class="flex items-center gap-4">
+        <a href="../landing/IntroductionLanding.html" class="flex items-center gap-2.5">
+          <div class="w-7 h-7 rounded-sm bg-forest-green flex items-center justify-center text-warm-ivory">
+            <span class="material-symbols-outlined text-[16px]">neurology</span>
+          </div>
+          <span class="font-headline font-bold text-headline-sm text-forest-green tracking-tight">NEUROLINK</span>
+        </a>
+        <span class="text-deep-graphite/40">/</span>
+        <span class="font-mono text-mono-data text-forest-green font-semibold">LEARN BCI MONOGRAPH</span>
+      </div>
+
+      <nav class="hidden md:flex items-center gap-7 font-label text-label-lg" aria-label="Main Navigation">
+        <a href="../landing/IntroductionLanding.html" class="text-deep-graphite/70 hover:text-forest-green transition-colors pb-1">Introduction</a>
+        <a href="../experiment-studio/ExperimentStudio.html" class="text-deep-graphite/70 hover:text-forest-green transition-colors pb-1">Experiment Studio</a>
+        <a href="../signal-processing/SignalProcessing.html" class="text-deep-graphite/70 hover:text-forest-green transition-colors pb-1">Signal Processing</a>
+        <a href="../classification-lab/ClassificationLab.html" class="text-deep-graphite/70 hover:text-forest-green transition-colors pb-1">Classification Lab</a>
+        <a href="../learn-bci/LearnBCI.html" class="text-forest-green font-semibold border-b-2 border-forest-green pb-1">Learn BCI</a>
+      </nav>
+
+      <div class="flex items-center gap-3">
+        <a href="../experiment-studio/ExperimentStudio.html" class="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-DEFAULT bg-forest-green text-warm-ivory font-label text-label-sm font-semibold hover:bg-forest-green/90 transition-colors">
+          <span>Experiment Studio</span>
+          <span class="material-symbols-outlined text-[15px]">arrow_forward</span>
+        </a>
+      </div>
+    </div>
+  </header>
+
+  <!-- MAIN EDITORIAL CONTENT -->
+  <main class="max-w-4xl mx-auto px-6 py-12 space-y-16">
+
+    <!-- ARTICLE HEADER -->
+    <header class="border-b border-light-outline pb-8 space-y-4">
+      <div class="flex items-center gap-3 text-mono-data font-mono text-[12px] text-deep-graphite/60">
+        <span>CURRICULUM SPECIFICATION</span>
+        <span>•</span>
+        <span>BIOLOGY FOR ENGINEERS</span>
+        <span>•</span>
+        <span class="text-forest-green font-semibold">PEER-REVIEWED PEDAGOGY</span>
+      </div>
+
+      <h1 class="font-headline text-display-lg text-forest-green tracking-tight">
+        Principles of Brain-Computer Interfaces &amp; Electrophysiology
+      </h1>
+
+      <p class="text-body-lg text-deep-graphite/85 leading-relaxed">
+        An engineering primer on how synchronous neuronal populations generate detectable scalp potentials, the mathematics of digital signal conditioning, and the boundaries between biological reality and synthetic simulators.
+      </p>
+    </header>
+
+    <!-- SECTION 1: WHAT IS A BCI? -->
+    <section class="space-y-4">
+      <div class="flex items-center gap-2 text-neural-teal font-mono text-mono-data uppercase font-semibold">
+        <span>01 // THE PARADIGM</span>
+      </div>
+      <h2 class="font-headline text-headline-xl text-forest-green tracking-tight">
+        What is a Brain-Computer Interface?
+      </h2>
+      <div class="text-body-md text-deep-graphite/85 leading-relaxed space-y-4">
+        <p>
+          A Brain-Computer Interface (BCI) is a direct communication link between the central nervous system and an external device. Unlike conventional human-computer interfaces such as keyboards, voice recognition, or touchscreens, a BCI bypasses the peripheral nervous system and somatic musculature entirely.
+        </p>
+        <p>
+          BCIs read neurophysiological manifestations of user intent, convert these voltages into digital streams, extract informative spatial or spectral features, and translate them into commands that steer neuroprosthetic limbs, communication spellers, or robotic wheelchairs.
+        </p>
+      </div>
+
+      <div class="bg-soft-sage/30 border border-light-outline rounded-DEFAULT p-5 mt-4">
+        <h4 class="font-headline text-label-lg font-bold text-forest-green mb-1">Standard BCI Closed-Loop Architecture:</h4>
+        <ol class="list-decimal pl-5 space-y-1 text-body-sm text-deep-graphite/80 font-mono">
+          <li><strong>Signal Acquisition:</strong> Scalp electrodes convert ionic currents to electric voltages.</li>
+          <li><strong>Signal Conditioning:</strong> Analog-to-digital conversion (ADC) and band-pass filtering (1–40 Hz).</li>
+          <li><strong>Feature Extraction:</strong> Power spectral density (PSD) computation via Fourier or Welch estimators.</li>
+          <li><strong>Pattern Classification:</strong> Logistic regression or support vector machines mapping features to classes.</li>
+          <li><strong>Feedback &amp; Actuation:</strong> Real-time screen or physical device feedback to close the sensory loop.</li>
+        </ol>
+      </div>
+    </section>
+
+    <!-- SECTION 2: HOW EEG WORKS -->
+    <section class="space-y-4 pt-6 border-t border-light-outline">
+      <div class="flex items-center gap-2 text-neural-teal font-mono text-mono-data uppercase font-semibold">
+        <span>02 // BIOPHYSICAL ORIGINS</span>
+      </div>
+      <h2 class="font-headline text-headline-xl text-forest-green tracking-tight">
+        How Electroencephalography (EEG) Works
+      </h2>
+      <div class="text-body-md text-deep-graphite/85 leading-relaxed space-y-4">
+        <p>
+          Scalp EEG does not record individual action potentials. Action potentials are too brief (~1 ms) and spatially localized. Instead, EEG detects <strong>summed post-synaptic potentials (PSPs)</strong> from pyramidal neurons aligned perpendicularly to the cortical surface.
+        </p>
+        <p>
+          When thousands of pyramidal neurons receive synchronized excitatory or inhibitory synaptic inputs, their dendritic currents form local extracellular dipoles. These electric fields conduct through cerebrospinal fluid, the skull bone, and the scalp tissue—attenuating in amplitude from millivolts at the cortex to faint <strong>5–100 µV</strong> fluctuations at scalp surface electrodes.
+        </p>
+      </div>
+
+      <!-- Comparison Callout: Real EEG vs This Simulator -->
+      <div class="bg-warm-ivory border-2 border-forest-green rounded-DEFAULT p-6 shadow-sm mt-6">
+        <div class="flex items-center gap-2 mb-3">
+          <span class="material-symbols-outlined text-forest-green text-[22px]">compare_arrows</span>
+          <h3 class="font-headline text-headline-sm font-bold text-forest-green">
+            Real BCI Systems vs. The NeuroLink Simulator
+          </h3>
+        </div>
+
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-6 text-body-sm text-deep-graphite/80">
+          <div class="p-4 bg-soft-sage/40 rounded-DEFAULT border border-forest-green/20">
+            <span class="font-mono text-[11px] text-forest-green font-bold block mb-1">REAL BCI HARDWARE</span>
+            <ul class="list-disc pl-4 space-y-1.5">
+              <li>Records real microvolt potentials (5–100 µV) via Ag/AgCl wet or dry electrodes.</li>
+              <li>Prone to ocular blinks (EOG), heartbeats (ECG), and jaw clenching (EMG).</li>
+              <li>High trial-to-trial biological nonstationarity; requires frequent re-calibration.</li>
+              <li>Strict causal, online real-time latency constraints (&lt;100 ms).</li>
+            </ul>
+          </div>
+
+          <div class="p-4 bg-warm-ivory rounded-DEFAULT border border-light-outline">
+            <span class="font-mono text-[11px] text-signal-coral font-bold block mb-1">NEUROLINK SIMULATOR</span>
+            <ul class="list-disc pl-4 space-y-1.5">
+              <li>Synthesizes mathematical waveforms in arbitrary units at 256 Hz.</li>
+              <li>Models sensorimotor rhythm proxies (~8 Hz and ~22 Hz) with Gaussian pink noise.</li>
+              <li>Uses reproducible seeds for deterministic classroom instruction.</li>
+              <li>Uses zero-phase non-causal offline Butterworth filtering (<code class="font-mono text-forest-green">filtfilt</code>).</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- SECTION 3: ASSISTIVE TECH APPLICATIONS -->
+    <section class="space-y-4 pt-6 border-t border-light-outline">
+      <div class="flex items-center gap-2 text-neural-teal font-mono text-mono-data uppercase font-semibold">
+        <span>03 // APPLIED ENGINEERING</span>
+      </div>
+      <h2 class="font-headline text-headline-xl text-forest-green tracking-tight">
+        Assistive Technology &amp; Clinical Applications
+      </h2>
+      <div class="grid grid-cols-1 md:grid-cols-2 gap-6 mt-4">
+        <div class="bg-warm-ivory border border-light-outline p-5 rounded-DEFAULT">
+          <h4 class="font-headline text-headline-sm font-bold text-forest-green mb-2">Motor Restoration</h4>
+          <p class="text-body-sm text-deep-graphite/80 leading-relaxed">
+            Translating sensorimotor rhythm desynchronization (ERD) into electrical muscle stimulation (FES) or robotic exoskeletons for hemiplegic stroke survivors.
+          </p>
+        </div>
+        <div class="bg-warm-ivory border border-light-outline p-5 rounded-DEFAULT">
+          <h4 class="font-headline text-headline-sm font-bold text-forest-green mb-2">Augmentative Communication</h4>
+          <p class="text-body-sm text-deep-graphite/80 leading-relaxed">
+            P300 visual event-related spellers and steady-state visually evoked potential (SSVEP) matrices providing communication for individuals with ALS or locked-in syndrome.
+          </p>
+        </div>
+      </div>
+    </section>
+
+    <!-- SECTION 4: CURRENT SCIENTIFIC LIMITATIONS -->
+    <section id="limitations" class="space-y-4 pt-6 border-t border-light-outline">
+      <div class="flex items-center gap-2 text-signal-coral font-mono text-mono-data uppercase font-semibold">
+        <span>04 // ETHICAL &amp; TECHNICAL BOUNDARIES</span>
+      </div>
+      <h2 class="font-headline text-headline-xl text-forest-green tracking-tight">
+        Current Scientific &amp; Technological Limitations
+      </h2>
+      <div class="text-body-md text-deep-graphite/85 leading-relaxed space-y-4">
+        <p>
+          Public imagination often attributes mind-reading capabilities to BCIs. In reality, non-invasive EEG is subject to severe fundamental biophysical limits:
+        </p>
+        <ul class="list-disc pl-5 space-y-2 text-deep-graphite/90">
+          <li><strong>Volume Conduction:</strong> The resistive skull acts as a spatial low-pass filter, smearing signals from across the cortex into every electrode. Pinpointing exact millimeter-level source origins is an ill-posed inverse mathematical problem.</li>
+          <li><strong>Low Signal-to-Noise Ratio (SNR):</strong> Background neural activity, electrode impedance fluctuations, and environmental electromagnetic fields are orders of magnitude larger than event-related rhythms.</li>
+          <li><strong>Information Transfer Rate (ITR):</strong> Current non-invasive BCI bandwidth is typically bounded between 10 to 60 bits per minute—substantially slower than typing or speech.</li>
+        </ul>
+      </div>
+
+      <!-- Formal Disclaimer Box -->
+      <div class="bg-soft-sage/50 border border-forest-green/40 p-5 rounded-DEFAULT text-body-sm text-deep-graphite/90">
+        <div class="flex items-center gap-2 font-headline font-bold text-forest-green mb-1">
+          <span class="material-symbols-outlined text-[18px]">verified_user</span>
+          Official Educational Simulator Disclaimer
+        </div>
+        <p class="leading-relaxed">
+          &#34;This is an educational simulator using synthetic EEG-like signals, not live brain data. LEFT and RIGHT are artificial demonstration labels. It does not read thoughts, measure human intentions, or provide medical or clinical predictions.&#34;
+        </p>
+      </div>
+    </section>
+
+    <!-- SECTION 5: PROJECT & TEAM -->
+    <section class="space-y-6 pt-6 border-t border-light-outline">
+      <div>
+        <span class="font-mono text-mono-data text-neural-teal uppercase tracking-wider block mb-1">PROJECT PROVENANCE</span>
+        <h2 class="font-headline text-headline-xl text-forest-green tracking-tight">
+          About the Project &amp; Team
+        </h2>
+      </div>
+
+      <div class="bg-warm-ivory border border-light-outline rounded-DEFAULT p-6 space-y-4">
+        <p class="text-body-md text-deep-graphite/85 leading-relaxed">
+          <strong>NeuroLink</strong> was developed for a <em>Biology for Engineers</em> experiential learning course to provide students with an accessible, interactive digital workbench for electrophysiological signal conditioning and machine learning.
+        </p>
+
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-4 pt-4 border-t border-light-outline/70 font-mono text-[12px]">
+          <div>
+            <span class="text-deep-graphite/50 block text-[11px]">ORIGINAL IMPLEMENTATION</span>
+            <span class="text-forest-green font-semibold">Streamlit &amp; Plotly</span>
+          </div>
+          <div>
+            <span class="text-deep-graphite/50 block text-[11px]">SIGNAL PROCESSING STACK</span>
+            <span class="text-forest-green font-semibold">NumPy, SciPy, Scikit-learn</span>
+          </div>
+          <div>
+            <span class="text-deep-graphite/50 block text-[11px]">COURSE CONTEXT</span>
+            <span class="text-forest-green font-semibold">Bioengineering Capstone</span>
+          </div>
+        </div>
+
+        <div class="pt-2">
+          <a href="https://github.com/CoBrIX44/neurolink-bci-simulator" target="_blank" rel="noopener" class="inline-flex items-center gap-2 text-forest-green hover:text-signal-coral font-label text-label-md font-semibold underline underline-offset-4">
+            <span class="material-symbols-outlined text-[16px]">open_in_new</span>
+            <span>Inspect GitHub Repository (CoBrIX44/neurolink-bci-simulator)</span>
+          </a>
+        </div>
+      </div>
+    </section>
+
+  </main>
+
+  <!-- EDITORIAL FOOTER -->
+  <footer class="border-t border-light-outline bg-warm-ivory py-10 px-6 mt-16 text-body-sm text-deep-graphite/70">
+    <div class="max-w-7xl mx-auto flex flex-col md:flex-row items-center justify-between gap-4 font-mono text-[12px]">
+      <div>NeuroLink Educational Neuroscience Platform • Biology for Engineers</div>
+      <div class="flex items-center gap-6">
+        <a href="../landing/IntroductionLanding.html" class="hover:text-forest-green">Introduction</a>
+        <a href="../experiment-studio/ExperimentStudio.html" class="hover:text-forest-green">Experiment Studio</a>
+        <a href="../signal-processing/SignalProcessing.html" class="hover:text-forest-green">Signal Processing</a>
+      </div>
+    </div>
+  </footer>
+
+
+
+</body></html>

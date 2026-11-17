@@ -1,0 +1,626 @@
+<!DOCTYPE html><html lang="en"><head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>NeuroLink — Experiment Studio (Mobile)</title>
+  <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+  <script id="tailwind-config">/** @type {import('tailwindcss').Config} */
+globalThis.tailwind = globalThis.tailwind || {};
+globalThis.tailwind.config = {
+  darkMode: 'class',
+  theme: {
+    extend: {
+      colors: {
+        'forest-green': '#173F3A',
+        'deep-graphite': '#252D2B',
+        'neural-teal': '#79B6A5',
+        'signal-coral': '#D98B62',
+        'soft-sage': '#E5EEE7',
+        'warm-ivory': '#F4F1E9',
+        'light-primary': '#173F3A',
+        'light-on-primary': '#F4F1E9',
+        'light-surface': '#F4F1E9',
+        'light-on-surface': '#252D2B',
+        'light-surface-variant': '#E5EEE7',
+        'light-on-surface-variant': '#173F3A',
+        'light-outline': '#CCD6D0',
+      },
+      borderRadius: {
+        'sm': '2px',
+        'DEFAULT': '4px',
+        'md': '6px',
+        'lg': '8px',
+        'xl': '12px',
+        'full': '9999px',
+      },
+      spacing: {
+        'gutter-xs': '4px',
+        'gutter-sm': '8px',
+        'gutter-md': '16px',
+        'gutter-lg': '24px',
+        'gutter-xl': '32px',
+        'section': '48px',
+        'page-margin': '32px',
+      },
+      fontFamily: {
+        'display': ['"Manrope"', 'sans-serif'],
+        'headline': ['"Manrope"', 'sans-serif'],
+        'body': ['"Inter"', 'sans-serif'],
+        'label': ['"Inter"', 'sans-serif'],
+        'mono': ['"JetBrains Mono"', 'monospace'],
+      },
+      fontSize: {
+        'display-lg': ['48px', { lineHeight: '56px', letterSpacing: '-1.0px', fontWeight: '700' }],
+        'display-lg-mobile': ['32px', { lineHeight: '40px', letterSpacing: '-0.5px', fontWeight: '700' }],
+        'headline-xl': ['36px', { lineHeight: '44px', letterSpacing: '-0.75px', fontWeight: '600' }],
+        'headline-xl-mobile': ['28px', { lineHeight: '36px', letterSpacing: '-0.5px', fontWeight: '600' }],
+        'headline-lg': ['28px', { lineHeight: '36px', letterSpacing: '-0.5px', fontWeight: '600' }],
+        'headline-lg-mobile': ['22px', { lineHeight: '30px', letterSpacing: '-0.25px', fontWeight: '600' }],
+        'headline-md': ['20px', { lineHeight: '28px', letterSpacing: '-0.25px', fontWeight: '600' }],
+        'body-lg': ['18px', { lineHeight: '28px', fontWeight: '400' }],
+        'body-md': ['15px', { lineHeight: '24px', fontWeight: '400' }],
+        'body-sm': ['13px', { lineHeight: '20px', fontWeight: '400' }],
+        'label-lg': ['14px', { lineHeight: '20px', letterSpacing: '0.1px', fontWeight: '600' }],
+        'label-sm': ['11px', { lineHeight: '16px', letterSpacing: '0.5px', fontWeight: '600' }],
+        'mono-data': ['13px', { lineHeight: '18px', fontWeight: '500' }],
+      },
+      transitionDuration: {
+        'state-change': '150ms',
+        'signal-sweep': '400ms',
+        'panel-slide': '250ms',
+      },
+      transitionDelay: {
+        'state-change': '0ms',
+        'signal-sweep': '0ms',
+        'panel-slide': '0ms',
+      },
+      transitionTimingFunction: {
+        'state-change': 'cubic-bezier(0.16, 1, 0.3, 1)',
+        'signal-sweep': 'ease-out',
+        'panel-slide': 'cubic-bezier(0.2, 0, 0, 1)',
+      },
+    },
+  },
+};
+if (typeof module !== 'undefined') module.exports = globalThis.tailwind.config;
+</script>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&amp;family=JetBrains+Mono:wght@400;500;600&amp;family=Manrope:wght@600;700;800&amp;display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=block" rel="stylesheet">
+  <style>
+    .material-symbols-outlined { display: inline-block; width: 1em; height: 1em; line-height: 1 !important; box-sizing: content-box; overflow: hidden; white-space: nowrap; direction: ltr; vertical-align: middle; }
+    .cursor-marker {
+      transition: transform 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+    }
+    /* Touch optimization */
+    .touch-pan-none {
+      touch-action: pan-y;
+    }
+  </style>
+</head>
+<body class="bg-warm-ivory text-deep-graphite min-h-[884px] font-body antialiased selection:bg-forest-green selection:text-warm-ivory flex flex-col" data-stitch-vh="min-h-[884px]===min-h-screen">
+
+  <!-- MOBILE APP HEADER -->
+  <header class="sticky top-0 z-50 bg-warm-ivory border-b border-light-outline">
+    <div class="px-4 h-14 flex items-center justify-between">
+      <div class="flex items-center gap-2">
+        <a href="../landing-mobile/IntroductionLandingMobile.html" class="flex items-center gap-2">
+          <div class="w-7 h-7 rounded-sm bg-forest-green flex items-center justify-center text-warm-ivory shrink-0">
+            <span class="material-symbols-outlined text-[16px]">neurology</span>
+          </div>
+          <span class="font-headline font-bold text-label-lg tracking-tight text-forest-green">STUDIO</span>
+        </a>
+        <span class="text-deep-graphite/30">/</span>
+        <span class="font-mono text-[10px] text-forest-green font-semibold">256Hz</span>
+      </div>
+
+      <div class="flex items-center gap-2">
+        <span class="inline-flex items-center gap-1 px-2 py-0.5 rounded-sm bg-soft-sage font-mono text-[10px] text-forest-green border border-forest-green/20">
+          <span class="w-1.5 h-1.5 rounded-full bg-forest-green" id="engine-dot-mobile"></span>
+          <span>READY</span>
+        </span>
+        <button type="button" onclick="toggleMobileMenu()" aria-label="Toggle Navigation Menu" class="w-8 h-8 flex items-center justify-center rounded-DEFAULT border border-light-outline text-forest-green hover:bg-soft-sage transition-colors cursor-pointer">
+          <span class="material-symbols-outlined text-[20px]" id="menu-icon">menu</span>
+        </button>
+      </div>
+    </div>
+
+    <!-- COLLAPSIBLE MOBILE MENU -->
+    <nav id="mobile-nav" class="hidden border-t border-light-outline bg-warm-ivory px-4 py-3 space-y-2 font-label text-label-md" aria-label="Mobile Navigation">
+      <a href="../landing-mobile/IntroductionLandingMobile.html" class="flex items-center justify-between p-2 rounded-sm text-deep-graphite/80 hover:bg-soft-sage hover:text-forest-green">
+        <span>01 // Introduction</span>
+        <span class="material-symbols-outlined text-[16px]">home</span>
+      </a>
+      <a href="../experiment-studio/ExperimentStudio.html" class="flex items-center justify-between p-2 rounded-sm bg-soft-sage text-forest-green font-semibold">
+        <span>02 // Experiment Studio (Active)</span>
+        <span class="material-symbols-outlined text-[16px]">science</span>
+      </a>
+      <a href="../signal-processing/SignalProcessing.html" class="flex items-center justify-between p-2 rounded-sm text-deep-graphite/80 hover:bg-soft-sage hover:text-forest-green">
+        <span>03 // Signal Processing</span>
+        <span class="material-symbols-outlined text-[16px]">timeline</span>
+      </a>
+      <a href="../classification-lab/ClassificationLab.html" class="flex items-center justify-between p-2 rounded-sm text-deep-graphite/80 hover:bg-soft-sage hover:text-forest-green">
+        <span>04 // Classification Lab</span>
+        <span class="material-symbols-outlined text-[16px]">psychology</span>
+      </a>
+      <a href="../learn-bci/LearnBCI.html" class="flex items-center justify-between p-2 rounded-sm text-deep-graphite/80 hover:bg-soft-sage hover:text-forest-green">
+        <span>05 // Learn BCI</span>
+        <span class="material-symbols-outlined text-[16px]">menu_book</span>
+      </a>
+    </nav>
+  </header>
+
+  <!-- WORKSPACE CONTENT (STACKED FOR MOBILE) -->
+  <main class="flex-1 px-4 py-4 space-y-4">
+
+    <!-- COMPACT TELEMETRY STRIP -->
+    <div class="bg-soft-sage/40 border border-light-outline rounded-DEFAULT p-2.5 flex items-center justify-between text-mono-data font-mono text-[11px]">
+      <div class="flex items-center gap-3">
+        <span class="text-deep-graphite/60">fs: <strong class="text-forest-green">256 Hz</strong></span>
+        <span class="text-deep-graphite/40">•</span>
+        <span class="text-deep-graphite/60">N: <strong class="text-forest-green">512 pts</strong></span>
+      </div>
+      <div class="text-neural-teal font-semibold">
+        Pass: 1–40 Hz
+      </div>
+    </div>
+
+    <!-- 1. PRIMARY INTERACTIVE WAVEFORM OSCILLOSCOPE (CENTRAL FOCUS) -->
+    <section class="bg-warm-ivory border border-light-outline rounded-DEFAULT p-3.5 space-y-3 shadow-xs">
+      <!-- Scope Title and Controls -->
+      <div class="flex items-center justify-between">
+        <div>
+          <h2 class="font-headline text-label-lg font-bold text-forest-green flex items-center gap-1.5">
+            <span class="w-2 h-2 rounded-full bg-forest-green"></span>
+            Waveform Oscilloscope
+          </h2>
+          <span class="font-mono text-[10px] text-deep-graphite/50 block">0.000s → 2.000s</span>
+        </div>
+
+        <button type="button" id="trace-toggle-btn" onclick="toggleMobileTraceMode()" class="px-2 py-1 rounded-sm bg-soft-sage text-forest-green font-mono text-[10px] font-semibold border border-forest-green/20">
+          DUAL TRACE
+        </button>
+      </div>
+
+      <!-- Scope Canvas Legend & Live Readout -->
+      <div class="flex items-center justify-between text-mono-data font-mono text-[10px] bg-soft-sage/30 px-2.5 py-1.5 rounded-sm border border-light-outline/60">
+        <div class="flex items-center gap-3">
+          <span class="text-signal-coral font-bold flex items-center gap-1">
+            <span class="w-2.5 h-0.5 bg-signal-coral inline-block"></span> Raw
+          </span>
+          <span class="text-forest-green font-bold flex items-center gap-1">
+            <span class="w-2.5 h-0.5 bg-forest-green inline-block"></span> Filtered
+          </span>
+        </div>
+        <div class="text-deep-graphite/60 truncate" id="mobile-hover-readout">
+          Touch waveform to scrub
+        </div>
+      </div>
+
+      <!-- SVG Oscilloscope Viewport (Height tuned for phone) -->
+      <div class="relative w-full aspect-4/3 bg-warm-ivory border border-light-outline rounded-DEFAULT overflow-hidden shadow-inner flex items-center justify-center">
+        <svg id="mobile-waveform-svg" viewBox="0 0 350 240" class="w-full h-full cursor-crosshair select-none touch-pan-none" ontouchstart="handleMobileTouch(event)" ontouchmove="handleMobileTouch(event)" ontouchend="clearMobileTouch()" onmousemove="handleMobileHover(event)" onmouseleave="clearMobileTouch()">
+          <!-- Grid -->
+          <defs>
+            <pattern id="m-grid" width="35" height="24" patternUnits="userSpaceOnUse">
+              <path d="M 35 0 L 0 0 0 24" fill="none" stroke="#E5EEE7" stroke-width="1"></path>
+            </pattern>
+          </defs>
+          <rect width="350" height="240" fill="url(#m-grid)"></rect>
+
+          <!-- Center Zero Line -->
+          <line x1="20" y1="120" x2="340" y2="120" stroke="#CCD6D0" stroke-width="1"></line>
+          <text x="5" y="123" font-family="JetBrains Mono" font-size="8" fill="#252D2B" opacity="0.6">0.0</text>
+          <text x="3" y="18" font-family="JetBrains Mono" font-size="8" fill="#252D2B" opacity="0.6">+2.5</text>
+          <text x="4" y="235" font-family="JetBrains Mono" font-size="8" fill="#252D2B" opacity="0.6">-2.5</text>
+
+          <!-- Time Ticks -->
+          <g font-family="JetBrains Mono" font-size="8" fill="#252D2B" opacity="0.6" text-anchor="middle">
+            <text x="25" y="234">0s</text>
+            <text x="105" y="234">0.5s</text>
+            <text x="180" y="234">1.0s</text>
+            <text x="255" y="234">1.5s</text>
+            <text x="330" y="234">2.0s</text>
+          </g>
+
+          <!-- Raw Path (Coral) -->
+          <path id="m-raw-trace-path" d fill="none" stroke="#D98B62" stroke-width="1.2" stroke-opacity="0.85"></path>
+
+          <!-- Filtered Path (Forest Green) -->
+          <path id="m-filtered-trace-path" d fill="none" stroke="#173F3A" stroke-width="2" stroke-linejoin="round"></path>
+
+          <!-- Scrub Reticle -->
+          <line id="m-reticle-line" x1="0" y1="10" x2="0" y2="230" stroke="#79B6A5" stroke-width="1" stroke-dasharray="2 2" opacity="0"></line>
+          <circle id="m-reticle-dot" cx="0" cy="0" r="3.5" fill="#173F3A" stroke="#79B6A5" stroke-width="1.5" opacity="0"></circle>
+        </svg>
+      </div>
+
+      <!-- Quick Metrics Strip below Scope -->
+      <div class="grid grid-cols-3 gap-2 text-mono-data font-mono text-[10px] text-center pt-2 border-t border-light-outline/70">
+        <div class="bg-soft-sage/30 p-1.5 rounded-sm">
+          <span class="text-deep-graphite/50 block text-[9px]">PEAK-PEAK</span>
+          <span id="m-metric-vpp" class="text-forest-green font-bold">3.84 au</span>
+        </div>
+        <div class="bg-soft-sage/30 p-1.5 rounded-sm">
+          <span class="text-deep-graphite/50 block text-[9px]">RMS</span>
+          <span id="m-metric-rms" class="text-forest-green font-bold">0.91 au</span>
+        </div>
+        <div class="bg-soft-sage/30 p-1.5 rounded-sm">
+          <span class="text-deep-graphite/50 block text-[9px]">SNR RATIO</span>
+          <span id="m-metric-snr" class="text-forest-green font-bold">+14.2 dB</span>
+        </div>
+      </div>
+    </section>
+
+    <!-- 2. EXPERIMENT CONTROLS PANEL -->
+    <section class="bg-warm-ivory border border-light-outline rounded-DEFAULT p-4 space-y-4 shadow-xs">
+      <div class="flex items-center justify-between border-b border-light-outline/70 pb-2">
+        <h2 class="font-headline text-label-lg font-bold text-forest-green flex items-center gap-1.5">
+          <span class="material-symbols-outlined text-[16px]">tune</span>
+          Experiment Controls
+        </h2>
+        <span class="font-mono text-[10px] text-deep-graphite/50">INPUT MATRIX</span>
+      </div>
+
+      <!-- Class Selection Toggle Buttons -->
+      <div>
+        <label class="block font-label text-label-sm font-semibold text-deep-graphite/70 mb-1.5">
+          Artificial Signal Class
+        </label>
+        <div class="grid grid-cols-2 gap-2" role="radiogroup">
+          <button type="button" id="m-btn-left" onclick="selectMobileClass(&#39;LEFT&#39;)" class="flex items-center justify-center gap-2 p-2.5 rounded-DEFAULT border-2 border-forest-green bg-soft-sage text-forest-green font-label font-bold text-label-md transition-all shadow-xs">
+            <span class="material-symbols-outlined text-[18px]">arrow_back</span>
+            <div class="text-left leading-tight">
+              <div>LEFT</div>
+              <span class="font-mono text-[9px] font-normal text-forest-green/70">~8 Hz Mu</span>
+            </div>
+          </button>
+
+          <button type="button" id="m-btn-right" onclick="selectMobileClass(&#39;RIGHT&#39;)" class="flex items-center justify-center gap-2 p-2.5 rounded-DEFAULT border border-light-outline bg-warm-ivory text-deep-graphite/70 hover:border-forest-green font-label font-bold text-label-md transition-all">
+            <div class="text-right leading-tight">
+              <div>RIGHT</div>
+              <span class="font-mono text-[9px] font-normal text-deep-graphite/50">~22 Hz Beta</span>
+            </div>
+            <span class="material-symbols-outlined text-[18px] text-signal-coral">arrow_forward</span>
+          </button>
+        </div>
+      </div>
+
+      <!-- Seed Row -->
+      <div>
+        <div class="flex items-center justify-between mb-1">
+          <label for="m-seed-input" class="font-label text-label-sm font-semibold text-deep-graphite/70">
+            Random Seed
+          </label>
+          <button type="button" onclick="randomizeMobileSeed()" class="text-forest-green font-mono text-[11px] font-semibold inline-flex items-center gap-1 hover:underline">
+            <span class="material-symbols-outlined text-[13px]">shuffle</span> Random
+          </button>
+        </div>
+        <div class="relative">
+          <input type="number" id="m-seed-input" value="42" min="0" max="9999" class="w-full font-mono text-mono-data bg-soft-sage/30 border border-light-outline rounded-DEFAULT px-3 py-2 text-forest-green focus:border-forest-green">
+          <span class="absolute right-3 top-2.5 font-mono text-[10px] text-deep-graphite/40">uint32</span>
+        </div>
+      </div>
+
+      <!-- Main Action Button -->
+      <button type="button" id="m-run-btn" onclick="runMobileSimulation()" class="w-full bg-forest-green text-warm-ivory font-label text-label-lg font-bold py-3 px-4 rounded-DEFAULT flex items-center justify-center gap-2 shadow-sm hover:bg-forest-green/90 transition-colors cursor-pointer">
+        <span class="material-symbols-outlined text-neural-teal text-[18px]">play_circle</span>
+        <span>Generate &amp; Process</span>
+      </button>
+
+      <!-- Simulated 1D Cursor Kinematics -->
+      <div class="pt-3 border-t border-light-outline/70 space-y-2">
+        <div class="flex items-center justify-between">
+          <span class="font-label text-label-sm font-semibold text-deep-graphite">1D Simulated Cursor</span>
+          <span id="m-cursor-state" class="font-mono text-[10px] text-forest-green font-bold">STATE: CENTERED</span>
+        </div>
+
+        <div class="bg-soft-sage/40 border border-light-outline rounded-DEFAULT p-2">
+          <div class="flex justify-between text-mono-data font-mono text-[9px] text-deep-graphite/60 mb-1">
+            <span>[LEFT]</span>
+            <span>0.0</span>
+            <span>[RIGHT]</span>
+          </div>
+          <div class="relative h-6 bg-warm-ivory border border-light-outline rounded-sm flex items-center px-1 overflow-hidden">
+            <div class="absolute left-1/2 top-0 bottom-0 w-0.5 bg-light-outline -translate-x-1/2"></div>
+            <div id="m-simulated-cursor" class="cursor-marker absolute left-1/2 top-1 bottom-1 w-4 h-4 bg-forest-green rounded-sm -translate-x-1/2 border border-neural-teal flex items-center justify-center text-[10px] text-warm-ivory">
+              •
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- 3. CLASSIFICATION & FEATURE SUMMARY -->
+    <section class="bg-warm-ivory border border-light-outline rounded-DEFAULT p-4 space-y-3 shadow-xs">
+      <div class="flex items-center justify-between border-b border-light-outline/70 pb-2">
+        <h2 class="font-headline text-label-lg font-bold text-forest-green flex items-center gap-1.5">
+          <span class="material-symbols-outlined text-[16px]">insights</span>
+          Analysis &amp; Decision
+        </h2>
+        <span class="font-mono text-[10px] text-deep-graphite/50">OUTPUT</span>
+      </div>
+
+      <!-- Verdict card -->
+      <div class="bg-soft-sage/40 border border-forest-green/30 rounded-DEFAULT p-3 flex items-baseline justify-between">
+        <div>
+          <span class="font-mono text-[9px] text-deep-graphite/50 uppercase block">Predicted Class</span>
+          <span id="m-pred-class" class="font-headline text-headline-xl font-extrabold text-forest-green">LEFT</span>
+        </div>
+        <div class="text-right">
+          <span id="m-pred-score" class="font-mono text-[12px] bg-forest-green text-warm-ivory px-2 py-0.5 rounded-sm font-semibold inline-block">
+            SCORE: 0.91
+          </span>
+          <span class="block text-[9px] text-deep-graphite/50 font-mono mt-0.5">Softmax output</span>
+        </div>
+      </div>
+
+      <!-- Output probabilities -->
+      <div class="space-y-2 font-mono text-[11px] pt-1">
+        <div>
+          <div class="flex justify-between mb-1">
+            <span class="text-forest-green font-bold">LEFT (~8 Hz Proxy):</span>
+            <span id="m-score-left" class="font-bold text-forest-green">91.4%</span>
+          </div>
+          <div class="h-2 w-full bg-light-outline/40 rounded-full overflow-hidden">
+            <div id="m-bar-left" class="h-full bg-forest-green" style="width: 91.4%;"></div>
+          </div>
+        </div>
+
+        <div>
+          <div class="flex justify-between mb-1">
+            <span class="text-signal-coral font-bold">RIGHT (~22 Hz Proxy):</span>
+            <span id="m-score-right" class="font-bold text-deep-graphite/70">8.6%</span>
+          </div>
+          <div class="h-2 w-full bg-light-outline/40 rounded-full overflow-hidden">
+            <div id="m-bar-right" class="h-full bg-signal-coral" style="width: 8.6%;"></div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Spectral Power Badges -->
+      <div class="grid grid-cols-2 gap-2 pt-2 border-t border-light-outline/70 font-mono text-[11px]">
+        <div class="p-2 bg-soft-sage/30 rounded-sm border border-light-outline/60">
+          <span class="text-[9px] text-deep-graphite/50 block">1–12 Hz POWER</span>
+          <span id="m-feat-mu" class="font-bold text-forest-green tabular-nums">48.3 µV²/Hz</span>
+        </div>
+        <div class="p-2 bg-soft-sage/30 rounded-sm border border-light-outline/60">
+          <span class="text-[9px] text-deep-graphite/50 block">12–40 Hz POWER</span>
+          <span id="m-feat-beta" class="font-bold text-signal-coral tabular-nums">7.1 µV²/Hz</span>
+        </div>
+      </div>
+    </section>
+
+    <!-- 4. SCIENTIFIC NOTICE -->
+    <div class="bg-soft-sage/30 border border-forest-green/20 rounded-DEFAULT p-3 text-[11px] text-deep-graphite/80 leading-relaxed">
+      <strong class="text-forest-green font-headline block mb-0.5">Scientific Disclaimer:</strong>
+      Synthetic simulation using NumPy/SciPy. LEFT and RIGHT are artificial demonstration proxies, not human brain measurements or medical predictions.
+    </div>
+
+    <!-- PIPELINE LINKS -->
+    <div class="grid grid-cols-2 gap-2 pt-1">
+      <a href="../signal-processing/SignalProcessing.html" class="p-2.5 rounded-DEFAULT border border-light-outline text-center text-forest-green font-label text-label-sm font-semibold hover:bg-soft-sage transition-colors">
+        <span>Filter Pipeline →</span>
+      </a>
+      <a href="../classification-lab/ClassificationLab.html" class="p-2.5 rounded-DEFAULT border border-light-outline text-center text-forest-green font-label text-label-sm font-semibold hover:bg-soft-sage transition-colors">
+        <span>Classifier Lab →</span>
+      </a>
+    </div>
+
+  </main>
+
+  <!-- MOBILE FOOTER -->
+  <footer class="border-t border-light-outline bg-warm-ivory py-4 px-4 text-center font-mono text-[10px] text-deep-graphite/60 space-y-1">
+    <div>NeuroLink Studio • 256 Hz • 512 Samples</div>
+    <div class="text-forest-green font-semibold">
+      <a href="../landing/IntroductionLanding.html">Desktop Mode</a>
+      <span>•</span>
+      <a href="../learn-bci/LearnBCI.html">Documentation</a>
+    </div>
+  </footer>
+
+  <!-- MOBILE STUDIO SCRIPT -->
+  <script>
+    let mobileClass = 'LEFT';
+    let mobileSeed = 42;
+    let mobileTraceMode = 'DUAL';
+    let mobileSampleData = [];
+
+    function pseudoRandom(seed) {
+      const x = Math.sin(seed++) * 10000;
+      return x - Math.floor(x);
+    }
+
+    function toggleMobileMenu() {
+      const nav = document.getElementById('mobile-nav');
+      const icon = document.getElementById('menu-icon');
+      if (nav.classList.contains('hidden')) {
+        nav.classList.remove('hidden');
+        icon.innerText = 'close';
+      } else {
+        nav.classList.add('hidden');
+        icon.innerText = 'menu';
+      }
+    }
+
+    function selectMobileClass(target) {
+      mobileClass = target;
+      const btnL = document.getElementById('m-btn-left');
+      const btnR = document.getElementById('m-btn-right');
+
+      if (target === 'LEFT') {
+        btnL.className = "flex items-center justify-center gap-2 p-2.5 rounded-DEFAULT border-2 border-forest-green bg-soft-sage text-forest-green font-label font-bold text-label-md transition-all shadow-xs";
+        btnR.className = "flex items-center justify-center gap-2 p-2.5 rounded-DEFAULT border border-light-outline bg-warm-ivory text-deep-graphite/70 hover:border-forest-green font-label font-bold text-label-md transition-all";
+      } else {
+        btnR.className = "flex items-center justify-center gap-2 p-2.5 rounded-DEFAULT border-2 border-forest-green bg-soft-sage text-forest-green font-label font-bold text-label-md transition-all shadow-xs";
+        btnL.className = "flex items-center justify-center gap-2 p-2.5 rounded-DEFAULT border border-light-outline bg-warm-ivory text-deep-graphite/70 hover:border-forest-green font-label font-bold text-label-md transition-all";
+      }
+      runMobileSimulation();
+    }
+
+    function randomizeMobileSeed() {
+      const newSeed = Math.floor(Math.random() * 9000) + 100;
+      document.getElementById('m-seed-input').value = newSeed;
+      mobileSeed = newSeed;
+      runMobileSimulation();
+    }
+
+    function toggleMobileTraceMode() {
+      const btn = document.getElementById('trace-toggle-btn');
+      const raw = document.getElementById('m-raw-trace-path');
+      const filtered = document.getElementById('m-filtered-trace-path');
+
+      if (mobileTraceMode === 'DUAL') {
+        mobileTraceMode = 'FILTERED';
+        btn.innerText = 'FILTERED ONLY';
+        raw.style.display = 'none';
+        filtered.style.display = 'block';
+      } else if (mobileTraceMode === 'FILTERED') {
+        mobileTraceMode = 'RAW';
+        btn.innerText = 'RAW ONLY';
+        raw.style.display = 'block';
+        filtered.style.display = 'none';
+      } else {
+        mobileTraceMode = 'DUAL';
+        btn.innerText = 'DUAL TRACE';
+        raw.style.display = 'block';
+        filtered.style.display = 'block';
+      }
+    }
+
+    function generateMobileSignal(targetClass, seed) {
+      const samples = 512;
+      const dt = 2.0 / samples;
+      let s = parseInt(seed) || 42;
+      const data = [];
+      const primaryFreq = (targetClass === 'LEFT') ? 8.0 : 22.0;
+      const secondaryFreq = (targetClass === 'LEFT') ? 22.0 : 8.0;
+
+      for (let i = 0; i < samples; i++) {
+        const t = i * dt;
+        s++;
+        const noise = (pseudoRandom(s) - 0.5) * 1.4;
+        const drift = Math.sin(2 * Math.PI * 0.3 * t + (seed % 5)) * 1.6;
+        const signalComponent = Math.sin(2 * Math.PI * primaryFreq * t) * 1.2;
+        const subComponent = Math.sin(2 * Math.PI * secondaryFreq * t) * 0.25;
+
+        const raw = signalComponent + subComponent + noise + drift;
+        const filtered = signalComponent * 1.05 + subComponent * 0.9 + (noise * 0.18);
+
+        data.push({ t, raw, filtered });
+      }
+      return data;
+    }
+
+    function renderMobileWaveformSVG() {
+      if (!mobileSampleData || mobileSampleData.length === 0) return;
+      const width = 315; // plotting width in 350x240 viewbox
+      const startX = 25;
+      const centerY = 120;
+      const scaleY = 32;
+
+      let rawD = '';
+      let filteredD = '';
+
+      mobileSampleData.forEach((pt, index) => {
+        const x = startX + (index / 512) * width;
+        const rawY = centerY - (pt.raw * scaleY);
+        const filteredY = centerY - (pt.filtered * scaleY);
+
+        if (index === 0) {
+          rawD += `M ${x.toFixed(1)} ${rawY.toFixed(1)}`;
+          filteredD += `M ${x.toFixed(1)} ${filteredY.toFixed(1)}`;
+        } else {
+          rawD += ` L ${x.toFixed(1)} ${rawY.toFixed(1)}`;
+          filteredD += ` L ${x.toFixed(1)} ${filteredY.toFixed(1)}`;
+        }
+      });
+
+      document.getElementById('m-raw-trace-path').setAttribute('d', rawD);
+      document.getElementById('m-filtered-trace-path').setAttribute('d', filteredD);
+    }
+
+    function runMobileSimulation() {
+      const seedVal = document.getElementById('m-seed-input').value;
+      mobileSampleData = generateMobileSignal(mobileClass, seedVal);
+      renderMobileWaveformSVG();
+
+      const isLeft = (mobileClass === 'LEFT');
+      const leftProb = isLeft ? (0.88 + pseudoRandom(seedVal) * 0.08) : (0.05 + pseudoRandom(seedVal) * 0.08);
+      const rightProb = 1.0 - leftProb;
+
+      document.getElementById('m-pred-class').innerText = mobileClass;
+      document.getElementById('m-pred-score').innerText = `SCORE: ${(isLeft ? leftProb : rightProb).toFixed(2)}`;
+
+      const leftPercent = (leftProb * 100).toFixed(1);
+      const rightPercent = (rightProb * 100).toFixed(1);
+
+      document.getElementById('m-score-left').innerText = `${leftPercent}%`;
+      document.getElementById('m-bar-left').style.width = `${leftPercent}%`;
+
+      document.getElementById('m-score-right').innerText = `${rightPercent}%`;
+      document.getElementById('m-bar-right').style.width = `${rightPercent}%`;
+
+      if (isLeft) {
+        document.getElementById('m-feat-mu').innerText = `${(44.2 + pseudoRandom(seedVal) * 8).toFixed(1)} µV²/Hz`;
+        document.getElementById('m-feat-beta').innerText = `${(6.4 + pseudoRandom(seedVal) * 2).toFixed(1)} µV²/Hz`;
+      } else {
+        document.getElementById('m-feat-mu').innerText = `${(7.8 + pseudoRandom(seedVal) * 2).toFixed(1)} µV²/Hz`;
+        document.getElementById('m-feat-beta').innerText = `${(41.6 + pseudoRandom(seedVal) * 9).toFixed(1)} µV²/Hz`;
+      }
+
+      // Deflect simulated cursor
+      const cursor = document.getElementById('m-simulated-cursor');
+      const cursorState = document.getElementById('m-cursor-state');
+      if (isLeft) {
+        cursor.style.transform = 'translateX(-50px)';
+        cursorState.innerText = 'STATE: DEFLECTING LEFT';
+      } else {
+        cursor.style.transform = 'translateX(50px)';
+        cursorState.innerText = 'STATE: DEFLECTING RIGHT';
+      }
+    }
+
+    function handleMobileTouch(event) {
+      if (!mobileSampleData || mobileSampleData.length === 0) return;
+      const touch = event.touches ? event.touches[0] : event;
+      const svg = document.getElementById('mobile-waveform-svg');
+      const rect = svg.getBoundingClientRect();
+      const clientX = touch.clientX - rect.left;
+      const svgX = (clientX / rect.width) * 350;
+
+      if (svgX < 25 || svgX > 340) return;
+
+      const sampleIdx = Math.min(511, Math.max(0, Math.floor(((svgX - 25) / 315) * 512)));
+      const sample = mobileSampleData[sampleIdx];
+
+      const reticleLine = document.getElementById('m-reticle-line');
+      const reticleDot = document.getElementById('m-reticle-dot');
+      const readout = document.getElementById('mobile-hover-readout');
+
+      reticleLine.setAttribute('x1', svgX);
+      reticleLine.setAttribute('x2', svgX);
+      reticleLine.style.opacity = '1';
+
+      const dotY = 120 - (sample.filtered * 32);
+      reticleDot.setAttribute('cx', svgX);
+      reticleDot.setAttribute('cy', dotY);
+      reticleDot.style.opacity = '1';
+
+      readout.innerText = `t = ${sample.t.toFixed(3)}s | V = ${sample.filtered.toFixed(2)} au`;
+    }
+
+    function clearMobileTouch() {
+      document.getElementById('m-reticle-line').style.opacity = '0';
+      document.getElementById('m-reticle-dot').style.opacity = '0';
+      document.getElementById('mobile-hover-readout').innerText = 'Touch waveform to scrub';
+    }
+
+    window.addEventListener('DOMContentLoaded', () => {
+      runMobileSimulation();
+    });
+  </script>
+
+
+
+</body></html>

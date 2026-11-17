@@ -1,0 +1,407 @@
+<!DOCTYPE html><html lang="en"><head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>NeuroLink — Signal Processing &amp; Butterworth Filtering (Mobile)</title>
+  <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+  <script id="tailwind-config">/** @type {import('tailwindcss').Config} */
+globalThis.tailwind = globalThis.tailwind || {};
+globalThis.tailwind.config = {
+  darkMode: 'class',
+  theme: {
+    extend: {
+      colors: {
+        'forest-green': '#173F3A',
+        'deep-graphite': '#252D2B',
+        'neural-teal': '#79B6A5',
+        'signal-coral': '#D98B62',
+        'soft-sage': '#E5EEE7',
+        'warm-ivory': '#F4F1E9',
+        'light-primary': '#173F3A',
+        'light-on-primary': '#F4F1E9',
+        'light-surface': '#F4F1E9',
+        'light-on-surface': '#252D2B',
+        'light-surface-variant': '#E5EEE7',
+        'light-on-surface-variant': '#173F3A',
+        'light-outline': '#CCD6D0',
+      },
+      borderRadius: {
+        'sm': '2px',
+        'DEFAULT': '4px',
+        'md': '6px',
+        'lg': '8px',
+        'xl': '12px',
+        'full': '9999px',
+      },
+      spacing: {
+        'gutter-xs': '4px',
+        'gutter-sm': '8px',
+        'gutter-md': '16px',
+        'gutter-lg': '24px',
+        'gutter-xl': '32px',
+        'section': '48px',
+        'page-margin': '32px',
+      },
+      fontFamily: {
+        'display': ['"Manrope"', 'sans-serif'],
+        'headline': ['"Manrope"', 'sans-serif'],
+        'body': ['"Inter"', 'sans-serif'],
+        'label': ['"Inter"', 'sans-serif'],
+        'mono': ['"JetBrains Mono"', 'monospace'],
+      },
+      fontSize: {
+        'display-lg': ['48px', { lineHeight: '56px', letterSpacing: '-1.0px', fontWeight: '700' }],
+        'display-lg-mobile': ['32px', { lineHeight: '40px', letterSpacing: '-0.5px', fontWeight: '700' }],
+        'headline-xl': ['36px', { lineHeight: '44px', letterSpacing: '-0.75px', fontWeight: '600' }],
+        'headline-xl-mobile': ['28px', { lineHeight: '36px', letterSpacing: '-0.5px', fontWeight: '600' }],
+        'headline-lg': ['28px', { lineHeight: '36px', letterSpacing: '-0.5px', fontWeight: '600' }],
+        'headline-lg-mobile': ['22px', { lineHeight: '30px', letterSpacing: '-0.25px', fontWeight: '600' }],
+        'headline-md': ['20px', { lineHeight: '28px', letterSpacing: '-0.25px', fontWeight: '600' }],
+        'body-lg': ['18px', { lineHeight: '28px', fontWeight: '400' }],
+        'body-md': ['15px', { lineHeight: '24px', fontWeight: '400' }],
+        'body-sm': ['13px', { lineHeight: '20px', fontWeight: '400' }],
+        'label-lg': ['14px', { lineHeight: '20px', letterSpacing: '0.1px', fontWeight: '600' }],
+        'label-sm': ['11px', { lineHeight: '16px', letterSpacing: '0.5px', fontWeight: '600' }],
+        'mono-data': ['13px', { lineHeight: '18px', fontWeight: '500' }],
+      },
+      transitionDuration: {
+        'state-change': '150ms',
+        'signal-sweep': '400ms',
+        'panel-slide': '250ms',
+      },
+      transitionDelay: {
+        'state-change': '0ms',
+        'signal-sweep': '0ms',
+        'panel-slide': '0ms',
+      },
+      transitionTimingFunction: {
+        'state-change': 'cubic-bezier(0.16, 1, 0.3, 1)',
+        'signal-sweep': 'ease-out',
+        'panel-slide': 'cubic-bezier(0.2, 0, 0, 1)',
+      },
+    },
+  },
+};
+if (typeof module !== 'undefined') module.exports = globalThis.tailwind.config;
+</script>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&amp;family=JetBrains+Mono:wght@400;500;600&amp;family=Manrope:wght@600;700;800&amp;display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=block" rel="stylesheet">
+  <style>
+    .material-symbols-outlined { display: inline-block; width: 1em; height: 1em; line-height: 1 !important; box-sizing: content-box; overflow: hidden; white-space: nowrap; direction: ltr; vertical-align: middle; }
+    /* Hide scrollbars for clean horizontal tab swipe */
+    .no-scrollbar::-webkit-scrollbar { display: none; }
+    .no-scrollbar { -ms-overflow-style: none; scrollbar-width: none; }
+  </style>
+</head>
+<body class="bg-warm-ivory text-deep-graphite min-h-[884px] font-body antialiased selection:bg-forest-green selection:text-warm-ivory flex flex-col" data-stitch-vh="min-h-[884px]===min-h-screen">
+
+  <!-- MOBILE APP HEADER -->
+  <header class="sticky top-0 z-50 bg-warm-ivory border-b border-light-outline">
+    <div class="px-4 h-14 flex items-center justify-between">
+      <div class="flex items-center gap-2">
+        <a href="../landing-mobile/IntroductionLandingMobile.html" class="flex items-center gap-2">
+          <div class="w-7 h-7 rounded-sm bg-forest-green flex items-center justify-center text-warm-ivory shrink-0">
+            <span class="material-symbols-outlined text-[16px]">neurology</span>
+          </div>
+          <span class="font-headline font-bold text-label-lg tracking-tight text-forest-green">PIPELINE</span>
+        </a>
+        <span class="text-deep-graphite/30">/</span>
+        <span class="font-mono text-[10px] text-forest-green font-semibold">1–40Hz</span>
+      </div>
+
+      <div class="flex items-center gap-2">
+        <a href="../experiment-studio-mobile/ExperimentStudioMobile.html" class="px-2 py-1 rounded-sm bg-forest-green text-warm-ivory font-mono text-[10px] font-semibold flex items-center gap-1">
+          <span>Studio</span>
+          <span class="material-symbols-outlined text-[12px]">arrow_forward</span>
+        </a>
+        <button type="button" onclick="toggleMobileMenu()" aria-label="Toggle Navigation Menu" class="w-8 h-8 flex items-center justify-center rounded-DEFAULT border border-light-outline text-forest-green hover:bg-soft-sage transition-colors cursor-pointer">
+          <span class="material-symbols-outlined text-[20px]" id="menu-icon">menu</span>
+        </button>
+      </div>
+    </div>
+
+    <!-- COLLAPSIBLE MOBILE MENU -->
+    <nav id="mobile-nav" class="hidden border-t border-light-outline bg-warm-ivory px-4 py-3 space-y-2 font-label text-label-md" aria-label="Mobile Navigation">
+      <a href="../landing-mobile/IntroductionLandingMobile.html" class="flex items-center justify-between p-2 rounded-sm text-deep-graphite/80 hover:bg-soft-sage hover:text-forest-green">
+        <span>01 // Introduction</span>
+        <span class="material-symbols-outlined text-[16px]">home</span>
+      </a>
+      <a href="../experiment-studio-mobile/ExperimentStudioMobile.html" class="flex items-center justify-between p-2 rounded-sm text-deep-graphite/80 hover:bg-soft-sage hover:text-forest-green">
+        <span>02 // Experiment Studio</span>
+        <span class="material-symbols-outlined text-[16px]">science</span>
+      </a>
+      <a href="../signal-processing/SignalProcessing.html" class="flex items-center justify-between p-2 rounded-sm bg-soft-sage text-forest-green font-semibold">
+        <span>03 // Signal Processing (Active)</span>
+        <span class="material-symbols-outlined text-[16px]">timeline</span>
+      </a>
+      <a href="../classification-lab/ClassificationLab.html" class="flex items-center justify-between p-2 rounded-sm text-deep-graphite/80 hover:bg-soft-sage hover:text-forest-green">
+        <span>04 // Classification Lab</span>
+        <span class="material-symbols-outlined text-[16px]">psychology</span>
+      </a>
+      <a href="../learn-bci/LearnBCI.html" class="flex items-center justify-between p-2 rounded-sm text-deep-graphite/80 hover:bg-soft-sage hover:text-forest-green">
+        <span>05 // Learn BCI</span>
+        <span class="material-symbols-outlined text-[16px]">menu_book</span>
+      </a>
+    </nav>
+  </header>
+
+  <!-- WORKSPACE CONTENT -->
+  <main class="flex-1 px-4 py-5 space-y-6">
+
+    <!-- PAGE TITLE SECTION -->
+    <section class="space-y-2 border-b border-light-outline pb-4">
+      <div class="inline-flex items-center gap-1.5 px-2.5 py-0.5 rounded-sm bg-soft-sage text-forest-green font-mono text-[10px] font-semibold border border-forest-green/20">
+        <span class="material-symbols-outlined text-[13px] text-neural-teal">timeline</span>
+        <span>Signal Architecture</span>
+      </div>
+      <h1 class="font-headline text-display-lg-mobile text-forest-green font-bold tracking-tight">
+        Transformation of Neural Voltages
+      </h1>
+      <p class="text-body-sm text-deep-graphite/80 text-[13px] leading-relaxed">
+        Understand how 256 Hz synthetic time series are conditioned via zero-phase 1–40 Hz filtering and mapped into spectral feature bins.
+      </p>
+    </section>
+
+    <!-- 1. HORIZONTAL INTERACTIVE STAGE SELECTOR (TAP / SWIPE) -->
+    <section class="space-y-3">
+      <div class="flex items-center justify-between">
+        <span class="font-mono text-mono-data text-neural-teal uppercase tracking-wider text-[10px] font-bold">PIPELINE STAGES</span>
+        <span class="text-mono-data font-mono text-[10px] text-deep-graphite/50">Tap stage to inspect</span>
+      </div>
+
+      <div class="flex gap-2 overflow-x-auto no-scrollbar pb-1 -mx-4 px-4 snap-x">
+        <button type="button" onclick="selectMStage(1)" id="m-stage-tab-1" class="m-stage-tab shrink-0 snap-start text-left p-2.5 rounded-DEFAULT border-2 border-forest-green bg-soft-sage w-36 transition-all">
+          <span class="font-mono text-[9px] text-forest-green font-bold block mb-0.5">01 // SYNTHESIS</span>
+          <span class="font-headline text-label-sm font-bold text-forest-green block leading-tight">Signal Gen</span>
+          <span class="text-[10px] text-deep-graphite/60 block mt-0.5">256 Hz Sine + Noise</span>
+        </button>
+
+        <button type="button" onclick="selectMStage(2)" id="m-stage-tab-2" class="m-stage-tab shrink-0 snap-start text-left p-2.5 rounded-DEFAULT border border-light-outline bg-warm-ivory w-36 transition-all">
+          <span class="font-mono text-[9px] text-deep-graphite/50 font-bold block mb-0.5">02 // FILTER</span>
+          <span class="font-headline text-label-sm font-bold text-forest-green block leading-tight">Butterworth</span>
+          <span class="text-[10px] text-deep-graphite/60 block mt-0.5">1–40 Hz filtfilt</span>
+        </button>
+
+        <button type="button" onclick="selectMStage(3)" id="m-stage-tab-3" class="m-stage-tab shrink-0 snap-start text-left p-2.5 rounded-DEFAULT border border-light-outline bg-warm-ivory w-36 transition-all">
+          <span class="font-mono text-[9px] text-deep-graphite/50 font-bold block mb-0.5">03 // SPECTRAL</span>
+          <span class="font-headline text-label-sm font-bold text-forest-green block leading-tight">FFT Features</span>
+          <span class="text-[10px] text-deep-graphite/60 block mt-0.5">Mu &amp; Beta Bands</span>
+        </button>
+
+        <button type="button" onclick="selectMStage(4)" id="m-stage-tab-4" class="m-stage-tab shrink-0 snap-start text-left p-2.5 rounded-DEFAULT border border-light-outline bg-warm-ivory w-36 transition-all">
+          <span class="font-mono text-[9px] text-deep-graphite/50 font-bold block mb-0.5">04 // INFER</span>
+          <span class="font-headline text-label-sm font-bold text-forest-green block leading-tight">Classifier</span>
+          <span class="text-[10px] text-deep-graphite/60 block mt-0.5">Logistic Sigmoid</span>
+        </button>
+
+        <button type="button" onclick="selectMStage(5)" id="m-stage-tab-5" class="m-stage-tab shrink-0 snap-start text-left p-2.5 rounded-DEFAULT border border-light-outline bg-warm-ivory w-36 transition-all">
+          <span class="font-mono text-[9px] text-deep-graphite/50 font-bold block mb-0.5">05 // ACTUATE</span>
+          <span class="font-headline text-label-sm font-bold text-forest-green block leading-tight">1D Cursor</span>
+          <span class="text-[10px] text-deep-graphite/60 block mt-0.5">Target Deflection</span>
+        </button>
+      </div>
+
+      <!-- ACTIVE STAGE CARD -->
+      <article class="bg-warm-ivory border border-light-outline rounded-DEFAULT p-4 space-y-3 shadow-xs">
+        <div class="flex items-center justify-between border-b border-light-outline/70 pb-2">
+          <span id="m-stage-badge" class="font-mono text-[10px] bg-forest-green text-warm-ivory px-2 py-0.5 rounded-sm font-semibold">STAGE 01</span>
+          <span id="m-stage-freq" class="font-mono text-[10px] text-deep-graphite/60">fs = 256 Hz</span>
+        </div>
+
+        <h3 id="m-stage-title" class="font-headline text-headline-sm font-bold text-forest-green">
+          Synthetic Signal Generation
+        </h3>
+
+        <!-- Mini SVG preview -->
+        <div class="aspect-16/9 bg-warm-ivory border border-light-outline rounded-sm flex items-center justify-center p-2 relative overflow-hidden" id="m-stage-mini-viz">
+          <svg viewBox="0 0 300 120" class="w-full h-full">
+            <line x1="0" y1="60" x2="300" y2="60" stroke="#CCD6D0" stroke-dasharray="2 2"></line>
+            <path d="M 0 60 Q 30 10, 60 70 T 120 40 T 180 80 T 240 30 T 300 65" fill="none" stroke="#D98B62" stroke-width="2"></path>
+          </svg>
+        </div>
+
+        <p id="m-stage-desc" class="text-body-sm text-deep-graphite/80 text-[12px] leading-relaxed">
+          Generates 512 synthetic samples at 256 Hz (2.0s duration). Superimposes class-dependent sinusoidal motor rhythms with 0.3 Hz DC drift and pink noise.
+        </p>
+
+        <div class="space-y-1.5 pt-2 border-t border-light-outline/70 font-mono text-[10px]">
+          <div class="flex justify-between">
+            <span class="text-deep-graphite/50">EQUATION:</span>
+            <span id="m-stage-math" class="text-forest-green font-bold">V(t) = A·sin(2πft) + Drift + η</span>
+          </div>
+          <div class="flex justify-between">
+            <span class="text-deep-graphite/50">BACKEND:</span>
+            <span id="m-stage-backend" class="text-forest-green">numpy.sin + normal</span>
+          </div>
+        </div>
+      </article>
+    </section>
+
+    <!-- 2. SCIENTIFIC DEEP-DIVE: ZERO-PHASE BUTTERWORTH -->
+    <section class="bg-warm-ivory border border-light-outline rounded-DEFAULT p-4 space-y-3 shadow-xs">
+      <span class="font-mono text-mono-data text-neural-teal uppercase tracking-wider text-[10px] font-bold block">
+        ENGINEERING FOUNDATION
+      </span>
+      <h2 class="font-headline text-headline-sm font-bold text-forest-green">
+        Why 1–40 Hz Zero-Phase Filtering?
+      </h2>
+      <p class="text-body-sm text-deep-graphite/80 text-[12px] leading-relaxed">
+        Scalp potentials are distorted by two primary non-neural contaminants:
+      </p>
+
+      <div class="space-y-2 text-body-sm text-[12px]">
+        <div class="p-2.5 bg-soft-sage/30 rounded-DEFAULT border border-light-outline/60">
+          <strong class="text-forest-green block mb-0.5">Low-Frequency Drift (&lt;1 Hz):</strong>
+          Galvanic skin impedance changes and sweating cause massive baseline wander.
+        </div>
+        <div class="p-2.5 bg-soft-sage/30 rounded-DEFAULT border border-light-outline/60">
+          <strong class="text-signal-coral block mb-0.5">High-Frequency Artifacts (&gt;40 Hz):</strong>
+          Jaw clenching muscle potentials (EMG) and 50/60 Hz electrical mains noise.
+        </div>
+      </div>
+
+      <div class="bg-soft-sage/40 border-l-2 border-l-forest-green p-3 rounded-r-DEFAULT text-[11px] text-deep-graphite/85">
+        <strong class="text-forest-green block mb-0.5">Zero-Phase filtfilt:</strong>
+        Filters forward and backward. Eliminates phase shifts so peaks remain locked at their true physiological timing.
+      </div>
+    </section>
+
+    <!-- 3. FREQUENCY BAND POWER FEATURES -->
+    <section class="bg-warm-ivory border border-light-outline rounded-DEFAULT p-4 space-y-3 shadow-xs">
+      <div class="border-b border-light-outline/70 pb-2">
+        <span class="font-mono text-mono-data text-signal-coral uppercase tracking-wider text-[10px] font-bold block">
+          SPECTRAL POWER EXTRACTION
+        </span>
+        <h3 class="font-headline text-label-lg font-bold text-forest-green">
+          Extracted Feature Bands
+        </h3>
+      </div>
+
+      <!-- Band 1 -->
+      <div class="p-3 bg-soft-sage/30 border border-neural-teal/40 rounded-DEFAULT space-y-1">
+        <div class="flex items-center justify-between">
+          <span class="font-headline font-bold text-forest-green text-[13px]">Band 1: 1–12 Hz (Mu / Theta)</span>
+          <span class="font-mono text-[10px] text-forest-green font-bold bg-soft-sage px-1.5 py-0.5 rounded-sm">LEFT PROXY</span>
+        </div>
+        <p class="text-[11px] text-deep-graphite/80 leading-relaxed">
+          Captures synthetic sensorimotor desynchronization (~8 Hz). Positive correlation with LEFT motor imagery.
+        </p>
+      </div>
+
+      <!-- Band 2 -->
+      <div class="p-3 bg-soft-sage/30 border border-signal-coral/40 rounded-DEFAULT space-y-1">
+        <div class="flex items-center justify-between">
+          <span class="font-headline font-bold text-deep-graphite text-[13px]">Band 2: 12–40 Hz (Beta)</span>
+          <span class="font-mono text-[10px] text-signal-coral font-bold bg-warm-ivory px-1.5 py-0.5 rounded-sm border border-signal-coral/30">RIGHT PROXY</span>
+        </div>
+        <p class="text-[11px] text-deep-graphite/80 leading-relaxed">
+          Emphasizes high-frequency beta oscillations (~22 Hz). Positive correlation with RIGHT motor imagery.
+        </p>
+      </div>
+
+      <a href="../classification-lab/ClassificationLab.html" class="w-full flex items-center justify-center gap-1.5 bg-forest-green text-warm-ivory py-2.5 px-4 rounded-DEFAULT font-label text-label-md font-bold shadow-xs mt-2">
+        <span>Open Classification Lab</span>
+        <span class="material-symbols-outlined text-[16px] text-neural-teal">arrow_forward</span>
+      </a>
+    </section>
+
+  </main>
+
+  <!-- MOBILE FOOTER -->
+  <footer class="border-t border-light-outline bg-warm-ivory py-5 px-4 text-center font-mono text-[10px] text-deep-graphite/60 space-y-1">
+    <div>NeuroLink Signal Processing • SciPy filtfilt 1–40 Hz</div>
+    <div class="text-forest-green font-semibold">
+      <a href="../landing-mobile/IntroductionLandingMobile.html">Home</a>
+      <span>•</span>
+      <a href="../experiment-studio-mobile/ExperimentStudioMobile.html">Studio</a>
+      <span>•</span>
+      <a href="../learn-bci/LearnBCI.html">Docs</a>
+    </div>
+  </footer>
+
+  <!-- MOBILE STAGE SELECTOR SCRIPT -->
+  <script>
+    const mStages = {
+      1: {
+        badge: "STAGE 01",
+        freq: "fs = 256 Hz",
+        title: "Synthetic Signal Generation",
+        desc: "Generates 512 synthetic samples at 256 Hz (2.0s duration). Superimposes class-dependent sinusoidal motor rhythms with 0.3 Hz DC drift and pink noise.",
+        math: "V(t) = A·sin(2πft) + Drift + η",
+        backend: "numpy.sin + normal",
+        viz: `<svg viewBox="0 0 300 120" class="w-full h-full"><line x1="0" y1="60" x2="300" y2="60" stroke="#CCD6D0" stroke-dasharray="2 2" /><path d="M 0 60 Q 30 10, 60 70 T 120 40 T 180 80 T 240 30 T 300 65" fill="none" stroke="#D98B62" stroke-width="2" /></svg>`
+      },
+      2: {
+        badge: "STAGE 02",
+        freq: "Passband: 1–40 Hz",
+        title: "Butterworth Filtering",
+        desc: "4th-order zero-phase band-pass filtering via SciPy filtfilt. Eliminates slow baseline wander and high-frequency EMG noise without phase shift.",
+        math: "|H(jω)|² = 1 / [1 + (ω/ωc)^2n]",
+        backend: "scipy.signal.filtfilt",
+        viz: `<svg viewBox="0 0 300 120" class="w-full h-full"><line x1="0" y1="60" x2="300" y2="60" stroke="#CCD6D0" stroke-dasharray="2 2" /><path d="M 0 60 Q 25 25, 50 60 T 100 60 T 150 60 T 200 60 T 250 60 T 300 60" fill="none" stroke="#173F3A" stroke-width="2" /></svg>`
+      },
+      3: {
+        badge: "STAGE 03",
+        freq: "2 Spectral Bins",
+        title: "Feature Extraction",
+        desc: "Calculates average spectral energy across 1–12 Hz and 12–40 Hz via FFT, mapping 512 temporal samples into a 2D feature vector.",
+        math: "P_band = (1/Δf) ∫ |X(f)|² df",
+        backend: "numpy.fft.rfft",
+        viz: `<svg viewBox="0 0 300 120" class="w-full h-full"><rect x="30" y="30" width="70" height="70" fill="#79B6A5" opacity="0.4" /><rect x="110" y="55" width="150" height="45" fill="#D98B62" opacity="0.4" /><path d="M 10 100 Q 50 10, 90 90 T 160 50 T 280 100" fill="none" stroke="#173F3A" stroke-width="2" /></svg>`
+      },
+      4: {
+        badge: "STAGE 04",
+        freq: "StandardScaler",
+        title: "Logistic Regression",
+        desc: "Standardizes the 2D feature vector to zero-mean and computes posterior class probabilities using a sigmoid transfer function.",
+        math: "P(y=1|x) = 1 / (1 + e^-(w·z+b))",
+        backend: "sklearn.linear_model",
+        viz: `<svg viewBox="0 0 300 120" class="w-full h-full"><path d="M 20 100 Q 150 100, 150 60 T 280 20" fill="none" stroke="#173F3A" stroke-width="2.5" /><circle cx="150" cy="60" r="5" fill="#79B6A5" stroke="#173F3A" stroke-width="1.5" /></svg>`
+      },
+      5: {
+        badge: "STAGE 05",
+        freq: "1D Target",
+        title: "Simulated Actuator Output",
+        desc: "Maps binary classified intention into simulated physical horizontal cursor steering, demonstrating closed-loop assistive neuroprosthetics.",
+        math: "Command = sgn(P - 0.5)·Step",
+        backend: "Simulated DOM Actuator",
+        viz: `<svg viewBox="0 0 300 120" class="w-full h-full"><line x1="20" y1="60" x2="280" y2="60" stroke="#CCD6D0" stroke-width="2" /><rect x="60" y="45" width="30" height="30" fill="#173F3A" rx="4" /><text x="150" y="65" font-family="JetBrains Mono" font-size="9" text-anchor="middle" fill="#252D2B">DEFLECT: LEFT</text></svg>`
+      }
+    };
+
+    function selectMStage(num) {
+      document.querySelectorAll('.m-stage-tab').forEach((tab, idx) => {
+        if (idx + 1 === num) {
+          tab.className = "m-stage-tab shrink-0 snap-start text-left p-2.5 rounded-DEFAULT border-2 border-forest-green bg-soft-sage w-36 transition-all";
+        } else {
+          tab.className = "m-stage-tab shrink-0 snap-start text-left p-2.5 rounded-DEFAULT border border-light-outline bg-warm-ivory w-36 transition-all";
+        }
+      });
+
+      const s = mStages[num];
+      document.getElementById('m-stage-badge').innerText = s.badge;
+      document.getElementById('m-stage-freq').innerText = s.freq;
+      document.getElementById('m-stage-title').innerText = s.title;
+      document.getElementById('m-stage-desc').innerText = s.desc;
+      document.getElementById('m-stage-math').innerText = s.math;
+      document.getElementById('m-stage-backend').innerText = s.backend;
+      document.getElementById('m-stage-mini-viz').innerHTML = s.viz;
+    }
+
+    function toggleMobileMenu() {
+      const nav = document.getElementById('mobile-nav');
+      const icon = document.getElementById('menu-icon');
+      if (nav.classList.contains('hidden')) {
+        nav.classList.remove('hidden');
+        icon.innerText = 'close';
+      } else {
+        nav.classList.add('hidden');
+        icon.innerText = 'menu';
+      }
+    }
+  </script>
+
+
+
+</body></html>

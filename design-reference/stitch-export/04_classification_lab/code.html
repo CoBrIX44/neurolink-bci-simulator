@@ -1,0 +1,365 @@
+<!DOCTYPE html><html lang="en"><head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>NeuroLink — Classification Lab (Machine Learning Analysis)</title>
+  <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+  <script id="tailwind-config">/** @type {import('tailwindcss').Config} */
+globalThis.tailwind = globalThis.tailwind || {};
+globalThis.tailwind.config = {
+  darkMode: 'class',
+  theme: {
+    extend: {
+      colors: {
+        'forest-green': '#173F3A',
+        'deep-graphite': '#252D2B',
+        'neural-teal': '#79B6A5',
+        'signal-coral': '#D98B62',
+        'soft-sage': '#E5EEE7',
+        'warm-ivory': '#F4F1E9',
+        'light-primary': '#173F3A',
+        'light-on-primary': '#F4F1E9',
+        'light-surface': '#F4F1E9',
+        'light-on-surface': '#252D2B',
+        'light-surface-variant': '#E5EEE7',
+        'light-on-surface-variant': '#173F3A',
+        'light-outline': '#CCD6D0',
+      },
+      borderRadius: {
+        'sm': '2px',
+        'DEFAULT': '4px',
+        'md': '6px',
+        'lg': '8px',
+        'xl': '12px',
+        'full': '9999px',
+      },
+      spacing: {
+        'gutter-xs': '4px',
+        'gutter-sm': '8px',
+        'gutter-md': '16px',
+        'gutter-lg': '24px',
+        'gutter-xl': '32px',
+        'section': '48px',
+        'page-margin': '32px',
+      },
+      fontFamily: {
+        'display': ['"Manrope"', 'sans-serif'],
+        'headline': ['"Manrope"', 'sans-serif'],
+        'body': ['"Inter"', 'sans-serif'],
+        'label': ['"Inter"', 'sans-serif'],
+        'mono': ['"JetBrains Mono"', 'monospace'],
+      },
+      fontSize: {
+        'display-lg': ['48px', { lineHeight: '56px', letterSpacing: '-1.0px', fontWeight: '700' }],
+        'display-lg-mobile': ['32px', { lineHeight: '40px', letterSpacing: '-0.5px', fontWeight: '700' }],
+        'headline-xl': ['36px', { lineHeight: '44px', letterSpacing: '-0.75px', fontWeight: '600' }],
+        'headline-xl-mobile': ['28px', { lineHeight: '36px', letterSpacing: '-0.5px', fontWeight: '600' }],
+        'headline-lg': ['28px', { lineHeight: '36px', letterSpacing: '-0.5px', fontWeight: '600' }],
+        'headline-lg-mobile': ['22px', { lineHeight: '30px', letterSpacing: '-0.25px', fontWeight: '600' }],
+        'headline-md': ['20px', { lineHeight: '28px', letterSpacing: '-0.25px', fontWeight: '600' }],
+        'body-lg': ['18px', { lineHeight: '28px', fontWeight: '400' }],
+        'body-md': ['15px', { lineHeight: '24px', fontWeight: '400' }],
+        'body-sm': ['13px', { lineHeight: '20px', fontWeight: '400' }],
+        'label-lg': ['14px', { lineHeight: '20px', letterSpacing: '0.1px', fontWeight: '600' }],
+        'label-sm': ['11px', { lineHeight: '16px', letterSpacing: '0.5px', fontWeight: '600' }],
+        'mono-data': ['13px', { lineHeight: '18px', fontWeight: '500' }],
+      },
+      transitionDuration: {
+        'state-change': '150ms',
+        'signal-sweep': '400ms',
+        'panel-slide': '250ms',
+      },
+      transitionDelay: {
+        'state-change': '0ms',
+        'signal-sweep': '0ms',
+        'panel-slide': '0ms',
+      },
+      transitionTimingFunction: {
+        'state-change': 'cubic-bezier(0.16, 1, 0.3, 1)',
+        'signal-sweep': 'ease-out',
+        'panel-slide': 'cubic-bezier(0.2, 0, 0, 1)',
+      },
+    },
+  },
+};
+if (typeof module !== 'undefined') module.exports = globalThis.tailwind.config;
+</script>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&amp;family=JetBrains+Mono:wght@400;500;600&amp;family=Manrope:wght@600;700;800&amp;display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=block" rel="stylesheet">
+  <style>.material-symbols-outlined { display: inline-block; width: 1em; height: 1em; line-height: 1 !important; box-sizing: content-box; overflow: hidden; white-space: nowrap; direction: ltr; vertical-align: middle; }</style>
+</head>
+<body class="bg-warm-ivory text-deep-graphite min-h-[1024px] font-body antialiased selection:bg-forest-green selection:text-warm-ivory" data-stitch-vh="min-h-[1024px]===min-h-screen">
+
+  <!-- SHARED APP HEADER -->
+  <header class="sticky top-0 z-50 bg-warm-ivory border-b border-light-outline">
+    <div class="max-w-7xl mx-auto px-6 h-16 flex items-center justify-between">
+      <div class="flex items-center gap-4">
+        <a href="../landing/IntroductionLanding.html" class="flex items-center gap-2.5">
+          <div class="w-7 h-7 rounded-sm bg-forest-green flex items-center justify-center text-warm-ivory">
+            <span class="material-symbols-outlined text-[16px]">neurology</span>
+          </div>
+          <span class="font-headline font-bold text-headline-sm text-forest-green tracking-tight">NEUROLINK</span>
+        </a>
+        <span class="text-deep-graphite/40">/</span>
+        <span class="font-mono text-mono-data text-forest-green font-semibold">CLASSIFICATION LAB</span>
+      </div>
+
+      <nav class="hidden md:flex items-center gap-7 font-label text-label-lg" aria-label="Main Navigation">
+        <a href="../landing/IntroductionLanding.html" class="text-deep-graphite/70 hover:text-forest-green transition-colors pb-1">Introduction</a>
+        <a href="../experiment-studio/ExperimentStudio.html" class="text-deep-graphite/70 hover:text-forest-green transition-colors pb-1">Experiment Studio</a>
+        <a href="../signal-processing/SignalProcessing.html" class="text-deep-graphite/70 hover:text-forest-green transition-colors pb-1">Signal Processing</a>
+        <a href="../classification-lab/ClassificationLab.html" class="text-forest-green font-semibold border-b-2 border-forest-green pb-1">Classification Lab</a>
+        <a href="../learn-bci/LearnBCI.html" class="text-deep-graphite/70 hover:text-forest-green transition-colors pb-1">Learn BCI</a>
+      </nav>
+
+      <div class="flex items-center gap-3">
+        <a href="../experiment-studio/ExperimentStudio.html" class="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-DEFAULT bg-forest-green text-warm-ivory font-label text-label-sm font-semibold hover:bg-forest-green/90 transition-colors">
+          <span>Open Studio</span>
+          <span class="material-symbols-outlined text-[15px]">arrow_forward</span>
+        </a>
+      </div>
+    </div>
+  </header>
+
+  <!-- MAIN WORKSPACE -->
+  <main class="max-w-7xl mx-auto px-6 py-10 space-y-10">
+
+    <!-- PAGE HERO & EDITORIAL STATEMENT -->
+    <div class="border-b border-light-outline pb-8">
+      <div class="inline-flex items-center gap-2 px-3 py-1 rounded-sm bg-soft-sage text-forest-green font-mono text-label-sm uppercase tracking-wider mb-4 border border-forest-green/20">
+        <span class="material-symbols-outlined text-[16px] text-neural-teal">psychology</span>
+        Machine Learning Inference Engine
+      </div>
+      <h1 class="font-headline text-display-lg text-forest-green tracking-tight mb-4">
+        Feature Space &amp; Logistic Regression Classification
+      </h1>
+      <p class="text-body-lg text-deep-graphite/80 max-w-3xl leading-relaxed">
+        Explore how two extracted frequency band powers are standardized and separated by a linear decision boundary. Transparent model scoring that distinguishes mathematical artificial class proxies from genuine human intention.
+      </p>
+    </div>
+
+    <!-- MANDATORY SCIENTIFIC TRANSPARENCY NOTICE -->
+    <div class="p-4 bg-soft-sage/40 border-l-4 border-l-forest-green border border-light-outline rounded-DEFAULT flex items-start gap-4">
+      <span class="material-symbols-outlined text-forest-green text-[22px] shrink-0 mt-0.5">verified</span>
+      <div class="text-body-sm text-deep-graphite/85 leading-relaxed">
+        <strong class="font-headline text-forest-green block mb-0.5">Critical Scientific Definition of Model Scores:</strong>
+        The percentages shown below are model-generated softmax probabilities computed from synthetic features. They represent how closely the artificial mathematical signal aligns with the training proxy, <strong>never human thought certainty, cognitive effort, or real clinical intention</strong>.
+      </div>
+    </div>
+
+    <!-- 2-COLUMN WORKBENCH: VISUAL COMPARISON & PREDICTED SCORES -->
+    <div class="grid grid-cols-1 lg:grid-cols-12 gap-8 items-start">
+
+      <!-- LEFT: 2D FEATURE SPACE SCATTER & DECISION BOUNDARY (7 cols) -->
+      <section class="lg:col-span-7 bg-warm-ivory border border-light-outline rounded-DEFAULT p-6 shadow-sm space-y-5">
+        <div class="flex items-center justify-between border-b border-light-outline/70 pb-3">
+          <div>
+            <span class="font-mono text-mono-data text-neural-teal uppercase tracking-wider block">FEATURE SPACE PROJECTION</span>
+            <h2 class="font-headline text-headline-md font-bold text-forest-green">
+              2D Spectral Power Decision Boundary
+            </h2>
+          </div>
+          <span class="font-mono text-[11px] text-deep-graphite/60 bg-soft-sage px-2 py-1 rounded-sm border border-light-outline">
+            Scikit-Learn LogisticRegression
+          </span>
+        </div>
+
+        <p class="text-body-sm text-deep-graphite/80 leading-relaxed">
+          The two axes correspond to normalized mean spectral power features. The dashed diagonal line marks the linear hyperplane separating artificial class regions.
+        </p>
+
+        <!-- Interactive SVG 2D Scatterplot -->
+        <div class="relative w-full aspect-16/10 bg-warm-ivory border border-light-outline rounded-DEFAULT p-2 overflow-hidden shadow-inner">
+          <svg viewBox="0 0 500 320" class="w-full h-full select-none font-mono text-[10px]">
+            <!-- Axis lines -->
+            <line x1="50" y1="280" x2="480" y2="280" stroke="#CCD6D0" stroke-width="1.5"></line>
+            <line x1="50" y1="20" x2="50" y2="280" stroke="#CCD6D0" stroke-width="1.5"></line>
+
+            <!-- Axis Labels -->
+            <text x="265" y="310" text-anchor="middle" fill="#173F3A" font-weight="600">Feature 1: 1–12 Hz Power (Mu Band) →</text>
+            <text x="18" y="150" text-anchor="middle" fill="#D98B62" font-weight="600" transform="rotate(-90 18 150)">Feature 2: 12–40 Hz Power (Beta) →</text>
+
+            <!-- Grid markings -->
+            <line x1="50" y1="200" x2="480" y2="200" stroke="#E5EEE7" stroke-width="1" stroke-dasharray="2 2"></line>
+            <line x1="50" y1="120" x2="480" y2="120" stroke="#E5EEE7" stroke-width="1" stroke-dasharray="2 2"></line>
+            <line x1="190" y1="20" x2="190" y2="280" stroke="#E5EEE7" stroke-width="1" stroke-dasharray="2 2"></line>
+            <line x1="330" y1="20" x2="330" y2="280" stroke="#E5EEE7" stroke-width="1" stroke-dasharray="2 2"></line>
+
+            <!-- Decision Boundary Line: w1*x1 + w2*x2 + b = 0 -->
+            <line x1="80" y1="40" x2="440" y2="260" stroke="#173F3A" stroke-width="2" stroke-dasharray="6 4"></line>
+            <text x="360" y="225" fill="#173F3A" font-size="9" transform="rotate(31 360 225)">Hyperplane P = 0.50</text>
+
+            <!-- LEFT Cluster Points (High F1, Low F2) -->
+            <g fill="#173F3A" opacity="0.6">
+              <circle cx="360" cy="240" r="4"></circle>
+              <circle cx="380" cy="225" r="4"></circle>
+              <circle cx="410" cy="250" r="4"></circle>
+              <circle cx="340" cy="235" r="4"></circle>
+              <circle cx="395" cy="260" r="4"></circle>
+              <circle cx="370" cy="210" r="4"></circle>
+              <circle cx="430" cy="230" r="4"></circle>
+              <circle cx="350" cy="255" r="4"></circle>
+            </g>
+
+            <!-- RIGHT Cluster Points (Low F1, High F2) -->
+            <g fill="#D98B62" opacity="0.6">
+              <circle cx="100" cy="80" r="4"></circle>
+              <circle cx="130" cy="65" r="4"></circle>
+              <circle cx="115" cy="110" r="4"></circle>
+              <circle cx="150" cy="90" r="4"></circle>
+              <circle cx="90" cy="95" r="4"></circle>
+              <circle cx="140" cy="120" r="4"></circle>
+              <circle cx="165" cy="75" r="4"></circle>
+              <circle cx="120" cy="140" r="4"></circle>
+            </g>
+
+            <!-- Current Active Test Specimen -->
+            <g id="active-specimen-dot">
+              <circle cx="375" cy="235" r="7" fill="#79B6A5" stroke="#173F3A" stroke-width="2"></circle>
+              <circle cx="375" cy="235" r="14" fill="none" stroke="#79B6A5" stroke-width="1.5" opacity="0.7">
+                <animate attributeName="r" values="7;18;7" dur="2.5s" repeatCount="indefinite"></animate>
+              </circle>
+              <text x="375" y="215" text-anchor="middle" fill="#173F3A" font-weight="700">CURRENT SIMULATION</text>
+            </g>
+
+            <!-- Legend inside chart -->
+            <rect x="270" y="25" width="200" height="45" fill="#F4F1E9" stroke="#CCD6D0" rx="2"></rect>
+            <circle cx="285" cy="40" r="3.5" fill="#173F3A"></circle>
+            <text x="295" y="43" fill="#252D2B" font-size="9">Class LEFT (Mu dominant)</text>
+            <circle cx="285" cy="57" r="3.5" fill="#D98B62"></circle>
+            <text x="295" y="60" fill="#252D2B" font-size="9">Class RIGHT (Beta dominant)</text>
+          </svg>
+        </div>
+
+        <div class="grid grid-cols-2 gap-4 pt-2 text-mono-data font-mono text-[12px]">
+          <div class="p-3 bg-soft-sage/30 border border-light-outline rounded-sm">
+            <span class="text-deep-graphite/50 block text-[10px]">WEIGHT VECTOR (w)</span>
+            <span class="text-forest-green font-bold">[+1.84, -1.92]</span>
+          </div>
+          <div class="p-3 bg-soft-sage/30 border border-light-outline rounded-sm">
+            <span class="text-deep-graphite/50 block text-[10px]">INTERCEPT (b)</span>
+            <span class="text-forest-green font-bold">-0.04 au</span>
+          </div>
+        </div>
+      </section>
+
+      <!-- RIGHT: MODEL OUTPUT SCORES & FEATURE BREAKDOWN (5 cols) -->
+      <section class="lg:col-span-5 space-y-6">
+
+        <!-- PREDICTION VERDICT CARD -->
+        <article class="bg-warm-ivory border border-light-outline rounded-DEFAULT p-6 shadow-sm">
+          <span class="font-mono text-[10px] text-deep-graphite/60 uppercase tracking-wider block mb-1">
+            Model Inference Decision
+          </span>
+          <div class="flex items-baseline justify-between border-b border-light-outline/70 pb-4 mb-4">
+            <div>
+              <span class="font-headline text-display-lg text-forest-green font-extrabold tracking-tight block">
+                LEFT
+              </span>
+              <span class="font-mono text-[12px] text-neural-teal font-semibold">
+                Class 0 / ~8 Hz Oscillation Emphasis
+              </span>
+            </div>
+            <span class="font-mono text-label-lg font-bold bg-soft-sage text-forest-green px-3 py-1 rounded-sm border border-forest-green/20">
+              P = 0.914
+            </span>
+          </div>
+
+          <!-- Model Output Softmax Bars -->
+          <div class="space-y-4">
+            <div>
+              <div class="flex justify-between font-mono text-[12px] mb-1">
+                <span class="text-forest-green font-bold">LEFT Probability:</span>
+                <span class="text-forest-green font-bold tabular-nums">91.4%</span>
+              </div>
+              <div class="h-2.5 w-full bg-light-outline/40 rounded-full overflow-hidden">
+                <div class="h-full bg-forest-green" style="width: 91.4%;"></div>
+              </div>
+            </div>
+
+            <div>
+              <div class="flex justify-between font-mono text-[12px] mb-1">
+                <span class="text-signal-coral font-bold">RIGHT Probability:</span>
+                <span class="text-deep-graphite/70 font-bold tabular-nums">8.6%</span>
+              </div>
+              <div class="h-2.5 w-full bg-light-outline/40 rounded-full overflow-hidden">
+                <div class="h-full bg-signal-coral" style="width: 8.6%;"></div>
+              </div>
+            </div>
+          </div>
+        </article>
+
+        <!-- SYNTHETIC FEATURES VS MODEL OUTPUT COMPARISON -->
+        <article class="bg-warm-ivory border border-light-outline rounded-DEFAULT p-6 shadow-sm space-y-4">
+          <div class="border-b border-light-outline/70 pb-3">
+            <h3 class="font-headline text-headline-sm font-bold text-forest-green">
+              Raw Spectral Measurements vs Model Outputs
+            </h3>
+            <p class="text-[12px] text-deep-graphite/70 mt-0.5">
+              Clear distinction between measured synthetic physical attributes and model inferences.
+            </p>
+          </div>
+
+          <!-- Table of Measured vs Output -->
+          <table class="w-full text-left font-mono text-[12px]">
+            <thead>
+              <tr class="border-b border-light-outline text-[11px] text-deep-graphite/50">
+                <th class="pb-2 font-normal">DIMENSION</th>
+                <th class="pb-2 font-normal">MEASURED VALUE</th>
+                <th class="pb-2 font-normal">ROLE</th>
+              </tr>
+            </thead>
+            <tbody class="divide-y divide-light-outline/50">
+              <tr>
+                <td class="py-2.5 text-forest-green font-semibold">1–12 Hz Power</td>
+                <td class="py-2.5 tabular-nums">48.3 µV²/Hz</td>
+                <td class="py-2.5 text-deep-graphite/70">Measured Feature</td>
+              </tr>
+              <tr>
+                <td class="py-2.5 text-signal-coral font-semibold">12–40 Hz Power</td>
+                <td class="py-2.5 tabular-nums">7.1 µV²/Hz</td>
+                <td class="py-2.5 text-deep-graphite/70">Measured Feature</td>
+              </tr>
+              <tr>
+                <td class="py-2.5 text-deep-graphite font-semibold">Z-Score 1</td>
+                <td class="py-2.5 tabular-nums">+1.42 σ</td>
+                <td class="py-2.5 text-deep-graphite/70">Standardized</td>
+              </tr>
+              <tr>
+                <td class="py-2.5 text-deep-graphite font-semibold">Z-Score 2</td>
+                <td class="py-2.5 tabular-nums">-1.18 σ</td>
+                <td class="py-2.5 text-deep-graphite/70">Standardized</td>
+              </tr>
+              <tr class="bg-soft-sage/40">
+                <td class="py-2.5 pl-2 font-bold text-forest-green">Model Score</td>
+                <td class="py-2.5 font-bold text-forest-green tabular-nums">0.914</td>
+                <td class="py-2.5 pr-2 font-bold text-forest-green">Model Prediction</td>
+              </tr>
+            </tbody>
+          </table>
+        </article>
+
+        <!-- CTA TO STUDIO -->
+        <a href="../experiment-studio/ExperimentStudio.html" class="w-full flex items-center justify-center gap-2 bg-forest-green text-warm-ivory py-3.5 px-4 rounded-DEFAULT font-label text-label-lg font-bold hover:bg-forest-green/90 transition-colors shadow-sm">
+          <span class="material-symbols-outlined text-[18px] text-neural-teal">science</span>
+          <span>Test Different Seeds in Experiment Studio</span>
+        </a>
+      </section>
+    </div>
+  </main>
+
+  <!-- COMPACT LAB FOOTER -->
+  <footer class="border-t border-light-outline bg-warm-ivory py-8 px-6 mt-16 text-body-sm text-deep-graphite/70">
+    <div class="max-w-7xl mx-auto flex flex-col md:flex-row items-center justify-between gap-4 font-mono text-[12px]">
+      <div>NeuroLink Classification Engine • Scikit-Learn Logistic Regression</div>
+      <div class="flex items-center gap-6">
+        <a href="../experiment-studio/ExperimentStudio.html" class="hover:text-forest-green">Experiment Studio</a>
+        <a href="../learn-bci/LearnBCI.html" class="hover:text-forest-green">Learn BCI Curriculum</a>
+      </div>
+    </div>
+  </footer>
+
+
+
+</body></html>

@@ -1,0 +1,741 @@
+<!DOCTYPE html><html lang="en"><head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>NeuroLink — Experiment Studio (Scientific BCI Workspace)</title>
+  <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+  <script id="tailwind-config">/** @type {import('tailwindcss').Config} */
+globalThis.tailwind = globalThis.tailwind || {};
+globalThis.tailwind.config = {
+  darkMode: 'class',
+  theme: {
+    extend: {
+      colors: {
+        'forest-green': '#173F3A',
+        'deep-graphite': '#252D2B',
+        'neural-teal': '#79B6A5',
+        'signal-coral': '#D98B62',
+        'soft-sage': '#E5EEE7',
+        'warm-ivory': '#F4F1E9',
+        'light-primary': '#173F3A',
+        'light-on-primary': '#F4F1E9',
+        'light-surface': '#F4F1E9',
+        'light-on-surface': '#252D2B',
+        'light-surface-variant': '#E5EEE7',
+        'light-on-surface-variant': '#173F3A',
+        'light-outline': '#CCD6D0',
+      },
+      borderRadius: {
+        'sm': '2px',
+        'DEFAULT': '4px',
+        'md': '6px',
+        'lg': '8px',
+        'xl': '12px',
+        'full': '9999px',
+      },
+      spacing: {
+        'gutter-xs': '4px',
+        'gutter-sm': '8px',
+        'gutter-md': '16px',
+        'gutter-lg': '24px',
+        'gutter-xl': '32px',
+        'section': '48px',
+        'page-margin': '32px',
+      },
+      fontFamily: {
+        'display': ['"Manrope"', 'sans-serif'],
+        'headline': ['"Manrope"', 'sans-serif'],
+        'body': ['"Inter"', 'sans-serif'],
+        'label': ['"Inter"', 'sans-serif'],
+        'mono': ['"JetBrains Mono"', 'monospace'],
+      },
+      fontSize: {
+        'display-lg': ['48px', { lineHeight: '56px', letterSpacing: '-1.0px', fontWeight: '700' }],
+        'display-lg-mobile': ['32px', { lineHeight: '40px', letterSpacing: '-0.5px', fontWeight: '700' }],
+        'headline-xl': ['36px', { lineHeight: '44px', letterSpacing: '-0.75px', fontWeight: '600' }],
+        'headline-xl-mobile': ['28px', { lineHeight: '36px', letterSpacing: '-0.5px', fontWeight: '600' }],
+        'headline-lg': ['28px', { lineHeight: '36px', letterSpacing: '-0.5px', fontWeight: '600' }],
+        'headline-lg-mobile': ['22px', { lineHeight: '30px', letterSpacing: '-0.25px', fontWeight: '600' }],
+        'headline-md': ['20px', { lineHeight: '28px', letterSpacing: '-0.25px', fontWeight: '600' }],
+        'body-lg': ['18px', { lineHeight: '28px', fontWeight: '400' }],
+        'body-md': ['15px', { lineHeight: '24px', fontWeight: '400' }],
+        'body-sm': ['13px', { lineHeight: '20px', fontWeight: '400' }],
+        'label-lg': ['14px', { lineHeight: '20px', letterSpacing: '0.1px', fontWeight: '600' }],
+        'label-sm': ['11px', { lineHeight: '16px', letterSpacing: '0.5px', fontWeight: '600' }],
+        'mono-data': ['13px', { lineHeight: '18px', fontWeight: '500' }],
+      },
+      transitionDuration: {
+        'state-change': '150ms',
+        'signal-sweep': '400ms',
+        'panel-slide': '250ms',
+      },
+      transitionDelay: {
+        'state-change': '0ms',
+        'signal-sweep': '0ms',
+        'panel-slide': '0ms',
+      },
+      transitionTimingFunction: {
+        'state-change': 'cubic-bezier(0.16, 1, 0.3, 1)',
+        'signal-sweep': 'ease-out',
+        'panel-slide': 'cubic-bezier(0.2, 0, 0, 1)',
+      },
+    },
+  },
+};
+if (typeof module !== 'undefined') module.exports = globalThis.tailwind.config;
+</script>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&amp;family=JetBrains+Mono:wght@400;500;600&amp;family=Manrope:wght@600;700;800&amp;display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=block" rel="stylesheet">
+  <style>
+    .material-symbols-outlined { display: inline-block; width: 1em; height: 1em; line-height: 1 !important; box-sizing: content-box; overflow: hidden; white-space: nowrap; direction: ltr; vertical-align: middle; }
+    /* Interactive cursor deflection smooth animation */
+    .cursor-marker {
+      transition: transform 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+    }
+  </style>
+</head>
+<body class="bg-warm-ivory text-deep-graphite min-h-[1024px] font-body antialiased selection:bg-forest-green selection:text-warm-ivory flex flex-col" data-stitch-vh="min-h-[1024px]===min-h-screen">
+
+  <!-- TOP COMPACT NAVIGATION -->
+  <header class="sticky top-0 z-50 bg-warm-ivory border-b border-light-outline">
+    <div class="max-w-7xl mx-auto px-6 h-16 flex items-center justify-between">
+      <div class="flex items-center gap-4">
+        <a href="../landing/IntroductionLanding.html" class="flex items-center gap-2.5">
+          <div class="w-7 h-7 rounded-sm bg-forest-green flex items-center justify-center text-warm-ivory">
+            <span class="material-symbols-outlined text-[16px]">neurology</span>
+          </div>
+          <span class="font-headline font-bold text-headline-sm text-forest-green tracking-tight">NEUROLINK</span>
+        </a>
+        <span class="text-deep-graphite/40">/</span>
+        <span class="font-mono text-mono-data text-forest-green font-semibold">EXPERIMENT STUDIO</span>
+      </div>
+
+      <!-- MAIN APP NAV -->
+      <nav class="hidden md:flex items-center gap-7 font-label text-label-lg" aria-label="Main Navigation">
+        <a href="../landing/IntroductionLanding.html" class="text-deep-graphite/70 hover:text-forest-green transition-colors pb-1">Introduction</a>
+        <a href="../experiment-studio/ExperimentStudio.html" class="text-forest-green font-semibold border-b-2 border-forest-green pb-1">Experiment Studio</a>
+        <a href="../signal-processing/SignalProcessing.html" class="text-deep-graphite/70 hover:text-forest-green transition-colors pb-1">Signal Processing</a>
+        <a href="../classification-lab/ClassificationLab.html" class="text-deep-graphite/70 hover:text-forest-green transition-colors pb-1">Classification Lab</a>
+        <a href="../learn-bci/LearnBCI.html" class="text-deep-graphite/70 hover:text-forest-green transition-colors pb-1">Learn BCI</a>
+      </nav>
+
+      <div class="flex items-center gap-3">
+        <div class="flex items-center gap-2 px-2.5 py-1 rounded-sm bg-soft-sage font-mono text-[11px] text-forest-green border border-forest-green/20">
+          <span class="w-2 h-2 rounded-full bg-forest-green" id="engine-status-dot"></span>
+          <span id="engine-status-text">SYNTHETIC RUNNER READY</span>
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <!-- WORKSPACE BODY (3-PANEL SCIENTIFIC LAYOUT) -->
+  <main class="flex-1 max-w-7xl w-full mx-auto p-6 flex flex-col gap-6">
+
+    <!-- TOP WORKBENCH STATUS BAR -->
+    <div class="bg-soft-sage/40 border border-light-outline rounded-DEFAULT px-5 py-3 flex flex-wrap items-center justify-between gap-4 font-mono text-mono-data">
+      <div class="flex items-center gap-6">
+        <span class="inline-flex items-center gap-1.5 text-deep-graphite/70">
+          <span class="text-[11px] uppercase tracking-wider text-deep-graphite/50 font-sans">Sampling:</span>
+          <strong class="text-forest-green font-bold tabular-nums">256 Hz</strong>
+        </span>
+        <span class="inline-flex items-center gap-1.5 text-deep-graphite/70">
+          <span class="text-[11px] uppercase tracking-wider text-deep-graphite/50 font-sans">Epoch Window:</span>
+          <strong class="text-forest-green font-bold tabular-nums">2.00 s (512 samples)</strong>
+        </span>
+        <span class="inline-flex items-center gap-1.5 text-deep-graphite/70">
+          <span class="text-[11px] uppercase tracking-wider text-deep-graphite/50 font-sans">Filter Passband:</span>
+          <strong class="text-neural-teal font-bold tabular-nums">1.0 – 40.0 Hz</strong>
+        </span>
+      </div>
+
+      <div class="flex items-center gap-3">
+        <span class="text-[11px] text-deep-graphite/60 font-sans italic">Synthesized via NumPy &amp; SciPy filtfilt</span>
+      </div>
+    </div>
+
+    <!-- MAIN 3-COLUMN BENCH GRID -->
+    <div class="grid grid-cols-1 lg:grid-cols-12 gap-6 items-start">
+
+      <!-- LEFT PANEL: EXPERIMENT CONTROLS (3 cols) -->
+      <aside class="lg:col-span-3 bg-warm-ivory border border-light-outline rounded-DEFAULT p-5 space-y-6 shadow-sm" aria-label="Experiment Configuration">
+        <div class="border-b border-light-outline/70 pb-3 flex items-center justify-between">
+          <h2 class="font-headline text-headline-sm font-bold text-forest-green uppercase tracking-tight flex items-center gap-2">
+            <span class="material-symbols-outlined text-[18px]">tune</span>
+            Configuration
+          </h2>
+          <span class="font-mono text-[11px] text-deep-graphite/50">INPUT MATRIX</span>
+        </div>
+
+        <!-- 1. Class Selector -->
+        <div>
+          <label class="block font-label text-label-sm uppercase tracking-wider text-deep-graphite/70 mb-2 font-semibold">
+            Artificial Signal Class
+          </label>
+          <div class="grid grid-cols-2 gap-2" role="radiogroup" aria-label="Artificial signal class">
+            <button type="button" id="btn-class-left" onclick="selectClass(&#39;LEFT&#39;)" class="flex flex-col items-center justify-center p-3 rounded-DEFAULT border-2 border-forest-green bg-soft-sage text-forest-green font-label font-bold text-label-lg transition-all cursor-pointer shadow-xs">
+              <span class="material-symbols-outlined text-[20px] text-forest-green mb-1">arrow_back</span>
+              <span>LEFT</span>
+              <span class="font-mono text-[10px] text-forest-green/70 font-normal">~8 Hz Focus</span>
+            </button>
+
+            <button type="button" id="btn-class-right" onclick="selectClass(&#39;RIGHT&#39;)" class="flex flex-col items-center justify-center p-3 rounded-DEFAULT border border-light-outline bg-warm-ivory text-deep-graphite/70 hover:border-forest-green font-label font-bold text-label-lg transition-all cursor-pointer">
+              <span class="material-symbols-outlined text-[20px] text-signal-coral mb-1">arrow_forward</span>
+              <span>RIGHT</span>
+              <span class="font-mono text-[10px] text-deep-graphite/50 font-normal">~22 Hz Focus</span>
+            </button>
+          </div>
+          <p class="text-[11px] text-deep-graphite/60 mt-2 leading-tight">
+            Selects target motor imagery frequency proxy injected into synthetic trace.
+          </p>
+        </div>
+
+        <!-- 2. Seed Input -->
+        <div>
+          <div class="flex items-center justify-between mb-2">
+            <label for="seed-input" class="font-label text-label-sm uppercase tracking-wider text-deep-graphite/70 font-semibold">
+              Random Seed
+            </label>
+            <button type="button" onclick="randomizeSeed()" class="text-forest-green hover:underline font-mono text-[11px] inline-flex items-center gap-1 cursor-pointer">
+              <span class="material-symbols-outlined text-[13px]">shuffle</span> Random
+            </button>
+          </div>
+          <div class="relative">
+            <input type="number" id="seed-input" value="42" min="0" max="9999" class="w-full font-mono text-mono-data bg-soft-sage/30 border border-light-outline rounded-DEFAULT px-3 py-2 text-forest-green focus:border-forest-green focus:ring-1 focus:ring-forest-green">
+            <span class="absolute right-3 top-2.5 font-mono text-[11px] text-deep-graphite/40">uint32</span>
+          </div>
+          <p class="text-[11px] text-deep-graphite/60 mt-1 leading-tight">
+            Guarantees deterministic, reproducible NumPy signal generation.
+          </p>
+        </div>
+
+        <!-- 3. Primary Action Trigger -->
+        <div class="pt-2">
+          <button type="button" id="run-simulation-btn" onclick="runSimulation()" class="w-full bg-forest-green hover:bg-forest-green/90 text-warm-ivory font-label text-label-lg font-bold py-3 px-4 rounded-DEFAULT flex items-center justify-center gap-2.5 transition-all shadow-sm cursor-pointer">
+            <span class="material-symbols-outlined text-neural-teal text-[18px]">play_circle</span>
+            <span id="btn-text">Generate &amp; Process</span>
+          </button>
+        </div>
+
+        <!-- 4. Interactive Cursor Simulation Toggle -->
+        <div class="pt-4 border-t border-light-outline/70">
+          <div class="flex items-center justify-between">
+            <span class="font-label text-label-sm font-semibold text-deep-graphite">Simulated Cursor Deflection</span>
+            <label class="relative inline-flex items-center cursor-pointer">
+              <input type="checkbox" id="cursor-toggle" checked onchange="toggleCursorDeflection()" class="sr-only peer">
+              <div class="w-9 h-5 bg-light-outline peer-focus:outline-none rounded-full peer peer-checked:after:translate-x-full peer-checked:after:border-warm-ivory after:content-[&#39;&#39;] after:absolute after:top-[2px] after:left-[2px] after:bg-warm-ivory after:border-light-outline after:border after:rounded-full after:h-4 after:w-4 after:transition-all peer-checked:bg-forest-green"></div>
+            </label>
+          </div>
+          <p class="text-[11px] text-deep-graphite/60 mt-1">
+            Projects classified intention into physical 1D simulated kinematic cursor.
+          </p>
+        </div>
+
+        <!-- Interactive 1D Cursor Canvas Widget -->
+        <div id="cursor-track-container" class="bg-soft-sage/40 border border-light-outline rounded-DEFAULT p-3">
+          <div class="flex justify-between text-mono-data font-mono text-[10px] text-deep-graphite/60 mb-1">
+            <span>[LEFT TARGET]</span>
+            <span>NEUTRAL</span>
+            <span>[RIGHT TARGET]</span>
+          </div>
+          <div class="relative h-6 bg-warm-ivory border border-light-outline rounded-sm flex items-center px-1 overflow-hidden">
+            <!-- Center zero marker -->
+            <div class="absolute left-1/2 top-0 bottom-0 w-0.5 bg-light-outline -translate-x-1/2"></div>
+            <!-- Dynamic cursor box -->
+            <div id="simulated-cursor" class="cursor-marker absolute left-1/2 top-1 bottom-1 w-4 h-4 bg-forest-green rounded-sm -translate-x-1/2 border border-neural-teal shadow-xs flex items-center justify-center text-[10px] text-warm-ivory">
+              •
+            </div>
+          </div>
+          <div class="flex items-center justify-between font-mono text-[10px] text-deep-graphite/70 mt-1.5">
+            <span id="cursor-coord">POS: 0.00 au</span>
+            <span id="cursor-state-label" class="text-forest-green font-semibold">STATE: CENTERED</span>
+          </div>
+        </div>
+
+        <!-- Quick Tips Accordion -->
+        <div class="p-3 bg-soft-sage/20 border border-light-outline rounded-sm text-[12px] text-deep-graphite/70 leading-relaxed">
+          <strong class="text-forest-green block mb-0.5">Scientific note:</strong>
+          Signal generation uses NumPy sinusoidal superpositions mixed with Gaussian pink noise and high-amplitude baseline drift.
+        </div>
+      </aside>
+
+      <!-- CENTER PANEL: LARGE INTERACTIVE WAVEFORM CANVAS (6 cols) -->
+      <section class="lg:col-span-6 bg-warm-ivory border border-light-outline rounded-DEFAULT p-5 shadow-sm flex flex-col" aria-label="Interactive Oscilloscope Canvas">
+        <!-- Canvas Header and Controls -->
+        <div class="flex flex-wrap items-center justify-between border-b border-light-outline/70 pb-3 mb-4 gap-3">
+          <div>
+            <div class="flex items-center gap-2">
+              <span class="w-2.5 h-2.5 bg-forest-green rounded-full"></span>
+              <h2 class="font-headline text-headline-md font-bold text-forest-green">Synthetic Waveform Scope</h2>
+            </div>
+            <p class="text-mono-data font-mono text-[11px] text-deep-graphite/60 mt-0.5">
+              TIME-DOMAIN VOLTAGE TRACE // EPOCH: 0.000s → 2.000s
+            </p>
+          </div>
+
+          <!-- Trace toggles -->
+          <div class="flex items-center gap-2 font-label text-label-sm">
+            <button type="button" id="filter-toggle-btn" onclick="toggleTraceMode()" class="px-2.5 py-1 rounded-sm bg-soft-sage hover:bg-forest-green hover:text-warm-ivory text-forest-green border border-forest-green/20 font-mono text-[11px] font-semibold transition-colors cursor-pointer">
+              TRACE: DUAL OVERLAY
+            </button>
+            <button type="button" onclick="resetWaveformZoom()" title="Reset Zoom &amp; Scale" class="w-7 h-7 flex items-center justify-center rounded-sm border border-light-outline hover:border-forest-green text-deep-graphite hover:text-forest-green transition-colors cursor-pointer">
+              <span class="material-symbols-outlined text-[16px]">fit_screen</span>
+            </button>
+          </div>
+        </div>
+
+        <!-- Waveform Legend & Interactive Readout -->
+        <div class="flex flex-wrap items-center justify-between text-mono-data font-mono text-[11px] bg-soft-sage/30 px-3 py-2 rounded-sm mb-3 border border-light-outline/60">
+          <div class="flex items-center gap-5">
+            <span class="inline-flex items-center gap-1.5 text-signal-coral font-semibold">
+              <span class="w-3 h-0.5 bg-signal-coral inline-block"></span> Raw (Noisy + Drift)
+            </span>
+            <span class="inline-flex items-center gap-1.5 text-forest-green font-semibold">
+              <span class="w-3 h-0.5 bg-forest-green inline-block"></span> 1–40 Hz Filtered
+            </span>
+          </div>
+          <div class="text-deep-graphite/60" id="hover-readout">
+            CURSOR: t = 1.000s | V = 0.00 au
+          </div>
+        </div>
+
+        <!-- Oscilloscope Viewport (SVG Precision Render) -->
+        <div class="relative w-full aspect-16/10 bg-warm-ivory border border-light-outline rounded-DEFAULT overflow-hidden shadow-inner flex items-center justify-center" id="scope-container">
+          <!-- Empty State (Hidden after simulation runs) -->
+          <div id="waveform-empty-state" class="hidden absolute inset-0 flex flex-col items-center justify-center p-6 text-center bg-warm-ivory/95 z-20">
+            <div class="w-12 h-12 rounded-full bg-soft-sage flex items-center justify-center text-forest-green mb-3 border border-forest-green/20">
+              <span class="material-symbols-outlined text-[24px]">ssid_chart</span>
+            </div>
+            <h3 class="font-headline text-headline-sm font-semibold text-forest-green mb-1">Laboratory Scope Inactive</h3>
+            <p class="text-body-sm text-deep-graphite/70 max-w-sm mb-4">
+              Select an artificial signal class (LEFT or RIGHT) and click &#34;Generate &amp; Process&#34; to synthesize 512 samples.
+            </p>
+            <button type="button" onclick="runSimulation()" class="px-4 py-2 bg-forest-green text-warm-ivory rounded-DEFAULT font-label text-label-sm font-semibold hover:bg-forest-green/90 transition-colors">
+              Run Benchmark Baseline
+            </button>
+          </div>
+
+          <!-- Dynamic SVG Chart Canvas -->
+          <svg id="waveform-svg" viewBox="0 0 700 400" class="w-full h-full cursor-crosshair select-none" onmousemove="handleWaveformHover(event)" onmouseleave="clearWaveformHover()">
+            <!-- Background Instrument Grid -->
+            <defs>
+              <pattern id="grid-pattern" width="70" height="40" patternUnits="userSpaceOnUse">
+                <path d="M 70 0 L 0 0 0 40" fill="none" stroke="#E5EEE7" stroke-width="1"></path>
+                <path d="M 35 0 L 35 40 M 0 20 L 70 20" fill="none" stroke="#E5EEE7" stroke-width="0.5" stroke-dasharray="2 2"></path>
+              </pattern>
+            </defs>
+            <rect width="700" height="400" fill="url(#grid-pattern)"></rect>
+
+            <!-- Zero Voltage Horizontal Center Axis -->
+            <line x1="40" y1="200" x2="680" y2="200" stroke="#CCD6D0" stroke-width="1.5"></line>
+            <text x="15" y="204" font-family="JetBrains Mono" font-size="10" fill="#252D2B" opacity="0.6">0.0</text>
+            <text x="10" y="30" font-family="JetBrains Mono" font-size="10" fill="#252D2B" opacity="0.6">+2.5</text>
+            <text x="10" y="380" font-family="JetBrains Mono" font-size="10" fill="#252D2B" opacity="0.6">-2.5</text>
+
+            <!-- Time Axis Ticks -->
+            <g font-family="JetBrains Mono" font-size="10" fill="#252D2B" opacity="0.6" text-anchor="middle">
+              <text x="40" y="395">0.0s</text>
+              <text x="200" y="395">0.5s</text>
+              <text x="360" y="395">1.0s</text>
+              <text x="520" y="395">1.5s</text>
+              <text x="670" y="395">2.0s</text>
+            </g>
+
+            <!-- Raw Synthetic Trace Path (Coral) -->
+            <path id="raw-trace-path" d fill="none" stroke="#D98B62" stroke-width="1.5" stroke-opacity="0.85"></path>
+
+            <!-- Filtered Trace Path (Forest Green) -->
+            <path id="filtered-trace-path" d fill="none" stroke="#173F3A" stroke-width="2.5" stroke-linejoin="round"></path>
+
+            <!-- Hover Vertical Reticle Marker -->
+            <line id="reticle-line" x1="0" y1="20" x2="0" y2="380" stroke="#79B6A5" stroke-width="1" stroke-dasharray="3 3" opacity="0"></line>
+            <circle id="reticle-dot" cx="0" cy="0" r="4" fill="#173F3A" stroke="#79B6A5" stroke-width="2" opacity="0"></circle>
+          </svg>
+        </div>
+
+        <!-- Oscilloscope Footer Data Details -->
+        <div class="mt-4 pt-3 border-t border-light-outline/70 grid grid-cols-2 md:grid-cols-4 gap-4 text-mono-data font-mono text-[11px]">
+          <div>
+            <span class="text-deep-graphite/50 block text-[10px]">PEAK-TO-PEAK</span>
+            <span id="metric-vpp" class="text-forest-green font-semibold">3.84 au</span>
+          </div>
+          <div>
+            <span class="text-deep-graphite/50 block text-[10px]">RMS VOLTAGE</span>
+            <span id="metric-rms" class="text-forest-green font-semibold">0.91 au</span>
+          </div>
+          <div>
+            <span class="text-deep-graphite/50 block text-[10px]">SIGNAL NOISE RATIO</span>
+            <span id="metric-snr" class="text-forest-green font-semibold">+14.2 dB</span>
+          </div>
+          <div>
+            <span class="text-deep-graphite/50 block text-[10px]">DRIFT ATTENUATION</span>
+            <span id="metric-drift" class="text-neural-teal font-semibold">-28.6 dB</span>
+          </div>
+        </div>
+      </section>
+
+      <!-- RIGHT PANEL: ANALYSIS SUMMARY & CLASSIFIER (3 cols) -->
+      <aside class="lg:col-span-3 bg-warm-ivory border border-light-outline rounded-DEFAULT p-5 space-y-6 shadow-sm" aria-label="Analysis Summary">
+        <div class="border-b border-light-outline/70 pb-3 flex items-center justify-between">
+          <h2 class="font-headline text-headline-sm font-bold text-forest-green uppercase tracking-tight flex items-center gap-2">
+            <span class="material-symbols-outlined text-[18px]">insights</span>
+            Analysis
+          </h2>
+          <span class="font-mono text-[11px] text-deep-graphite/50">OUTPUT STAGE</span>
+        </div>
+
+        <!-- Predicted Artificial Class Card -->
+        <div class="bg-soft-sage/40 border border-forest-green/30 rounded-DEFAULT p-4">
+          <span class="font-mono text-[10px] text-deep-graphite/60 uppercase tracking-wider block mb-1">
+            Predicted Artificial Class
+          </span>
+          <div class="flex items-baseline justify-between">
+            <span id="pred-class-display" class="font-headline text-display-lg text-forest-green font-extrabold tracking-tight">
+              LEFT
+            </span>
+            <span id="pred-confidence-badge" class="font-mono text-[12px] bg-forest-green text-warm-ivory px-2 py-0.5 rounded-sm font-semibold">
+              SCORE: 0.91
+            </span>
+          </div>
+          <p class="text-[11px] text-deep-graphite/60 mt-1 italic">
+            Artificial proxy classification. Not human intention confidence.
+          </p>
+        </div>
+
+        <!-- Logistic Regression Output Scores -->
+        <div>
+          <h3 class="font-label text-label-sm uppercase tracking-wider text-deep-graphite/70 font-semibold mb-3">
+            Model Output Scores (Softmax)
+          </h3>
+          <div class="space-y-3 font-mono text-[12px]">
+            <div>
+              <div class="flex justify-between mb-1">
+                <span class="text-forest-green font-semibold">LEFT (~8 Hz Proxy)</span>
+                <span id="score-left" class="text-forest-green font-bold">91.4%</span>
+              </div>
+              <div class="h-2 w-full bg-light-outline/40 rounded-full overflow-hidden">
+                <div id="bar-left" class="h-full bg-forest-green transition-all duration-signal-sweep" style="width: 91.4%;"></div>
+              </div>
+            </div>
+
+            <div>
+              <div class="flex justify-between mb-1">
+                <span class="text-signal-coral font-semibold">RIGHT (~22 Hz Proxy)</span>
+                <span id="score-right" class="text-deep-graphite/70 font-bold">8.6%</span>
+              </div>
+              <div class="h-2 w-full bg-light-outline/40 rounded-full overflow-hidden">
+                <div id="bar-right" class="h-full bg-signal-coral transition-all duration-signal-sweep" style="width: 8.6%;"></div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Extracted Spectral Power Features -->
+        <div class="pt-4 border-t border-light-outline/70">
+          <h3 class="font-label text-label-sm uppercase tracking-wider text-deep-graphite/70 font-semibold mb-3">
+            Extracted Spectral Features
+          </h3>
+          <div class="space-y-2.5 font-mono text-mono-data">
+            <div class="p-2.5 bg-soft-sage/30 border border-light-outline rounded-sm flex items-center justify-between">
+              <div>
+                <span class="text-[10px] text-deep-graphite/50 block">BAND 01 (1–12 Hz)</span>
+                <span class="text-forest-green font-semibold">Mu Mean Power</span>
+              </div>
+              <span id="feat-mu-val" class="font-bold text-forest-green tabular-nums">48.3 µV²/Hz</span>
+            </div>
+
+            <div class="p-2.5 bg-soft-sage/30 border border-light-outline rounded-sm flex items-center justify-between">
+              <div>
+                <span class="text-[10px] text-deep-graphite/50 block">BAND 02 (12–40 Hz)</span>
+                <span class="text-signal-coral font-semibold">Beta Mean Power</span>
+              </div>
+              <span id="feat-beta-val" class="font-bold text-signal-coral tabular-nums">7.1 µV²/Hz</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- Pipeline Navigation Links -->
+        <div class="pt-4 border-t border-light-outline/70 space-y-2">
+          <a href="../signal-processing/SignalProcessing.html" class="w-full flex items-center justify-between p-2.5 rounded-DEFAULT border border-light-outline hover:border-forest-green text-forest-green font-label text-label-sm font-semibold transition-colors">
+            <span>Inspect Filter Pipeline</span>
+            <span class="material-symbols-outlined text-[16px]">arrow_forward</span>
+          </a>
+          <a href="../classification-lab/ClassificationLab.html" class="w-full flex items-center justify-between p-2.5 rounded-DEFAULT border border-light-outline hover:border-forest-green text-forest-green font-label text-label-sm font-semibold transition-colors">
+            <span>Open Classification Lab</span>
+            <span class="material-symbols-outlined text-[16px]">psychology</span>
+          </a>
+        </div>
+      </aside>
+    </div>
+
+    <!-- LOWER SECTION: SUPPORTING SCIENTIFIC EXPLANATIONS -->
+    <section class="mt-6 bg-soft-sage/30 border border-light-outline rounded-DEFAULT p-6" aria-label="Scientific Methodology">
+      <div class="flex items-center gap-3 mb-4">
+        <span class="material-symbols-outlined text-forest-green text-[22px]">school</span>
+        <h3 class="font-headline text-headline-sm font-bold text-forest-green">Scientific Methodology &amp; Backend Specifications</h3>
+      </div>
+      <div class="grid grid-cols-1 md:grid-cols-3 gap-6 text-body-sm text-deep-graphite/80 leading-relaxed">
+        <div>
+          <h4 class="font-headline font-semibold text-deep-graphite mb-1 flex items-center gap-1.5">
+            <span class="font-mono text-neural-teal text-[12px]">01 //</span> Synthetic Electrophysiology
+          </h4>
+          <p>
+            Signals mimic sensorimotor rhythm desynchronization (ERD/ERS). The 256 Hz time series superimposes target oscillatory sine components on low-frequency baseline drifts (0.2 Hz) and broad Gaussian noise.
+          </p>
+        </div>
+        <div>
+          <h4 class="font-headline font-semibold text-deep-graphite mb-1 flex items-center gap-1.5">
+            <span class="font-mono text-neural-teal text-[12px]">02 //</span> Zero-Phase Filtering
+          </h4>
+          <p>
+            SciPy Butterworth bandpass (1–40 Hz, 4th order) operates forward and backward (<code class="font-mono text-forest-green">filtfilt</code>). This preserves waveform peaks at their exact physiological time indices without group delay distortion.
+          </p>
+        </div>
+        <div>
+          <h4 class="font-headline font-semibold text-deep-graphite mb-1 flex items-center gap-1.5">
+            <span class="font-mono text-neural-teal text-[12px]">03 //</span> Feature Normalization
+          </h4>
+          <p>
+            Spectral powers in 1–12 Hz and 12–40 Hz bands are extracted and z-scored with <code class="font-mono text-forest-green">StandardScaler</code> before evaluation by Logistic Regression to mimic motor intention detection.
+          </p>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <!-- JAVASCRIPT: SYNTHETIC ENGINE & WAVEFORM GENERATOR -->
+  <script>
+    let currentClass = 'LEFT';
+    let currentSeed = 42;
+    let traceMode = 'DUAL'; // 'DUAL', 'RAW', 'FILTERED'
+    let sampleData = [];
+
+    // Simple pseudo-random generator based on seed
+    function pseudoRandom(seed) {
+      const x = Math.sin(seed++) * 10000;
+      return x - Math.floor(x);
+    }
+
+    function selectClass(target) {
+      currentClass = target;
+      const btnLeft = document.getElementById('btn-class-left');
+      const btnRight = document.getElementById('btn-class-right');
+
+      if (target === 'LEFT') {
+        btnLeft.className = "flex flex-col items-center justify-center p-3 rounded-DEFAULT border-2 border-forest-green bg-soft-sage text-forest-green font-label font-bold text-label-lg transition-all cursor-pointer shadow-xs";
+        btnRight.className = "flex flex-col items-center justify-center p-3 rounded-DEFAULT border border-light-outline bg-warm-ivory text-deep-graphite/70 hover:border-forest-green font-label font-bold text-label-lg transition-all cursor-pointer";
+      } else {
+        btnRight.className = "flex flex-col items-center justify-center p-3 rounded-DEFAULT border-2 border-forest-green bg-soft-sage text-forest-green font-label font-bold text-label-lg transition-all cursor-pointer shadow-xs";
+        btnLeft.className = "flex flex-col items-center justify-center p-3 rounded-DEFAULT border border-light-outline bg-warm-ivory text-deep-graphite/70 hover:border-forest-green font-label font-bold text-label-lg transition-all cursor-pointer";
+      }
+      runSimulation();
+    }
+
+    function randomizeSeed() {
+      const newSeed = Math.floor(Math.random() * 9000) + 100;
+      document.getElementById('seed-input').value = newSeed;
+      currentSeed = newSeed;
+      runSimulation();
+    }
+
+    function toggleTraceMode() {
+      const btn = document.getElementById('filter-toggle-btn');
+      const rawPath = document.getElementById('raw-trace-path');
+      const filteredPath = document.getElementById('filtered-trace-path');
+
+      if (traceMode === 'DUAL') {
+        traceMode = 'FILTERED';
+        btn.innerText = 'TRACE: FILTERED ONLY';
+        rawPath.style.display = 'none';
+        filteredPath.style.display = 'block';
+      } else if (traceMode === 'FILTERED') {
+        traceMode = 'RAW';
+        btn.innerText = 'TRACE: RAW ONLY';
+        rawPath.style.display = 'block';
+        filteredPath.style.display = 'none';
+      } else {
+        traceMode = 'DUAL';
+        btn.innerText = 'TRACE: DUAL OVERLAY';
+        rawPath.style.display = 'block';
+        filteredPath.style.display = 'block';
+      }
+    }
+
+    function resetWaveformZoom() {
+      renderWaveformSVG();
+    }
+
+    function toggleCursorDeflection() {
+      const enabled = document.getElementById('cursor-toggle').checked;
+      const track = document.getElementById('cursor-track-container');
+      track.style.opacity = enabled ? '1' : '0.4';
+    }
+
+    // Mathematical Synthetic Signal Generator
+    function generateSyntheticSignal(targetClass, seed) {
+      const samples = 512;
+      const fs = 256;
+      const duration = 2.0;
+      const dt = duration / samples;
+      let s = parseInt(seed) || 42;
+
+      const data = [];
+      const primaryFreq = (targetClass === 'LEFT') ? 8.0 : 22.0; // 8 Hz (Mu) vs 22 Hz (Beta)
+      const secondaryFreq = (targetClass === 'LEFT') ? 22.0 : 8.0;
+
+      for (let i = 0; i < samples; i++) {
+        const t = i * dt;
+        s++;
+        const noise = (pseudoRandom(s) - 0.5) * 1.4;
+        const drift = Math.sin(2 * Math.PI * 0.3 * t + (seed % 5)) * 1.6; // DC baseline fluctuation
+
+        // Primary oscillation
+        const signalComponent = Math.sin(2 * Math.PI * primaryFreq * t) * 1.2;
+        const subComponent = Math.sin(2 * Math.PI * secondaryFreq * t) * 0.25;
+
+        // Raw combines signal + noise + drift
+        const raw = signalComponent + subComponent + noise + drift;
+
+        // Simulated 1-40 Hz Butterworth filtered output (removes drift and high noise)
+        const filtered = signalComponent * 1.05 + subComponent * 0.9 + (noise * 0.18);
+
+        data.push({ t, raw, filtered });
+      }
+      return data;
+    }
+
+    function renderWaveformSVG() {
+      if (!sampleData || sampleData.length === 0) return;
+
+      const width = 640; // plotting width between x=40 and x=680
+      const height = 360; // plotting height between y=20 and y=380
+      const startX = 40;
+      const centerY = 200;
+      const scaleY = 48; // scale voltage
+
+      let rawD = '';
+      let filteredD = '';
+
+      sampleData.forEach((pt, index) => {
+        const x = startX + (index / 512) * width;
+        const rawY = centerY - (pt.raw * scaleY);
+        const filteredY = centerY - (pt.filtered * scaleY);
+
+        if (index === 0) {
+          rawD += `M ${x.toFixed(1)} ${rawY.toFixed(1)}`;
+          filteredD += `M ${x.toFixed(1)} ${filteredY.toFixed(1)}`;
+        } else {
+          rawD += ` L ${x.toFixed(1)} ${rawY.toFixed(1)}`;
+          filteredD += ` L ${x.toFixed(1)} ${filteredY.toFixed(1)}`;
+        }
+      });
+
+      document.getElementById('raw-trace-path').setAttribute('d', rawD);
+      document.getElementById('filtered-trace-path').setAttribute('d', filteredD);
+    }
+
+    function runSimulation() {
+      const seedVal = document.getElementById('seed-input').value;
+      sampleData = generateSyntheticSignal(currentClass, seedVal);
+
+      // Render waveform paths
+      renderWaveformSVG();
+
+      // Update classifier prediction displays
+      const isLeft = (currentClass === 'LEFT');
+      const leftProb = isLeft ? (0.88 + pseudoRandom(seedVal) * 0.08) : (0.05 + pseudoRandom(seedVal) * 0.08);
+      const rightProb = 1.0 - leftProb;
+
+      document.getElementById('pred-class-display').innerText = currentClass;
+      document.getElementById('pred-confidence-badge').innerText = `SCORE: ${(isLeft ? leftProb : rightProb).toFixed(2)}`;
+
+      const leftPercent = (leftProb * 100).toFixed(1);
+      const rightPercent = (rightProb * 100).toFixed(1);
+
+      document.getElementById('score-left').innerText = `${leftPercent}%`;
+      document.getElementById('bar-left').style.width = `${leftPercent}%`;
+
+      document.getElementById('score-right').innerText = `${rightPercent}%`;
+      document.getElementById('bar-right').style.width = `${rightPercent}%`;
+
+      // Features update
+      if (isLeft) {
+        document.getElementById('feat-mu-val').innerText = `${(44.2 + pseudoRandom(seedVal) * 8).toFixed(1)} µV²/Hz`;
+        document.getElementById('feat-beta-val').innerText = `${(6.4 + pseudoRandom(seedVal) * 2).toFixed(1)} µV²/Hz`;
+      } else {
+        document.getElementById('feat-mu-val').innerText = `${(7.8 + pseudoRandom(seedVal) * 2).toFixed(1)} µV²/Hz`;
+        document.getElementById('feat-beta-val').innerText = `${(41.6 + pseudoRandom(seedVal) * 9).toFixed(1)} µV²/Hz`;
+      }
+
+      // Update Cursor position
+      const cursor = document.getElementById('simulated-cursor');
+      const cursorCoord = document.getElementById('cursor-coord');
+      const cursorState = document.getElementById('cursor-state-label');
+
+      if (isLeft) {
+        cursor.style.transform = 'translateX(-80px)';
+        cursorCoord.innerText = 'POS: -0.85 au';
+        cursorState.innerText = 'STATE: DEFLECTING LEFT';
+      } else {
+        cursor.style.transform = 'translateX(80px)';
+        cursorCoord.innerText = 'POS: +0.85 au';
+        cursorState.innerText = 'STATE: DEFLECTING RIGHT';
+      }
+    }
+
+    function handleWaveformHover(event) {
+      if (!sampleData || sampleData.length === 0) return;
+      const svg = document.getElementById('waveform-svg');
+      const rect = svg.getBoundingClientRect();
+      const clientX = event.clientX - rect.left;
+      const svgX = (clientX / rect.width) * 700;
+
+      if (svgX < 40 || svgX > 680) return;
+
+      const sampleIdx = Math.min(511, Math.max(0, Math.floor(((svgX - 40) / 640) * 512)));
+      const sample = sampleData[sampleIdx];
+
+      const reticleLine = document.getElementById('reticle-line');
+      const reticleDot = document.getElementById('reticle-dot');
+      const readout = document.getElementById('hover-readout');
+
+      reticleLine.setAttribute('x1', svgX);
+      reticleLine.setAttribute('x2', svgX);
+      reticleLine.style.opacity = '1';
+
+      const dotY = 200 - (sample.filtered * 48);
+      reticleDot.setAttribute('cx', svgX);
+      reticleDot.setAttribute('cy', dotY);
+      reticleDot.style.opacity = '1';
+
+      readout.innerText = `CURSOR: t = ${sample.t.toFixed(3)}s | V = ${sample.filtered.toFixed(2)} au`;
+    }
+
+    function clearWaveformHover() {
+      document.getElementById('reticle-line').style.opacity = '0';
+      document.getElementById('reticle-dot').style.opacity = '0';
+      document.getElementById('hover-readout').innerText = 'CURSOR: t = 1.000s | V = 0.00 au';
+    }
+
+    // Initial benchmark run
+    window.addEventListener('DOMContentLoaded', () => {
+      runSimulation();
+    });
+  </script>
+
+  <!-- COMPACT LAB FOOTER -->
+  <footer class="border-t border-light-outline bg-warm-ivory py-4 px-6 text-[12px] font-mono text-deep-graphite/60 flex flex-wrap items-center justify-between gap-4">
+    <div class="flex items-center gap-3">
+      <span class="w-2 h-2 rounded-full bg-forest-green"></span>
+      <span>NeuroLink Experiment Studio v2.4</span>
+      <span>• 256 Hz • 512 Samples • Butterworth 1–40 Hz</span>
+    </div>
+    <div class="flex items-center gap-4">
+      <a href="../signal-processing/SignalProcessing.html" class="hover:text-forest-green">Pipeline Stages →</a>
+      <a href="../classification-lab/ClassificationLab.html" class="hover:text-forest-green">Classifier Lab →</a>
+    </div>
+  </footer>
+
+
+
+</body></html>

@@ -1,0 +1,368 @@
+<!DOCTYPE html><html lang="en"><head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>NeuroLink — Classification Lab (Mobile)</title>
+  <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+  <script id="tailwind-config">/** @type {import('tailwindcss').Config} */
+globalThis.tailwind = globalThis.tailwind || {};
+globalThis.tailwind.config = {
+  darkMode: 'class',
+  theme: {
+    extend: {
+      colors: {
+        'forest-green': '#173F3A',
+        'deep-graphite': '#252D2B',
+        'neural-teal': '#79B6A5',
+        'signal-coral': '#D98B62',
+        'soft-sage': '#E5EEE7',
+        'warm-ivory': '#F4F1E9',
+        'light-primary': '#173F3A',
+        'light-on-primary': '#F4F1E9',
+        'light-surface': '#F4F1E9',
+        'light-on-surface': '#252D2B',
+        'light-surface-variant': '#E5EEE7',
+        'light-on-surface-variant': '#173F3A',
+        'light-outline': '#CCD6D0',
+      },
+      borderRadius: {
+        'sm': '2px',
+        'DEFAULT': '4px',
+        'md': '6px',
+        'lg': '8px',
+        'xl': '12px',
+        'full': '9999px',
+      },
+      spacing: {
+        'gutter-xs': '4px',
+        'gutter-sm': '8px',
+        'gutter-md': '16px',
+        'gutter-lg': '24px',
+        'gutter-xl': '32px',
+        'section': '48px',
+        'page-margin': '32px',
+      },
+      fontFamily: {
+        'display': ['"Manrope"', 'sans-serif'],
+        'headline': ['"Manrope"', 'sans-serif'],
+        'body': ['"Inter"', 'sans-serif'],
+        'label': ['"Inter"', 'sans-serif'],
+        'mono': ['"JetBrains Mono"', 'monospace'],
+      },
+      fontSize: {
+        'display-lg': ['48px', { lineHeight: '56px', letterSpacing: '-1.0px', fontWeight: '700' }],
+        'display-lg-mobile': ['32px', { lineHeight: '40px', letterSpacing: '-0.5px', fontWeight: '700' }],
+        'headline-xl': ['36px', { lineHeight: '44px', letterSpacing: '-0.75px', fontWeight: '600' }],
+        'headline-xl-mobile': ['28px', { lineHeight: '36px', letterSpacing: '-0.5px', fontWeight: '600' }],
+        'headline-lg': ['28px', { lineHeight: '36px', letterSpacing: '-0.5px', fontWeight: '600' }],
+        'headline-lg-mobile': ['22px', { lineHeight: '30px', letterSpacing: '-0.25px', fontWeight: '600' }],
+        'headline-md': ['20px', { lineHeight: '28px', letterSpacing: '-0.25px', fontWeight: '600' }],
+        'body-lg': ['18px', { lineHeight: '28px', fontWeight: '400' }],
+        'body-md': ['15px', { lineHeight: '24px', fontWeight: '400' }],
+        'body-sm': ['13px', { lineHeight: '20px', fontWeight: '400' }],
+        'label-lg': ['14px', { lineHeight: '20px', letterSpacing: '0.1px', fontWeight: '600' }],
+        'label-sm': ['11px', { lineHeight: '16px', letterSpacing: '0.5px', fontWeight: '600' }],
+        'mono-data': ['13px', { lineHeight: '18px', fontWeight: '500' }],
+      },
+      transitionDuration: {
+        'state-change': '150ms',
+        'signal-sweep': '400ms',
+        'panel-slide': '250ms',
+      },
+      transitionDelay: {
+        'state-change': '0ms',
+        'signal-sweep': '0ms',
+        'panel-slide': '0ms',
+      },
+      transitionTimingFunction: {
+        'state-change': 'cubic-bezier(0.16, 1, 0.3, 1)',
+        'signal-sweep': 'ease-out',
+        'panel-slide': 'cubic-bezier(0.2, 0, 0, 1)',
+      },
+    },
+  },
+};
+if (typeof module !== 'undefined') module.exports = globalThis.tailwind.config;
+</script>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&amp;family=JetBrains+Mono:wght@400;500;600&amp;family=Manrope:wght@600;700;800&amp;display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=block" rel="stylesheet">
+  <style>.material-symbols-outlined { display: inline-block; width: 1em; height: 1em; line-height: 1 !important; box-sizing: content-box; overflow: hidden; white-space: nowrap; direction: ltr; vertical-align: middle; }</style>
+</head>
+<body class="bg-warm-ivory text-deep-graphite min-h-[884px] font-body antialiased selection:bg-forest-green selection:text-warm-ivory flex flex-col" data-stitch-vh="min-h-[884px]===min-h-screen">
+
+  <!-- MOBILE APP HEADER -->
+  <header class="sticky top-0 z-50 bg-warm-ivory border-b border-light-outline">
+    <div class="px-4 h-14 flex items-center justify-between">
+      <div class="flex items-center gap-2">
+        <a href="../landing-mobile/IntroductionLandingMobile.html" class="flex items-center gap-2">
+          <div class="w-7 h-7 rounded-sm bg-forest-green flex items-center justify-center text-warm-ivory shrink-0">
+            <span class="material-symbols-outlined text-[16px]">neurology</span>
+          </div>
+          <span class="font-headline font-bold text-label-lg tracking-tight text-forest-green">CLASSIFIER</span>
+        </a>
+        <span class="text-deep-graphite/30">/</span>
+        <span class="font-mono text-[10px] text-forest-green font-semibold">LR Model</span>
+      </div>
+
+      <div class="flex items-center gap-2">
+        <a href="../experiment-studio-mobile/ExperimentStudioMobile.html" class="px-2 py-1 rounded-sm bg-forest-green text-warm-ivory font-mono text-[10px] font-semibold flex items-center gap-1">
+          <span>Studio</span>
+          <span class="material-symbols-outlined text-[12px]">arrow_forward</span>
+        </a>
+        <button type="button" onclick="toggleMobileMenu()" aria-label="Toggle Navigation Menu" class="w-8 h-8 flex items-center justify-center rounded-DEFAULT border border-light-outline text-forest-green hover:bg-soft-sage transition-colors cursor-pointer">
+          <span class="material-symbols-outlined text-[20px]" id="menu-icon">menu</span>
+        </button>
+      </div>
+    </div>
+
+    <!-- COLLAPSIBLE MOBILE MENU -->
+    <nav id="mobile-nav" class="hidden border-t border-light-outline bg-warm-ivory px-4 py-3 space-y-2 font-label text-label-md" aria-label="Mobile Navigation">
+      <a href="../landing-mobile/IntroductionLandingMobile.html" class="flex items-center justify-between p-2 rounded-sm text-deep-graphite/80 hover:bg-soft-sage hover:text-forest-green">
+        <span>01 // Introduction</span>
+        <span class="material-symbols-outlined text-[16px]">home</span>
+      </a>
+      <a href="../experiment-studio-mobile/ExperimentStudioMobile.html" class="flex items-center justify-between p-2 rounded-sm text-deep-graphite/80 hover:bg-soft-sage hover:text-forest-green">
+        <span>02 // Experiment Studio</span>
+        <span class="material-symbols-outlined text-[16px]">science</span>
+      </a>
+      <a href="../signal-processing-mobile/SignalProcessingMobile.html" class="flex items-center justify-between p-2 rounded-sm text-deep-graphite/80 hover:bg-soft-sage hover:text-forest-green">
+        <span>03 // Signal Processing</span>
+        <span class="material-symbols-outlined text-[16px]">timeline</span>
+      </a>
+      <a href="../classification-lab/ClassificationLab.html" class="flex items-center justify-between p-2 rounded-sm bg-soft-sage text-forest-green font-semibold">
+        <span>04 // Classification Lab (Active)</span>
+        <span class="material-symbols-outlined text-[16px]">psychology</span>
+      </a>
+      <a href="../learn-bci/LearnBCI.html" class="flex items-center justify-between p-2 rounded-sm text-deep-graphite/80 hover:bg-soft-sage hover:text-forest-green">
+        <span>05 // Learn BCI</span>
+        <span class="material-symbols-outlined text-[16px]">menu_book</span>
+      </a>
+    </nav>
+  </header>
+
+  <!-- WORKSPACE CONTENT -->
+  <main class="flex-1 px-4 py-5 space-y-5">
+
+    <!-- PAGE TITLE -->
+    <section class="space-y-2 border-b border-light-outline pb-4">
+      <div class="inline-flex items-center gap-1.5 px-2.5 py-0.5 rounded-sm bg-soft-sage text-forest-green font-mono text-[10px] font-semibold border border-forest-green/20">
+        <span class="material-symbols-outlined text-[13px] text-neural-teal">psychology</span>
+        <span>Machine Learning Analysis</span>
+      </div>
+      <h1 class="font-headline text-display-lg-mobile text-forest-green font-bold tracking-tight">
+        Feature Space &amp; Model Inference
+      </h1>
+      <p class="text-body-sm text-deep-graphite/80 text-[13px] leading-relaxed">
+        How standardized 2D spectral power features are partitioned by a linear logistic regression hyperplane.
+      </p>
+    </section>
+
+    <!-- CRITICAL SCIENTIFIC TRANSPARENCY NOTICE -->
+    <div class="p-3 bg-soft-sage/40 border-l-2 border-l-forest-green border border-light-outline rounded-DEFAULT text-[11px] text-deep-graphite/85 leading-relaxed">
+      <strong class="font-headline text-forest-green block mb-0.5">Scientific Transparency:</strong>
+      Model scores below reflect artificial mathematical alignment with training proxies. They do <strong>not</strong> measure human thoughts, intentional certainty, or clinical states.
+    </div>
+
+    <!-- 1. MODEL PREDICTION SUMMARY CARD -->
+    <article class="bg-warm-ivory border border-light-outline rounded-DEFAULT p-4 shadow-xs space-y-3">
+      <div class="flex items-baseline justify-between border-b border-light-outline/70 pb-3">
+        <div>
+          <span class="font-mono text-[9px] text-deep-graphite/50 uppercase block">Inference Decision</span>
+          <span class="font-headline text-headline-xl font-extrabold text-forest-green">LEFT</span>
+          <span class="font-mono text-[10px] text-neural-teal block">Class 0 (~8 Hz Emphasis)</span>
+        </div>
+        <div class="text-right">
+          <span class="font-mono text-[12px] bg-soft-sage text-forest-green font-bold px-2 py-0.5 rounded-sm border border-forest-green/20">
+            SCORE: 0.914
+          </span>
+          <span class="font-mono text-[9px] text-deep-graphite/50 block mt-0.5">Softmax score</span>
+        </div>
+      </div>
+
+      <!-- Probability bars -->
+      <div class="space-y-2.5 font-mono text-[11px]">
+        <div>
+          <div class="flex justify-between mb-1">
+            <span class="text-forest-green font-bold">LEFT (Mu rhythm proxy):</span>
+            <span class="font-bold text-forest-green tabular-nums">91.4%</span>
+          </div>
+          <div class="h-2 w-full bg-light-outline/40 rounded-full overflow-hidden">
+            <div class="h-full bg-forest-green" style="width: 91.4%;"></div>
+          </div>
+        </div>
+
+        <div>
+          <div class="flex justify-between mb-1">
+            <span class="text-signal-coral font-bold">RIGHT (Beta rhythm proxy):</span>
+            <span class="font-bold text-deep-graphite/70 tabular-nums">8.6%</span>
+          </div>
+          <div class="h-2 w-full bg-light-outline/40 rounded-full overflow-hidden">
+            <div class="h-full bg-signal-coral" style="width: 8.6%;"></div>
+          </div>
+        </div>
+      </div>
+    </article>
+
+    <!-- 2. 2D FEATURE SCATTER & DECISION BOUNDARY (RESPONSIVE SVG) -->
+    <section class="bg-warm-ivory border border-light-outline rounded-DEFAULT p-3.5 space-y-3 shadow-xs">
+      <div class="flex items-center justify-between border-b border-light-outline/70 pb-2">
+        <div>
+          <h2 class="font-headline text-label-lg font-bold text-forest-green">
+            2D Decision Boundary
+          </h2>
+          <span class="font-mono text-[10px] text-deep-graphite/50">Feature 1 (Mu) vs Feature 2 (Beta)</span>
+        </div>
+        <span class="font-mono text-[10px] bg-soft-sage text-forest-green px-1.5 py-0.5 rounded-sm">
+          Scikit-Learn
+        </span>
+      </div>
+
+      <!-- Responsive SVG Scatter for Mobile -->
+      <div class="relative w-full aspect-4/3 bg-warm-ivory border border-light-outline rounded-DEFAULT overflow-hidden shadow-inner flex items-center justify-center">
+        <svg viewBox="0 0 320 240" class="w-full h-full font-mono text-[8px] select-none">
+          <!-- Axes -->
+          <line x1="35" y1="210" x2="305" y2="210" stroke="#CCD6D0" stroke-width="1"></line>
+          <line x1="35" y1="15" x2="35" y2="210" stroke="#CCD6D0" stroke-width="1"></line>
+
+          <!-- Axis Labels -->
+          <text x="170" y="232" text-anchor="middle" fill="#173F3A" font-weight="600">Feature 1 (1–12 Hz) →</text>
+          <text x="12" y="115" text-anchor="middle" fill="#D98B62" font-weight="600" transform="rotate(-90 12 115)">Feature 2 (12–40 Hz) →</text>
+
+          <!-- Grid ticks -->
+          <line x1="35" y1="150" x2="305" y2="150" stroke="#E5EEE7" stroke-width="0.5" stroke-dasharray="2 2"></line>
+          <line x1="35" y1="90" x2="305" y2="90" stroke="#E5EEE7" stroke-width="0.5" stroke-dasharray="2 2"></line>
+          <line x1="130" y1="15" x2="130" y2="210" stroke="#E5EEE7" stroke-width="0.5" stroke-dasharray="2 2"></line>
+          <line x1="220" y1="15" x2="220" y2="210" stroke="#E5EEE7" stroke-width="0.5" stroke-dasharray="2 2"></line>
+
+          <!-- Hyperplane (Decision Line) -->
+          <line x1="55" y1="30" x2="280" y2="195" stroke="#173F3A" stroke-width="1.5" stroke-dasharray="4 3"></line>
+          <text x="210" y="165" fill="#173F3A" font-size="7" transform="rotate(32 210 165)">Threshold P=0.5</text>
+
+          <!-- Class LEFT clusters (Mu dominant, bottom-right) -->
+          <g fill="#173F3A" opacity="0.6">
+            <circle cx="230" cy="180" r="3.5"></circle>
+            <circle cx="250" cy="170" r="3.5"></circle>
+            <circle cx="270" cy="185" r="3.5"></circle>
+            <circle cx="220" cy="175" r="3.5"></circle>
+            <circle cx="260" cy="195" r="3.5"></circle>
+            <circle cx="240" cy="160" r="3.5"></circle>
+          </g>
+
+          <!-- Class RIGHT clusters (Beta dominant, top-left) -->
+          <g fill="#D98B62" opacity="0.6">
+            <circle cx="70" cy="60" r="3.5"></circle>
+            <circle cx="90" cy="50" r="3.5"></circle>
+            <circle cx="80" cy="85" r="3.5"></circle>
+            <circle cx="105" cy="70" r="3.5"></circle>
+            <circle cx="65" cy="75" r="3.5"></circle>
+            <circle cx="95" cy="95" r="3.5"></circle>
+          </g>
+
+          <!-- Active specimen point -->
+          <circle cx="245" cy="175" r="5" fill="#79B6A5" stroke="#173F3A" stroke-width="1.5"></circle>
+          <circle cx="245" cy="175" r="10" fill="none" stroke="#79B6A5" stroke-width="1" opacity="0.8">
+            <animate attributeName="r" values="5;13;5" dur="2s" repeatCount="indefinite"></animate>
+          </circle>
+          <text x="245" y="155" text-anchor="middle" fill="#173F3A" font-weight="700">ACTIVE</text>
+        </svg>
+      </div>
+
+      <!-- Linear Model Weights strip -->
+      <div class="grid grid-cols-2 gap-2 text-mono-data font-mono text-[10px] pt-1">
+        <div class="p-2 bg-soft-sage/30 rounded-sm border border-light-outline/60">
+          <span class="text-deep-graphite/50 block text-[9px]">WEIGHTS (w)</span>
+          <span class="text-forest-green font-bold">[+1.84, -1.92]</span>
+        </div>
+        <div class="p-2 bg-soft-sage/30 rounded-sm border border-light-outline/60">
+          <span class="text-deep-graphite/50 block text-[9px]">INTERCEPT (b)</span>
+          <span class="text-forest-green font-bold">-0.04 au</span>
+        </div>
+      </div>
+    </section>
+
+    <!-- 3. MEASURED VS PREDICTED TABLE -->
+    <section class="bg-warm-ivory border border-light-outline rounded-DEFAULT p-3.5 space-y-3 shadow-xs">
+      <div class="border-b border-light-outline/70 pb-2">
+        <h3 class="font-headline text-label-md font-bold text-forest-green">
+          Measured Synthetic Values vs Model Output
+        </h3>
+        <p class="text-[11px] text-deep-graphite/60 mt-0.5">
+          Separating physical metrics from statistical predictions.
+        </p>
+      </div>
+
+      <table class="w-full text-left font-mono text-[11px]">
+        <thead>
+          <tr class="border-b border-light-outline text-[9px] text-deep-graphite/50">
+            <th class="pb-1.5 font-normal">DIMENSION</th>
+            <th class="pb-1.5 font-normal">VALUE</th>
+            <th class="pb-1.5 font-normal">NATURE</th>
+          </tr>
+        </thead>
+        <tbody class="divide-y divide-light-outline/50">
+          <tr>
+            <td class="py-2 text-forest-green font-semibold">1–12 Hz Power</td>
+            <td class="py-2 tabular-nums">48.3 µV²/Hz</td>
+            <td class="py-2 text-deep-graphite/60 text-[10px]">Measured</td>
+          </tr>
+          <tr>
+            <td class="py-2 text-signal-coral font-semibold">12–40 Hz Power</td>
+            <td class="py-2 tabular-nums">7.1 µV²/Hz</td>
+            <td class="py-2 text-deep-graphite/60 text-[10px]">Measured</td>
+          </tr>
+          <tr>
+            <td class="py-2 text-deep-graphite font-semibold">Standardized z1</td>
+            <td class="py-2 tabular-nums">+1.42 σ</td>
+            <td class="py-2 text-deep-graphite/60 text-[10px]">Normalized</td>
+          </tr>
+          <tr>
+            <td class="py-2 text-deep-graphite font-semibold">Standardized z2</td>
+            <td class="py-2 tabular-nums">-1.18 σ</td>
+            <td class="py-2 text-deep-graphite/60 text-[10px]">Normalized</td>
+          </tr>
+          <tr class="bg-soft-sage/40">
+            <td class="py-2 pl-1.5 font-bold text-forest-green">Softmax Score</td>
+            <td class="py-2 font-bold text-forest-green tabular-nums">0.914</td>
+            <td class="py-2 pr-1.5 font-bold text-forest-green text-[10px]">Prediction</td>
+          </tr>
+        </tbody>
+      </table>
+
+      <a href="../experiment-studio-mobile/ExperimentStudioMobile.html" class="w-full flex items-center justify-center gap-1.5 bg-forest-green text-warm-ivory py-2.5 px-4 rounded-DEFAULT font-label text-label-md font-bold shadow-xs mt-2">
+        <span class="material-symbols-outlined text-[16px] text-neural-teal">science</span>
+        <span>Run Seed Simulation in Studio</span>
+      </a>
+    </section>
+
+  </main>
+
+  <!-- MOBILE FOOTER -->
+  <footer class="border-t border-light-outline bg-warm-ivory py-5 px-4 text-center font-mono text-[10px] text-deep-graphite/60 space-y-1">
+    <div>NeuroLink Classifier • Scikit-Learn Logistic Regression</div>
+    <div class="text-forest-green font-semibold">
+      <a href="../landing-mobile/IntroductionLandingMobile.html">Home</a>
+      <span>•</span>
+      <a href="../experiment-studio-mobile/ExperimentStudioMobile.html">Studio</a>
+      <span>•</span>
+      <a href="../learn-bci/LearnBCI.html">Docs</a>
+    </div>
+  </footer>
+
+  <script>
+    function toggleMobileMenu() {
+      const nav = document.getElementById('mobile-nav');
+      const icon = document.getElementById('menu-icon');
+      if (nav.classList.contains('hidden')) {
+        nav.classList.remove('hidden');
+        icon.innerText = 'close';
+      } else {
+        nav.classList.add('hidden');
+        icon.innerText = 'menu';
+      }
+    }
+  </script>
+
+
+
+</body></html>
