@@ -211,59 +211,13 @@ def render_learn_bci_view() -> None:
               05 // ACADEMIC PROVENANCE
             </div>
             <h2 class="text-headline-xl" style="color: #173F3A; margin: 0 0 1rem 0;">
-              About the Project &amp; Engineering Team
+              About the Project
             </h2>
 
             <div class="neurolink-card" style="padding: 1.5rem; margin-bottom: 1.5rem;">
               <p class="text-body-md" style="color: #252D2B; line-height: 1.6; margin: 0 0 1.25rem 0;">
                 <strong>NeuroLink</strong> was developed as an experiential learning capstone project for <em>Biology for Engineers</em> (Class CE-SE-A, Team 2) to provide an open, interactive computational laboratory for signal processing, zero-phase filtering, and linear classification.
               </p>
-
-              <!-- Academic Team Table from TEAM_AND_DELIVERABLES.md -->
-              <h4 style="font-family: 'Manrope', sans-serif; font-size: 0.875rem; font-weight: 700; color: #173F3A; margin: 0 0 0.5rem 0;">
-                Engineering Team Members (Team 2):
-              </h4>
-              <table style="width: 100%; border-collapse: collapse; font-family: 'JetBrains Mono', monospace; font-size: 0.75rem; margin-bottom: 1.25rem;">
-                <thead>
-                  <tr style="background: #E5EEE7; color: #173F3A;">
-                    <th style="padding: 0.5rem 0.75rem; text-align: left; border-bottom: 1px solid #CCD6D0;">NAME</th>
-                    <th style="padding: 0.5rem 0.75rem; text-align: left; border-bottom: 1px solid #CCD6D0;">STUDENT ID</th>
-                    <th style="padding: 0.5rem 0.75rem; text-align: left; border-bottom: 1px solid #CCD6D0;">FOCUS AREA</th>
-                  </tr>
-                </thead>
-                <tbody>
-                  <tr style="border-bottom: 1px solid rgba(204,214,208,0.4);">
-                    <td style="padding: 0.5rem 0.75rem; font-weight: 600; color: #173F3A;">Aditya Dugar</td>
-                    <td style="padding: 0.5rem 0.75rem;">25BRTSN003</td>
-                    <td style="padding: 0.5rem 0.75rem; color: #64748B;">Electrophysiology & Biological Modeling</td>
-                  </tr>
-                  <tr style="border-bottom: 1px solid rgba(204,214,208,0.4);">
-                    <td style="padding: 0.5rem 0.75rem; font-weight: 600; color: #173F3A;">Kushal Chaudhary</td>
-                    <td style="padding: 0.5rem 0.75rem;">25BTRSN025</td>
-                    <td style="padding: 0.5rem 0.75rem; color: #64748B;">Signal Acquisition & Synthesis</td>
-                  </tr>
-                  <tr style="border-bottom: 1px solid rgba(204,214,208,0.4);">
-                    <td style="padding: 0.5rem 0.75rem; font-weight: 600; color: #173F3A;">Prince Jatheen Rout</td>
-                    <td style="padding: 0.5rem 0.75rem;">25BTRSN034</td>
-                    <td style="padding: 0.5rem 0.75rem; color: #64748B;">Butterworth Filtering & Artifact Analysis</td>
-                  </tr>
-                  <tr style="border-bottom: 1px solid rgba(204,214,208,0.4);">
-                    <td style="padding: 0.5rem 0.75rem; font-weight: 600; color: #173F3A;">Raunak Bothra</td>
-                    <td style="padding: 0.5rem 0.75rem;">25BTRSN037</td>
-                    <td style="padding: 0.5rem 0.75rem; color: #64748B;">Spectral Features & Machine Learning</td>
-                  </tr>
-                  <tr style="border-bottom: 1px solid rgba(204,214,208,0.4);">
-                    <td style="padding: 0.5rem 0.75rem; font-weight: 600; color: #173F3A;">Vijaya Rupesh N</td>
-                    <td style="padding: 0.5rem 0.75rem;">25BTRSN053</td>
-                    <td style="padding: 0.5rem 0.75rem; color: #64748B;">Dashboard Architecture & Integration</td>
-                  </tr>
-                  <tr>
-                    <td style="padding: 0.5rem 0.75rem; font-weight: 600; color: #173F3A;">Yashas L Rao</td>
-                    <td style="padding: 0.5rem 0.75rem;">25BTRSN055</td>
-                    <td style="padding: 0.5rem 0.75rem; color: #64748B;">Assistive Case Study & Monograph</td>
-                  </tr>
-                </tbody>
-              </table>
 
               <div style="padding-top: 0.75rem; border-top: 1px solid #CCD6D0;">
                 <a href="https://github.com/CoBrIX44/neurolink-bci-simulator" target="_blank" rel="noopener" style="display: inline-flex; align-items: center; gap: 0.35rem; color: #173F3A; font-weight: 600; text-decoration: underline; font-size: 0.8125rem;">

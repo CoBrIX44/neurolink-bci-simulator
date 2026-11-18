@@ -250,12 +250,48 @@ html, body, [class*="css"] {{
     justify-content: space-between;
 }}
 
-.neurolink-brand {{
+/* =========================================================================
+   HEADER & NAVIGATION LINK STYLING (HIGH SPECIFICITY OVERRIDES)
+   Decisively overrides Streamlit and browser default blue hyperlinks & underlines
+   ========================================================================= */
+
+/* Global Topbar Anchor Reset: No default blue or text underline in the header */
+header.neurolink-topbar a,
+header.neurolink-topbar a:link,
+header.neurolink-topbar a:visited,
+div[data-testid="stMarkdownContainer"] header.neurolink-topbar a,
+div[data-testid="stMarkdownContainer"] header.neurolink-topbar a:link,
+div[data-testid="stMarkdownContainer"] header.neurolink-topbar a:visited {{
+    text-decoration: none !important;
+}}
+
+/* Brand Identity Link */
+header.neurolink-topbar a.neurolink-brand,
+header.neurolink-topbar a.neurolink-brand:link,
+header.neurolink-topbar a.neurolink-brand:visited,
+div[data-testid="stMarkdownContainer"] header.neurolink-topbar a.neurolink-brand,
+div[data-testid="stMarkdownContainer"] header.neurolink-topbar a.neurolink-brand:link,
+div[data-testid="stMarkdownContainer"] header.neurolink-topbar a.neurolink-brand:visited {{
     display: flex;
     align-items: center;
     gap: 0.625rem;
-    text-decoration: none;
-    color: var(--color-forest-green);
+    text-decoration: none !important;
+    color: var(--color-forest-green) !important;
+}}
+
+header.neurolink-topbar a.neurolink-brand:hover,
+header.neurolink-topbar a.neurolink-brand:active,
+div[data-testid="stMarkdownContainer"] header.neurolink-topbar a.neurolink-brand:hover,
+div[data-testid="stMarkdownContainer"] header.neurolink-topbar a.neurolink-brand:active {{
+    color: var(--color-forest-green) !important;
+    text-decoration: none !important;
+}}
+
+header.neurolink-topbar a.neurolink-brand:focus-visible {{
+    outline: 2px solid var(--color-neural-teal) !important;
+    outline-offset: 3px !important;
+    border-radius: 4px;
+    text-decoration: none !important;
 }}
 
 .neurolink-brand-icon {{
@@ -274,7 +310,7 @@ html, body, [class*="css"] {{
     font-weight: 800;
     font-size: 1.125rem;
     letter-spacing: -0.02em;
-    color: var(--color-forest-green);
+    color: var(--color-forest-green) !important;
 }}
 
 .neurolink-nav-links {{
@@ -286,47 +322,109 @@ html, body, [class*="css"] {{
     padding: 0;
 }}
 
-.neurolink-nav-link {{
+/* Desktop Header Navigation Links (Inactive) */
+header.neurolink-topbar nav.neurolink-nav-links a.neurolink-nav-link,
+header.neurolink-topbar nav.neurolink-nav-links a.neurolink-nav-link:link,
+header.neurolink-topbar nav.neurolink-nav-links a.neurolink-nav-link:visited,
+div[data-testid="stMarkdownContainer"] header.neurolink-topbar nav.neurolink-nav-links a.neurolink-nav-link,
+div[data-testid="stMarkdownContainer"] header.neurolink-topbar nav.neurolink-nav-links a.neurolink-nav-link:link,
+div[data-testid="stMarkdownContainer"] header.neurolink-topbar nav.neurolink-nav-links a.neurolink-nav-link:visited {{
     font-family: var(--font-body);
     font-size: 0.875rem;
     font-weight: 500;
-    color: #475569;
-    text-decoration: none;
+    color: #475569 !important;
+    text-decoration: none !important;
     padding-bottom: 0.25rem;
-    border-bottom: 2px solid transparent;
+    border-bottom: 2px solid transparent !important;
     transition: color 150ms ease, border-color 150ms ease;
 }}
 
-.neurolink-nav-link:hover {{
-    color: var(--color-forest-green);
-    border-color: rgba(23, 63, 58, 0.3);
+header.neurolink-topbar nav.neurolink-nav-links a.neurolink-nav-link:hover,
+header.neurolink-topbar nav.neurolink-nav-links a.neurolink-nav-link:active,
+div[data-testid="stMarkdownContainer"] header.neurolink-topbar nav.neurolink-nav-links a.neurolink-nav-link:hover,
+div[data-testid="stMarkdownContainer"] header.neurolink-topbar nav.neurolink-nav-links a.neurolink-nav-link:active {{
+    color: var(--color-forest-green) !important;
+    text-decoration: none !important;
+    border-bottom: 2px solid rgba(23, 63, 58, 0.35) !important;
 }}
 
-.neurolink-nav-link.active {{
-    color: var(--color-forest-green);
-    font-weight: 700;
-    border-bottom: 2px solid var(--color-forest-green);
+header.neurolink-topbar nav.neurolink-nav-links a.neurolink-nav-link:focus-visible {{
+    outline: 2px solid var(--color-neural-teal) !important;
+    outline-offset: 3px !important;
+    border-radius: 2px;
+    text-decoration: none !important;
 }}
 
-.neurolink-nav-cta {{
+/* Desktop Header Navigation Links (Active Page) */
+header.neurolink-topbar nav.neurolink-nav-links a.neurolink-nav-link.active,
+header.neurolink-topbar nav.neurolink-nav-links a.neurolink-nav-link.active:link,
+header.neurolink-topbar nav.neurolink-nav-links a.neurolink-nav-link.active:visited,
+div[data-testid="stMarkdownContainer"] header.neurolink-topbar nav.neurolink-nav-links a.neurolink-nav-link.active,
+div[data-testid="stMarkdownContainer"] header.neurolink-topbar nav.neurolink-nav-links a.neurolink-nav-link.active:link,
+div[data-testid="stMarkdownContainer"] header.neurolink-topbar nav.neurolink-nav-links a.neurolink-nav-link.active:visited {{
+    color: var(--color-forest-green) !important;
+    font-weight: 700 !important;
+    text-decoration: none !important;
+    border-bottom: 2px solid var(--color-forest-green) !important;
+}}
+
+header.neurolink-topbar nav.neurolink-nav-links a.neurolink-nav-link.active:hover,
+header.neurolink-topbar nav.neurolink-nav-links a.neurolink-nav-link.active:active,
+div[data-testid="stMarkdownContainer"] header.neurolink-topbar nav.neurolink-nav-links a.neurolink-nav-link.active:hover,
+div[data-testid="stMarkdownContainer"] header.neurolink-topbar nav.neurolink-nav-links a.neurolink-nav-link.active:active {{
+    color: var(--color-forest-green) !important;
+    text-decoration: none !important;
+    border-bottom: 2px solid var(--color-forest-green) !important;
+}}
+
+/* Topbar CTA Button (Explore Laboratory / Open Studio) */
+header.neurolink-topbar a.neurolink-nav-cta,
+header.neurolink-topbar a.neurolink-nav-cta:link,
+header.neurolink-topbar a.neurolink-nav-cta:visited,
+div[data-testid="stMarkdownContainer"] header.neurolink-topbar a.neurolink-nav-cta,
+div[data-testid="stMarkdownContainer"] header.neurolink-topbar a.neurolink-nav-cta:link,
+div[data-testid="stMarkdownContainer"] header.neurolink-topbar a.neurolink-nav-cta:visited {{
     display: inline-flex;
     align-items: center;
     gap: 0.375rem;
-    background-color: var(--color-forest-green);
-    color: var(--color-warm-ivory);
+    background-color: var(--color-forest-green) !important;
+    color: #FFFFFF !important;
     padding: 0.45rem 0.95rem;
     border-radius: 4px;
     font-family: var(--font-body);
     font-size: 0.8125rem;
     font-weight: 600;
-    text-decoration: none;
-    transition: background-color 150ms ease;
+    text-decoration: none !important;
+    transition: background-color 150ms ease, box-shadow 150ms ease;
     box-shadow: 0 1px 2px rgba(0, 0, 0, 0.05);
 }}
 
-.neurolink-nav-cta:hover {{
-    background-color: #102C29;
-    color: var(--color-warm-ivory);
+header.neurolink-topbar a.neurolink-nav-cta span,
+div[data-testid="stMarkdownContainer"] header.neurolink-topbar a.neurolink-nav-cta span {{
+    color: #FFFFFF !important;
+    text-decoration: none !important;
+}}
+
+header.neurolink-topbar a.neurolink-nav-cta .material-symbols-outlined,
+div[data-testid="stMarkdownContainer"] header.neurolink-topbar a.neurolink-nav-cta .material-symbols-outlined {{
+    color: var(--color-neural-teal) !important;
+    text-decoration: none !important;
+}}
+
+header.neurolink-topbar a.neurolink-nav-cta:hover,
+header.neurolink-topbar a.neurolink-nav-cta:active,
+div[data-testid="stMarkdownContainer"] header.neurolink-topbar a.neurolink-nav-cta:hover,
+div[data-testid="stMarkdownContainer"] header.neurolink-topbar a.neurolink-nav-cta:active {{
+    background-color: #102C29 !important;
+    color: #FFFFFF !important;
+    text-decoration: none !important;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.12);
+}}
+
+header.neurolink-topbar a.neurolink-nav-cta:focus-visible {{
+    outline: 2px solid var(--color-neural-teal) !important;
+    outline-offset: 3px !important;
+    text-decoration: none !important;
 }}
 
 /* Native Mobile Nav Menu (Details / Summary) */
@@ -353,27 +451,323 @@ html, body, [class*="css"] {{
 }}
 
 .neurolink-mobile-dropdown {{
-    border-top: 1px solid var(--color-light-outline);
+    position: absolute;
+    top: 4rem;
+    left: 0;
+    right: 0;
+    width: 100%;
     background-color: var(--color-warm-ivory);
-    padding: 0.75rem 0;
+    border-top: 1px solid var(--color-light-outline);
+    border-bottom: 2px solid var(--color-light-outline);
+    padding: 0.75rem 1rem;
+    box-shadow: 0 6px 16px rgba(0, 0, 0, 0.12);
+    z-index: 200;
 }}
 
-.neurolink-mobile-link {{
+/* Mobile Dropdown Navigation Links */
+header.neurolink-topbar .neurolink-mobile-dropdown a.neurolink-mobile-link,
+header.neurolink-topbar .neurolink-mobile-dropdown a.neurolink-mobile-link:link,
+header.neurolink-topbar .neurolink-mobile-dropdown a.neurolink-mobile-link:visited,
+div[data-testid="stMarkdownContainer"] header.neurolink-topbar .neurolink-mobile-dropdown a.neurolink-mobile-link,
+div[data-testid="stMarkdownContainer"] header.neurolink-topbar .neurolink-mobile-dropdown a.neurolink-mobile-link:link,
+div[data-testid="stMarkdownContainer"] header.neurolink-topbar .neurolink-mobile-dropdown a.neurolink-mobile-link:visited {{
     display: flex;
     align-items: center;
     justify-content: space-between;
     padding: 0.625rem 1rem;
     border-radius: 4px;
     font-size: 0.875rem;
-    color: var(--color-deep-graphite);
-    text-decoration: none;
+    color: var(--color-deep-graphite) !important;
+    text-decoration: none !important;
     margin-bottom: 0.25rem;
+    transition: background-color 150ms ease, color 150ms ease;
 }}
 
-.neurolink-mobile-link.active {{
-    background-color: var(--color-soft-sage);
-    color: var(--color-forest-green);
+header.neurolink-topbar .neurolink-mobile-dropdown a.neurolink-mobile-link span,
+div[data-testid="stMarkdownContainer"] header.neurolink-topbar .neurolink-mobile-dropdown a.neurolink-mobile-link span {{
+    text-decoration: none !important;
+}}
+
+header.neurolink-topbar .neurolink-mobile-dropdown a.neurolink-mobile-link:hover,
+header.neurolink-topbar .neurolink-mobile-dropdown a.neurolink-mobile-link:active,
+div[data-testid="stMarkdownContainer"] header.neurolink-topbar .neurolink-mobile-dropdown a.neurolink-mobile-link:hover,
+div[data-testid="stMarkdownContainer"] header.neurolink-topbar .neurolink-mobile-dropdown a.neurolink-mobile-link:active {{
+    background-color: var(--color-soft-sage) !important;
+    color: var(--color-forest-green) !important;
+    text-decoration: none !important;
+}}
+
+header.neurolink-topbar .neurolink-mobile-dropdown a.neurolink-mobile-link:focus-visible {{
+    outline: 2px solid var(--color-neural-teal) !important;
+    outline-offset: 2px !important;
+    text-decoration: none !important;
+}}
+
+header.neurolink-topbar .neurolink-mobile-dropdown a.neurolink-mobile-link.active,
+header.neurolink-topbar .neurolink-mobile-dropdown a.neurolink-mobile-link.active:link,
+header.neurolink-topbar .neurolink-mobile-dropdown a.neurolink-mobile-link.active:visited,
+div[data-testid="stMarkdownContainer"] header.neurolink-topbar .neurolink-mobile-dropdown a.neurolink-mobile-link.active,
+div[data-testid="stMarkdownContainer"] header.neurolink-topbar .neurolink-mobile-dropdown a.neurolink-mobile-link.active:link,
+div[data-testid="stMarkdownContainer"] header.neurolink-topbar .neurolink-mobile-dropdown a.neurolink-mobile-link.active:visited {{
+    background-color: var(--color-soft-sage) !important;
+    color: var(--color-forest-green) !important;
+    font-weight: 700 !important;
+    text-decoration: none !important;
+}}
+
+header.neurolink-topbar .neurolink-mobile-dropdown a.neurolink-mobile-link.active:hover,
+header.neurolink-topbar .neurolink-mobile-dropdown a.neurolink-mobile-link.active:active,
+div[data-testid="stMarkdownContainer"] header.neurolink-topbar .neurolink-mobile-dropdown a.neurolink-mobile-link.active:hover,
+div[data-testid="stMarkdownContainer"] header.neurolink-topbar .neurolink-mobile-dropdown a.neurolink-mobile-link.active:active {{
+    background-color: var(--color-soft-sage) !important;
+    color: var(--color-forest-green) !important;
+    text-decoration: none !important;
+}}
+
+/* =========================================================================
+   SCOPED BUTTON & CTA LINKS ACROSS ALL PAGES
+   ========================================================================= */
+
+/* Primary Button Links */
+div.stMarkdown a.neurolink-btn-primary,
+div[data-testid="stMarkdownContainer"] a.neurolink-btn-primary,
+a.neurolink-btn-primary,
+a.neurolink-btn-primary:link,
+a.neurolink-btn-primary:visited {{
+    display: inline-flex;
+    align-items: center;
+    gap: 0.75rem;
+    background-color: var(--color-forest-green) !important;
+    color: #FFFFFF !important;
+    padding: 0.85rem 1.5rem;
+    border-radius: 4px;
+    font-family: var(--font-body);
     font-weight: 700;
+    font-size: 0.875rem;
+    text-decoration: none !important;
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+    transition: background-color 150ms ease, box-shadow 150ms ease;
+}}
+
+a.neurolink-btn-primary span,
+div[data-testid="stMarkdownContainer"] a.neurolink-btn-primary span {{
+    color: #FFFFFF !important;
+    text-decoration: none !important;
+}}
+
+a.neurolink-btn-primary .material-symbols-outlined,
+div[data-testid="stMarkdownContainer"] a.neurolink-btn-primary .material-symbols-outlined {{
+    color: var(--color-neural-teal) !important;
+    text-decoration: none !important;
+}}
+
+a.neurolink-btn-primary:hover,
+a.neurolink-btn-primary:active,
+div[data-testid="stMarkdownContainer"] a.neurolink-btn-primary:hover,
+div[data-testid="stMarkdownContainer"] a.neurolink-btn-primary:active {{
+    background-color: #102C29 !important;
+    color: #FFFFFF !important;
+    text-decoration: none !important;
+    box-shadow: 0 3px 6px rgba(0, 0, 0, 0.15);
+}}
+
+a.neurolink-btn-primary:focus-visible {{
+    outline: 2px solid var(--color-neural-teal) !important;
+    outline-offset: 3px !important;
+    text-decoration: none !important;
+}}
+
+/* Secondary Button Links */
+div.stMarkdown a.neurolink-btn-secondary,
+div[data-testid="stMarkdownContainer"] a.neurolink-btn-secondary,
+a.neurolink-btn-secondary,
+a.neurolink-btn-secondary:link,
+a.neurolink-btn-secondary:visited {{
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+    background-color: var(--color-warm-ivory) !important;
+    border: 1px solid rgba(23, 63, 58, 0.4) !important;
+    color: var(--color-forest-green) !important;
+    padding: 0.85rem 1.35rem;
+    border-radius: 4px;
+    font-family: var(--font-body);
+    font-weight: 600;
+    font-size: 0.875rem;
+    text-decoration: none !important;
+    transition: background-color 150ms ease, border-color 150ms ease;
+}}
+
+a.neurolink-btn-secondary span,
+div[data-testid="stMarkdownContainer"] a.neurolink-btn-secondary span {{
+    color: var(--color-forest-green) !important;
+    text-decoration: none !important;
+}}
+
+a.neurolink-btn-secondary:hover,
+a.neurolink-btn-secondary:active,
+div[data-testid="stMarkdownContainer"] a.neurolink-btn-secondary:hover,
+div[data-testid="stMarkdownContainer"] a.neurolink-btn-secondary:active {{
+    background-color: var(--color-soft-sage) !important;
+    border-color: var(--color-forest-green) !important;
+    color: var(--color-forest-green) !important;
+    text-decoration: none !important;
+}}
+
+a.neurolink-btn-secondary:focus-visible {{
+    outline: 2px solid var(--color-neural-teal) !important;
+    outline-offset: 3px !important;
+    text-decoration: none !important;
+}}
+
+/* Secondary Button Links (Warm surface on dark banner) */
+div.stMarkdown a.neurolink-btn-warm,
+div[data-testid="stMarkdownContainer"] a.neurolink-btn-warm,
+a.neurolink-btn-warm,
+a.neurolink-btn-warm:link,
+a.neurolink-btn-warm:visited {{
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+    background-color: #F4F1E9 !important;
+    color: #173F3A !important;
+    padding: 0.75rem 1.5rem;
+    border-radius: 4px;
+    font-family: var(--font-body);
+    font-weight: 700;
+    font-size: 0.875rem;
+    text-decoration: none !important;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    transition: background-color 150ms ease;
+}}
+
+a.neurolink-btn-warm span,
+div[data-testid="stMarkdownContainer"] a.neurolink-btn-warm span {{
+    color: #173F3A !important;
+    text-decoration: none !important;
+}}
+
+a.neurolink-btn-warm:hover,
+a.neurolink-btn-warm:active,
+div[data-testid="stMarkdownContainer"] a.neurolink-btn-warm:hover,
+div[data-testid="stMarkdownContainer"] a.neurolink-btn-warm:active {{
+    background-color: #E5EEE7 !important;
+    color: #102C29 !important;
+    text-decoration: none !important;
+}}
+
+a.neurolink-btn-warm:focus-visible {{
+    outline: 2px solid var(--color-neural-teal) !important;
+    outline-offset: 3px !important;
+    text-decoration: none !important;
+}}
+
+/* Card Action Links */
+div.stMarkdown a.neurolink-action-link,
+div[data-testid="stMarkdownContainer"] a.neurolink-action-link,
+a.neurolink-action-link,
+a.neurolink-action-link:link,
+a.neurolink-action-link:visited {{
+    color: var(--color-forest-green) !important;
+    text-decoration: none !important;
+    font-weight: 600;
+    font-family: var(--font-body);
+    display: inline-flex;
+    align-items: center;
+    gap: 0.25rem;
+    transition: color 150ms ease;
+}}
+
+a.neurolink-action-link span,
+div[data-testid="stMarkdownContainer"] a.neurolink-action-link span {{
+    text-decoration: none !important;
+    color: var(--color-forest-green) !important;
+}}
+
+a.neurolink-action-link:hover,
+a.neurolink-action-link:active,
+div[data-testid="stMarkdownContainer"] a.neurolink-action-link:hover,
+div[data-testid="stMarkdownContainer"] a.neurolink-action-link:active {{
+    color: #0E2724 !important;
+    text-decoration: none !important;
+}}
+
+a.neurolink-action-link:hover span,
+div[data-testid="stMarkdownContainer"] a.neurolink-action-link:hover span {{
+    color: #0E2724 !important;
+}}
+
+a.neurolink-action-link:focus-visible {{
+    outline: 2px solid var(--color-neural-teal) !important;
+    outline-offset: 2px !important;
+    text-decoration: none !important;
+}}
+
+/* Outline Buttons */
+div.stMarkdown a.neurolink-btn-outline,
+div[data-testid="stMarkdownContainer"] a.neurolink-btn-outline,
+a.neurolink-btn-outline,
+a.neurolink-btn-outline:link,
+a.neurolink-btn-outline:visited {{
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 0.5rem 0.75rem;
+    border: 1px solid var(--color-light-outline) !important;
+    border-radius: 4px;
+    color: var(--color-forest-green) !important;
+    text-decoration: none !important;
+    font-size: 0.8125rem;
+    font-weight: 600;
+    transition: background-color 150ms ease, border-color 150ms ease;
+}}
+
+a.neurolink-btn-outline span,
+div[data-testid="stMarkdownContainer"] a.neurolink-btn-outline span {{
+    color: var(--color-forest-green) !important;
+    text-decoration: none !important;
+}}
+
+a.neurolink-btn-outline:hover,
+a.neurolink-btn-outline:active,
+div[data-testid="stMarkdownContainer"] a.neurolink-btn-outline:hover,
+div[data-testid="stMarkdownContainer"] a.neurolink-btn-outline:active {{
+    background-color: var(--color-soft-sage) !important;
+    border-color: var(--color-forest-green) !important;
+    color: var(--color-forest-green) !important;
+    text-decoration: none !important;
+}}
+
+a.neurolink-btn-outline:focus-visible {{
+    outline: 2px solid var(--color-neural-teal) !important;
+    outline-offset: 2px !important;
+    text-decoration: none !important;
+}}
+
+/* Footer Navigation Links */
+.neurolink-footer a.neurolink-footer-nav,
+.neurolink-footer a.neurolink-footer-nav:link,
+.neurolink-footer a.neurolink-footer-nav:visited,
+div[data-testid="stMarkdownContainer"] .neurolink-footer a.neurolink-footer-nav,
+div[data-testid="stMarkdownContainer"] .neurolink-footer a.neurolink-footer-nav:link,
+div[data-testid="stMarkdownContainer"] .neurolink-footer a.neurolink-footer-nav:visited {{
+    color: #475569 !important;
+    text-decoration: none !important;
+    transition: color 150ms ease;
+}}
+
+.neurolink-footer a.neurolink-footer-nav:hover,
+.neurolink-footer a.neurolink-footer-nav:active,
+div[data-testid="stMarkdownContainer"] .neurolink-footer a.neurolink-footer-nav:hover,
+div[data-testid="stMarkdownContainer"] .neurolink-footer a.neurolink-footer-nav:active {{
+    color: var(--color-forest-green) !important;
+    text-decoration: none !important;
+}}
+
+.neurolink-footer a.neurolink-footer-nav:focus-visible {{
+    outline: 2px solid var(--color-neural-teal) !important;
+    outline-offset: 2px !important;
+    text-decoration: none !important;
 }}
 
 /* Scientific Disclaimer Banner */

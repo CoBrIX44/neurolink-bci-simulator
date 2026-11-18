@@ -245,7 +245,7 @@ def render_signal_processing_view() -> None:
             </div>
 
             <div style="margin-top: 1.5rem; padding-top: 1rem; border-top: 1px solid #CCD6D0;">
-              <a href="?page=experiment-studio" target="_self" style="display: flex; align-items: center; justify-content: space-between; background: #173F3A; color: #F4F1E9; padding: 0.65rem 1rem; border-radius: 4px; font-weight: 600; font-size: 0.8125rem; text-decoration: none;">
+              <a href="?page=experiment-studio" target="_self" class="neurolink-btn-primary" style="display: flex; justify-content: space-between; width: 100%;">
                 <span>Test Waveforms in Experiment Studio</span>
                 <span class="material-symbols-outlined" style="font-size: 16px;">science</span>
               </a>

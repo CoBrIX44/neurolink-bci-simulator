@@ -285,7 +285,7 @@ def render_classification_lab_view() -> None:
               </article>
 
               <!-- CTA to Experiment Studio -->
-              <a href="?page=experiment-studio" target="_self" style="display: flex; align-items: center; justify-content: center; gap: 0.5rem; background: #173F3A; color: #F4F1E9; padding: 0.85rem 1rem; border-radius: 4px; font-family: 'Inter', sans-serif; font-weight: 700; font-size: 0.875rem; text-decoration: none; box-shadow: 0 1px 3px rgba(0,0,0,0.1);">
+              <a href="?page=experiment-studio" target="_self" class="neurolink-btn-primary" style="display: flex; justify-content: center; width: 100%;">
                 <span class="material-symbols-outlined" style="font-size: 18px; color: #79B6A5;">science</span>
                 <span>Test Different Seeds in Experiment Studio</span>
               </a>

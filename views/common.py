@@ -148,11 +148,11 @@ def render_footer() -> None:
           <span>• Biology for Engineers Experiential Learning (Class CE-SE-A, Team 2)</span>
         </div>
         <div style="display: flex; align-items: center; gap: 1.25rem;">
-          <a href="?page=landing" target="_self" style="color: #475569; text-decoration: none;">Overview</a>
-          <a href="?page=experiment-studio" target="_self" style="color: #475569; text-decoration: none;">Studio</a>
-          <a href="?page=signal-processing" target="_self" style="color: #475569; text-decoration: none;">Pipeline</a>
-          <a href="?page=classification-lab" target="_self" style="color: #475569; text-decoration: none;">Classifier</a>
-          <a href="?page=learn-bci" target="_self" style="color: #475569; text-decoration: none;">Monograph</a>
+          <a href="?page=landing" target="_self" class="neurolink-footer-nav">Overview</a>
+          <a href="?page=experiment-studio" target="_self" class="neurolink-footer-nav">Studio</a>
+          <a href="?page=signal-processing" target="_self" class="neurolink-footer-nav">Pipeline</a>
+          <a href="?page=classification-lab" target="_self" class="neurolink-footer-nav">Classifier</a>
+          <a href="?page=learn-bci" target="_self" class="neurolink-footer-nav">Monograph</a>
           <a href="https://github.com/CoBrIX44/neurolink-bci-simulator" target="_blank" rel="noopener" style="color: #173F3A; text-decoration: underline;">GitHub</a>
         </div>
       </div>

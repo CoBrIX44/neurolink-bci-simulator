@@ -314,11 +314,11 @@ def render_studio_view() -> None:
         render_html(
             """
             <div style="margin-top: 1.5rem; padding-top: 1rem; border-top: 1px solid rgba(204,214,208,0.7); display: flex; flex-direction: column; gap: 0.5rem;">
-              <a href="?page=signal-processing" target="_self" style="display: flex; align-items: center; justify-content: space-between; padding: 0.5rem 0.75rem; border: 1px solid #CCD6D0; border-radius: 4px; color: #173F3A; text-decoration: none; font-size: 0.8125rem; font-weight: 600;">
+              <a href="?page=signal-processing" target="_self" class="neurolink-btn-outline">
                 <span>Inspect Filter Pipeline</span>
                 <span class="material-symbols-outlined" style="font-size: 16px;">arrow_forward</span>
               </a>
-              <a href="?page=classification-lab" target="_self" style="display: flex; align-items: center; justify-content: space-between; padding: 0.5rem 0.75rem; border: 1px solid #CCD6D0; border-radius: 4px; color: #173F3A; text-decoration: none; font-size: 0.8125rem; font-weight: 600;">
+              <a href="?page=classification-lab" target="_self" class="neurolink-btn-outline">
                 <span>Open Classification Lab</span>
                 <span class="material-symbols-outlined" style="font-size: 16px;">psychology</span>
               </a>

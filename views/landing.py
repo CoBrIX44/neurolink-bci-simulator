@@ -10,15 +10,6 @@ def render_landing_view() -> None:
 
     landing_html = """
     <main>
-      <!-- Subtle Background Signal Grid & Metadata -->
-      <div style="border-bottom: 1px solid #CCD6D0; padding-bottom: 0.75rem; margin-bottom: 2rem; display: flex; align-items: center; justify-content: space-between; font-family: 'JetBrains Mono', monospace; font-size: 0.75rem; color: #64748B;">
-        <span style="display: flex; align-items: center; gap: 0.5rem;">
-          <span style="width: 8px; height: 8px; border-radius: 50%; background: #173F3A; display: inline-block;"></span>
-          BIOLOGY FOR ENGINEERS EXPERIENTIAL LEARNING
-        </span>
-        <span class="tabular-nums">PROJECT_ID // BCI-SIM-256HZ</span>
-      </div>
-
       <!-- Hero Section -->
       <section style="display: grid; grid-template-columns: repeat(auto-fit, minmax(320px, 1fr)); gap: 3rem; align-items: center; padding-bottom: 3rem; border-bottom: 1px solid #CCD6D0;">
         <!-- Left Editorial Copy -->
@@ -37,12 +28,12 @@ def render_landing_view() -> None:
           </p>
 
           <div style="display: flex; flex-wrap: wrap; align-items: center; gap: 1rem; margin-bottom: 2.5rem;">
-            <a href="?page=experiment-studio" target="_self" style="display: inline-flex; align-items: center; gap: 0.75rem; background: #173F3A; color: #F4F1E9; padding: 0.85rem 1.5rem; border-radius: 4px; font-family: 'Inter', sans-serif; font-weight: 700; font-size: 0.875rem; text-decoration: none; box-shadow: 0 1px 3px rgba(0,0,0,0.1); transition: background-color 150ms;">
+            <a href="?page=experiment-studio" target="_self" class="neurolink-btn-primary">
               <span>Launch Experiment Studio</span>
               <span class="material-symbols-outlined" style="font-size: 18px; color: #79B6A5;">science</span>
             </a>
 
-            <a href="?page=learn-bci" target="_self" style="display: inline-flex; align-items: center; gap: 0.5rem; background: #F4F1E9; border: 1px solid rgba(23,63,58,0.4); color: #173F3A; padding: 0.85rem 1.35rem; border-radius: 4px; font-family: 'Inter', sans-serif; font-weight: 600; font-size: 0.875rem; text-decoration: none;">
+            <a href="?page=learn-bci" target="_self" class="neurolink-btn-secondary">
               <span>Read Scientific Primer</span>
               <span class="material-symbols-outlined" style="font-size: 16px;">menu_book</span>
             </a>
@@ -160,7 +151,7 @@ def render_landing_view() -> None:
             </div>
             <div style="padding-top: 1rem; border-top: 1px solid rgba(204,214,208,0.7); display: flex; align-items: center; justify-content: space-between; font-family: 'JetBrains Mono', monospace; font-size: 0.75rem;">
               <span style="color: #79B6A5; font-weight: 600;">Zero-phase filtfilt</span>
-              <a href="?page=signal-processing" target="_self" style="color: #173F3A; text-decoration: none; font-weight: 600; font-family: 'Inter', sans-serif; display: inline-flex; align-items: center; gap: 0.25rem;">
+              <a href="?page=signal-processing" target="_self" class="neurolink-action-link">
                 <span>Explore Filter</span>
                 <span class="material-symbols-outlined" style="font-size: 14px;">arrow_forward</span>
               </a>
@@ -181,7 +172,7 @@ def render_landing_view() -> None:
             </div>
             <div style="padding-top: 1rem; border-top: 1px solid rgba(204,214,208,0.7); display: flex; align-items: center; justify-content: space-between; font-family: 'JetBrains Mono', monospace; font-size: 0.75rem;">
               <span style="color: #D98B62; font-weight: 600;">2 Spectral Features</span>
-              <a href="?page=signal-processing" target="_self" style="color: #173F3A; text-decoration: none; font-weight: 600; font-family: 'Inter', sans-serif; display: inline-flex; align-items: center; gap: 0.25rem;">
+              <a href="?page=signal-processing" target="_self" class="neurolink-action-link">
                 <span>View Spectra</span>
                 <span class="material-symbols-outlined" style="font-size: 14px;">arrow_forward</span>
               </a>
@@ -202,7 +193,7 @@ def render_landing_view() -> None:
             </div>
             <div style="padding-top: 1rem; border-top: 1px solid rgba(204,214,208,0.7); display: flex; align-items: center; justify-content: space-between; font-family: 'JetBrains Mono', monospace; font-size: 0.75rem;">
               <span style="color: #173F3A; font-weight: 600;">Binary Decision</span>
-              <a href="?page=classification-lab" target="_self" style="color: #173F3A; text-decoration: none; font-weight: 600; font-family: 'Inter', sans-serif; display: inline-flex; align-items: center; gap: 0.25rem;">
+              <a href="?page=classification-lab" target="_self" class="neurolink-action-link">
                 <span>Open Classifier</span>
                 <span class="material-symbols-outlined" style="font-size: 14px;">arrow_forward</span>
               </a>
@@ -223,7 +214,7 @@ def render_landing_view() -> None:
               Adjust random seeds, choose artificial motor imagery classes, calibrate time windows, and inspect real-time waveforms on a high-resolution scientific oscilloscope canvas.
             </p>
             <div style="display: flex; flex-wrap: wrap; align-items: center; gap: 1rem;">
-              <a href="?page=experiment-studio" target="_self" style="display: inline-flex; align-items: center; gap: 0.5rem; background: #F4F1E9; color: #173F3A; padding: 0.75rem 1.5rem; border-radius: 4px; font-family: 'Inter', sans-serif; font-weight: 700; font-size: 0.875rem; text-decoration: none; box-shadow: 0 2px 4px rgba(0,0,0,0.1);">
+              <a href="?page=experiment-studio" target="_self" class="neurolink-btn-warm">
                 <span class="material-symbols-outlined" style="font-size: 18px;">play_circle</span>
                 <span>Open Experiment Studio</span>
               </a>
