@@ -1,0 +1,1 @@
+We built NeuroLink: an interactive computational neuroscience lab that visualizes every step of a brain-computer interface pipeline—from synthetic 256 Hz electrophysiology to zero-phase Butterworth filtering, FFT feature extraction, and linear classification.

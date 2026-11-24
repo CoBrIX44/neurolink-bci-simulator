@@ -1,0 +1,364 @@
+{
+  "version": 1,
+  "historyId": "9af5f0c2-2af8-4973-b6e3-73a8662a1490",
+  "currentRevision": "3de13f5e-6961-4337-8fd0-d7f9fef43455",
+  "pendingChanges": false,
+  "files": {
+    "assets/fonts/manrope-600.ttf": {
+      "hash": "68ed4be49ec7d32f07b42f9232dc01ca1df7a77be1d9b0731aac74db58235f34",
+      "content": "/home/adityadugar/.cache/hyperframes/history/9af5f0c2-2af8-4973-b6e3-73a8662a1490/blobs/68/68ed4be49ec7d32f07b42f9232dc01ca1df7a77be1d9b0731aac74db58235f34"
+    },
+    "assets/fonts/manrope-700.ttf": {
+      "hash": "ea1f264039fed13fd36e6d6f49fcae4fe7007def02cf2972b5c7f6d6f1349d06",
+      "content": "/home/adityadugar/.cache/hyperframes/history/9af5f0c2-2af8-4973-b6e3-73a8662a1490/blobs/ea/ea1f264039fed13fd36e6d6f49fcae4fe7007def02cf2972b5c7f6d6f1349d06"
+    },
+    "assets/fonts/manrope-800.ttf": {
+      "hash": "a8291b05b2732801abdbbb6d06866c57431c3b990638462423e692151b5e0895",
+      "content": "/home/adityadugar/.cache/hyperframes/history/9af5f0c2-2af8-4973-b6e3-73a8662a1490/blobs/a8/a8291b05b2732801abdbbb6d06866c57431c3b990638462423e692151b5e0895"
+    },
+    "assets/gsap.min.js": {
+      "hash": "c174bfce53a729418d57a8ad8625e7247c793a22fef8e2851e3cfa3de9cd8280",
+      "content": "/home/adityadugar/.cache/hyperframes/history/9af5f0c2-2af8-4973-b6e3-73a8662a1490/blobs/c1/c174bfce53a729418d57a8ad8625e7247c793a22fef8e2851e3cfa3de9cd8280"
+    },
+    "assets/music/audio-data.json": {
+      "hash": "a29031e679d00d28c246e87278966753e7d2d71ab809c4923faf5e40b00547a8",
+      "content": "/home/adityadugar/.cache/hyperframes/history/9af5f0c2-2af8-4973-b6e3-73a8662a1490/blobs/a2/a29031e679d00d28c246e87278966753e7d2d71ab809c4923faf5e40b00547a8"
+    },
+    "assets/sfx/impact/impactBell_heavy_000.ogg": {
+      "hash": "94b8bb5f2d43ab65e4bcc32b28562416e9bc2c51d9fd4be1e333660ee52f977f",
+      "content": "/home/adityadugar/.cache/hyperframes/history/9af5f0c2-2af8-4973-b6e3-73a8662a1490/blobs/94/94b8bb5f2d43ab65e4bcc32b28562416e9bc2c51d9fd4be1e333660ee52f977f"
+    },
+    "assets/sfx/impact/impactSoft_medium_001.ogg": {
+      "hash": "7642a4fd43e547afe4f7adfadb3dabb681c0ff512f52c1674bae30a726841faf",
+      "content": "/home/adityadugar/.cache/hyperframes/history/9af5f0c2-2af8-4973-b6e3-73a8662a1490/blobs/76/7642a4fd43e547afe4f7adfadb3dabb681c0ff512f52c1674bae30a726841faf"
+    },
+    "assets/sfx/impact/impactSoft_medium_004.ogg": {
+      "hash": "b0a4dea90eed47accf50b768beff1166f2f1486fb139e4d025b2427637624bca",
+      "content": "/home/adityadugar/.cache/hyperframes/history/9af5f0c2-2af8-4973-b6e3-73a8662a1490/blobs/b0/b0a4dea90eed47accf50b768beff1166f2f1486fb139e4d025b2427637624bca"
+    },
+    "assets/sfx/ui/click2.ogg": {
+      "hash": "c394b46bc6737f7f7edfbfa3031ce621b7a43d498d456d6198364eee9cd3e306",
+      "content": "/home/adityadugar/.cache/hyperframes/history/9af5f0c2-2af8-4973-b6e3-73a8662a1490/blobs/c3/c394b46bc6737f7f7edfbfa3031ce621b7a43d498d456d6198364eee9cd3e306"
+    },
+    "index.html": {
+      "hash": "03013838e8b38ffbfbe6ac7ece02619f1995e4a7ac8aca25aa788da8bb10bca0",
+      "content": "/home/adityadugar/.cache/hyperframes/history/9af5f0c2-2af8-4973-b6e3-73a8662a1490/blobs/03/03013838e8b38ffbfbe6ac7ece02619f1995e4a7ac8aca25aa788da8bb10bca0"
+    },
+    "assets/music/bed.mp3": {
+      "hash": "5888d4bd2ba0119b87a94e502ae2cc401c08192945cc5e5c2f8e8a33aa47a0a1",
+      "content": "/home/adityadugar/.cache/hyperframes/history/9af5f0c2-2af8-4973-b6e3-73a8662a1490/blobs/58/5888d4bd2ba0119b87a94e502ae2cc401c08192945cc5e5c2f8e8a33aa47a0a1"
+    }
+  },
+  "revisions": {
+    "3010fe9c-6382-436c-aeb8-a9b421f2af60": {
+      "actor": {
+        "kind": "outside",
+        "name": "Outside"
+      },
+      "label": "Changed outside the app",
+      "startedAt": 1795058416371,
+      "endedAt": 1795058416371,
+      "files": {
+        "index.html": {
+          "before": "/home/adityadugar/.cache/hyperframes/history/9af5f0c2-2af8-4973-b6e3-73a8662a1490/blobs/37/37929e8c28b2fe2706aecd11edd109bd2801c9fdc462af4ec1a4b7da45128072",
+          "after": "/home/adityadugar/.cache/hyperframes/history/9af5f0c2-2af8-4973-b6e3-73a8662a1490/blobs/30/30c60fa9e031cf7f63bf749cab82942a84c6949d651d97bb58d0f25310637a3d"
+        }
+      }
+    },
+    "02967c2c-2cde-41da-bb64-718989aaee25": {
+      "actor": {
+        "kind": "outside",
+        "name": "Outside"
+      },
+      "label": "Changed outside the app",
+      "startedAt": 1795058445214,
+      "endedAt": 1795058445215,
+      "files": {
+        "index.html": {
+          "before": "/home/adityadugar/.cache/hyperframes/history/9af5f0c2-2af8-4973-b6e3-73a8662a1490/blobs/30/30c60fa9e031cf7f63bf749cab82942a84c6949d651d97bb58d0f25310637a3d",
+          "after": "/home/adityadugar/.cache/hyperframes/history/9af5f0c2-2af8-4973-b6e3-73a8662a1490/blobs/b2/b2cf0dc3359ce1a8ca14e4e144a8b1579487a545b99e3eae03a81d5b7508bb91"
+        }
+      }
+    },
+    "3de13f5e-6961-4337-8fd0-d7f9fef43455": {
+      "actor": {
+        "kind": "outside",
+        "name": "Outside"
+      },
+      "label": "Changed outside the app",
+      "startedAt": 1795058461277,
+      "endedAt": 1795058461278,
+      "files": {
+        "index.html": {
+          "before": "/home/adityadugar/.cache/hyperframes/history/9af5f0c2-2af8-4973-b6e3-73a8662a1490/blobs/b2/b2cf0dc3359ce1a8ca14e4e144a8b1579487a545b99e3eae03a81d5b7508bb91",
+          "after": "/home/adityadugar/.cache/hyperframes/history/9af5f0c2-2af8-4973-b6e3-73a8662a1490/blobs/03/03013838e8b38ffbfbe6ac7ece02619f1995e4a7ac8aca25aa788da8bb10bca0"
+        }
+      }
+    }
+  },
+  "checks": {
+    "latest": {
+      "revision": null,
+      "id": "8aaf6b68-ce7a-4067-b6b8-7e147f46de2c"
+    },
+    "revisions": {
+      "3010fe9c-6382-436c-aeb8-a9b421f2af60": [
+        {
+          "id": "13e9f420-4f5c-486b-a86f-1a8a4ee157f0",
+          "scope": "project",
+          "metadata": {
+            "ok": true,
+            "browserSkipped": false,
+            "options": {
+              "samples": 9,
+              "atTransitions": false,
+              "maxIssues": 80,
+              "collapseStatic": true,
+              "tolerance": 2,
+              "timeout": 45000,
+              "cache": true,
+              "contrast": true,
+              "craft": true,
+              "strict": false,
+              "snapshots": false,
+              "safeZones": [
+                "tiktok",
+                "reels",
+                "shorts"
+              ],
+              "browserGpuMode": "auto",
+              "includeUnmounted": false
+            }
+          },
+          "createdAt": 1795058420913,
+          "contentHash": "d9386fc95b9f4f1338d5612493be2b695abf0229cfa4366e29055b3769991059",
+          "revision": "3010fe9c-6382-436c-aeb8-a9b421f2af60",
+          "inputFingerprint": "d85bc916898d317299b2391b2377d66a4185180590e01171ee733401e61adc52",
+          "inputScope": "local-project-files",
+          "attribution": "recorded-revision",
+          "status": "cleaned",
+          "cleanedAfterRender": "7ebf71fa-13cf-441c-bbae-76be509d1887"
+        }
+      ],
+      "02967c2c-2cde-41da-bb64-718989aaee25": [
+        {
+          "id": "910cdd62-767b-4956-9b7c-a6bfd47bc6be",
+          "scope": "project",
+          "metadata": {
+            "ok": true,
+            "browserSkipped": false,
+            "options": {
+              "samples": 9,
+              "atTransitions": false,
+              "maxIssues": 80,
+              "collapseStatic": true,
+              "tolerance": 2,
+              "timeout": 45000,
+              "cache": true,
+              "contrast": true,
+              "craft": true,
+              "strict": false,
+              "snapshots": false,
+              "safeZones": [
+                "tiktok",
+                "reels",
+                "shorts"
+              ],
+              "browserGpuMode": "auto",
+              "includeUnmounted": false
+            }
+          },
+          "createdAt": 1795058449993,
+          "contentHash": "191c32d69d0f9c5b8cfa473997de2c77859299e81bd7c435d606fd49d31fb6bd",
+          "revision": "02967c2c-2cde-41da-bb64-718989aaee25",
+          "inputFingerprint": "0fe6437277d1d82fa45ddb4c7c72253966bb50c741a1af7dc51c7128ee5f4954",
+          "inputScope": "local-project-files",
+          "attribution": "recorded-revision",
+          "status": "cleaned",
+          "cleanedAfterRender": "7ebf71fa-13cf-441c-bbae-76be509d1887"
+        }
+      ]
+    },
+    "unversioned": [
+      {
+        "id": "8aaf6b68-ce7a-4067-b6b8-7e147f46de2c",
+        "scope": "project",
+        "report": "/home/adityadugar/Documents/Projects/neurolink-bci-simulator/brag-output-2026-11-19-084131/composition/.hyperframes/artifacts/checks/8aaf6b68-ce7a-4067-b6b8-7e147f46de2c.json",
+        "metadata": {
+          "ok": false,
+          "browserSkipped": false,
+          "options": {
+            "samples": 9,
+            "atTransitions": false,
+            "maxIssues": 80,
+            "collapseStatic": true,
+            "tolerance": 2,
+            "timeout": 45000,
+            "cache": true,
+            "contrast": true,
+            "craft": true,
+            "strict": false,
+            "snapshots": false,
+            "safeZones": [
+              "tiktok",
+              "reels",
+              "shorts"
+            ],
+            "browserGpuMode": "auto",
+            "includeUnmounted": false
+          }
+        },
+        "createdAt": 1795058302024,
+        "contentHash": "9e47bb4a6fe16b663d1cd4e477fb1346c20e8abfe5f08e1c874330938d720f2a",
+        "revision": null,
+        "inputFingerprint": "a653d6b3a7618c99abf7d1b4a3f053b67a8df891dfca0fdea58af6906c3d5c6b",
+        "inputScope": "local-project-files",
+        "attribution": "unversioned"
+      }
+    ]
+  },
+  "snapshots": {
+    "latest": {
+      "revision": "3de13f5e-6961-4337-8fd0-d7f9fef43455",
+      "id": "501c932c-8308-42c9-bc8a-e519fe06d6d6-5"
+    },
+    "revisions": {
+      "3de13f5e-6961-4337-8fd0-d7f9fef43455": [
+        {
+          "scope": "full",
+          "id": "501c932c-8308-42c9-bc8a-e519fe06d6d6-0",
+          "image": "/home/adityadugar/Documents/Projects/neurolink-bci-simulator/brag-output-2026-11-19-084131/composition/.hyperframes/artifacts/snapshots/c99733d0-8b91-46c6-9aed-b34e82bd1cfa/frame-00-at-1.5s.png",
+          "time": 1.5,
+          "metadata": {
+            "width": 1920,
+            "height": 1080,
+            "zoomScale": 1,
+            "browserGpuMode": "auto",
+            "warnings": [],
+            "partial": false
+          },
+          "createdAt": 1795058465013,
+          "contentHash": "a26fc6513ef76006826b141e911e7c76fe47b35d6846ae168d4807d876433f6a",
+          "revision": "3de13f5e-6961-4337-8fd0-d7f9fef43455",
+          "inputFingerprint": "a2101df7ca5aa0cdad4b006d5721d24b2977a4d758f4474234b953cace756582",
+          "inputScope": "local-project-files",
+          "attribution": "recorded-revision"
+        },
+        {
+          "scope": "full",
+          "id": "501c932c-8308-42c9-bc8a-e519fe06d6d6-1",
+          "image": "/home/adityadugar/Documents/Projects/neurolink-bci-simulator/brag-output-2026-11-19-084131/composition/.hyperframes/artifacts/snapshots/c99733d0-8b91-46c6-9aed-b34e82bd1cfa/frame-01-at-4.5s.png",
+          "time": 4.5,
+          "metadata": {
+            "width": 1920,
+            "height": 1080,
+            "zoomScale": 1,
+            "browserGpuMode": "auto",
+            "warnings": [],
+            "partial": false
+          },
+          "createdAt": 1795058465013,
+          "contentHash": "b96adc8d834da61e08010dede1fb6f8249ffad673d87051a30377457d8ab0bc4",
+          "revision": "3de13f5e-6961-4337-8fd0-d7f9fef43455",
+          "inputFingerprint": "a2101df7ca5aa0cdad4b006d5721d24b2977a4d758f4474234b953cace756582",
+          "inputScope": "local-project-files",
+          "attribution": "recorded-revision"
+        },
+        {
+          "scope": "full",
+          "id": "501c932c-8308-42c9-bc8a-e519fe06d6d6-2",
+          "image": "/home/adityadugar/Documents/Projects/neurolink-bci-simulator/brag-output-2026-11-19-084131/composition/.hyperframes/artifacts/snapshots/c99733d0-8b91-46c6-9aed-b34e82bd1cfa/frame-02-at-9.5s.png",
+          "time": 9.5,
+          "metadata": {
+            "width": 1920,
+            "height": 1080,
+            "zoomScale": 1,
+            "browserGpuMode": "auto",
+            "warnings": [],
+            "partial": false
+          },
+          "createdAt": 1795058465013,
+          "contentHash": "0fcc4eb819e64bf7c841b4a7d3b60ce9f94fa4951a5ebc339479cc7768a0bbf0",
+          "revision": "3de13f5e-6961-4337-8fd0-d7f9fef43455",
+          "inputFingerprint": "a2101df7ca5aa0cdad4b006d5721d24b2977a4d758f4474234b953cace756582",
+          "inputScope": "local-project-files",
+          "attribution": "recorded-revision"
+        },
+        {
+          "scope": "full",
+          "id": "501c932c-8308-42c9-bc8a-e519fe06d6d6-3",
+          "image": "/home/adityadugar/Documents/Projects/neurolink-bci-simulator/brag-output-2026-11-19-084131/composition/.hyperframes/artifacts/snapshots/c99733d0-8b91-46c6-9aed-b34e82bd1cfa/frame-03-at-14.5s.png",
+          "time": 14.5,
+          "metadata": {
+            "width": 1920,
+            "height": 1080,
+            "zoomScale": 1,
+            "browserGpuMode": "auto",
+            "warnings": [],
+            "partial": false
+          },
+          "createdAt": 1795058465013,
+          "contentHash": "555e8e41c94a0328e3f260cbb5f0f9cd1169e68d28d959e2c0d81f5c4334d7d6",
+          "revision": "3de13f5e-6961-4337-8fd0-d7f9fef43455",
+          "inputFingerprint": "a2101df7ca5aa0cdad4b006d5721d24b2977a4d758f4474234b953cace756582",
+          "inputScope": "local-project-files",
+          "attribution": "recorded-revision"
+        },
+        {
+          "scope": "full",
+          "id": "501c932c-8308-42c9-bc8a-e519fe06d6d6-4",
+          "image": "/home/adityadugar/Documents/Projects/neurolink-bci-simulator/brag-output-2026-11-19-084131/composition/.hyperframes/artifacts/snapshots/c99733d0-8b91-46c6-9aed-b34e82bd1cfa/frame-04-at-20s.png",
+          "time": 20,
+          "metadata": {
+            "width": 1920,
+            "height": 1080,
+            "zoomScale": 1,
+            "browserGpuMode": "auto",
+            "warnings": [],
+            "partial": false
+          },
+          "createdAt": 1795058465013,
+          "contentHash": "a8aafc0c18e73e4bb3555367d9f26bde5a130902256ac8ace4f15a0212def7f0",
+          "revision": "3de13f5e-6961-4337-8fd0-d7f9fef43455",
+          "inputFingerprint": "a2101df7ca5aa0cdad4b006d5721d24b2977a4d758f4474234b953cace756582",
+          "inputScope": "local-project-files",
+          "attribution": "recorded-revision"
+        },
+        {
+          "scope": "full",
+          "id": "501c932c-8308-42c9-bc8a-e519fe06d6d6-5",
+          "image": "/home/adityadugar/Documents/Projects/neurolink-bci-simulator/brag-output-2026-11-19-084131/composition/.hyperframes/artifacts/snapshots/c99733d0-8b91-46c6-9aed-b34e82bd1cfa/frame-05-at-21.75s.png",
+          "time": 21.75,
+          "metadata": {
+            "width": 1920,
+            "height": 1080,
+            "zoomScale": 1,
+            "browserGpuMode": "auto",
+            "warnings": [],
+            "partial": false
+          },
+          "createdAt": 1795058465013,
+          "contentHash": "dfcd09d662113fecba643a377286fffcff0724494d0b3df2fc34af2b21dca849",
+          "revision": "3de13f5e-6961-4337-8fd0-d7f9fef43455",
+          "inputFingerprint": "a2101df7ca5aa0cdad4b006d5721d24b2977a4d758f4474234b953cace756582",
+          "inputScope": "local-project-files",
+          "attribution": "recorded-revision"
+        }
+      ]
+    },
+    "unversioned": []
+  },
+  "renders": {
+    "latest": {
+      "id": "7ebf71fa-13cf-441c-bbae-76be509d1887",
+      "completedAt": 1795058564523,
+      "output": "/home/adityadugar/Documents/Projects/neurolink-bci-simulator/brag-output-2026-11-19-084131/brag.mp4",
+      "status": "completed",
+      "revision": "3de13f5e-6961-4337-8fd0-d7f9fef43455"
+    },
+    "retainedRevisions": [
+      "3de13f5e-6961-4337-8fd0-d7f9fef43455"
+    ]
+  },
+  "pendingArtifactCleanup": []
+}
